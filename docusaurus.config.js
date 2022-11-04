@@ -69,9 +69,13 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Document',
           },
           { to: '/blog', label: 'Blog', position: 'left' },
+          {
+            to: '/release',
+            label: 'Release',
+          },
           {
             href: 'https://github.com/The-Company-TCUS/',
             label: 'GitHub',
