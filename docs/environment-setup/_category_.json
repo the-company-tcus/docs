@@ -1,0 +1,8 @@
+{
+  "label": "Environment Setup",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "This section will guide developers on how to set up tools and a remote development environment."
+  }
+}

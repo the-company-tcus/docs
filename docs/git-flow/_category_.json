@@ -1,0 +1,8 @@
+{
+  "label": "Git Flow",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "This section will guide developers to Git Hooks and how to write a concise and informative commit message."
+  }
+}
