@@ -30,7 +30,10 @@
         "devDependencies": true
       }
     ],
-    "import/no-unresolved": "warn",
+    "import/no-unresolved": [
+      "warn",
+      { "ignore": ["^@theme", "^@docusaurus", "^@site"] }
+    ],
     "import/order": [
       "warn",
       {
