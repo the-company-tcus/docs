@@ -20,6 +20,7 @@
     "@docusaurus/preset-classic": "2.2.0",
     "@docusaurus/theme-common": "^2.2.0",
     "@emotion/react": "11.10.5",
+    "@iconify/react": "4.0.0",
     "@mantine/core": "5.7.0",
     "@mantine/hooks": "5.7.0",
     "@mdx-js/react": "1.6.22",

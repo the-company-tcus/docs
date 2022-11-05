@@ -8,6 +8,7 @@ specifiers:
   '@docusaurus/preset-classic': 2.2.0
   '@docusaurus/theme-common': ^2.2.0
   '@emotion/react': 11.10.5
+  '@iconify/react': 4.0.0
   '@mantine/core': 5.7.0
   '@mantine/hooks': 5.7.0
   '@mdx-js/react': 1.6.22
@@ -38,6 +39,7 @@ dependencies:
   '@docusaurus/preset-classic': 2.2.0_4nqeenxrqcfb3xllowor3dak6i
   '@docusaurus/theme-common': 2.2.0_qko2wzt6ojzw7m6dwz7sq6l6v4
   '@emotion/react': 11.10.5_suifg2tpibp7yrhp2co27vag4i
+  '@iconify/react': 4.0.0_react@17.0.2
   '@mantine/core': 5.7.0_ifqvihu4dz3rtor56hakl3u7pu
   '@mantine/hooks': 5.7.0_react@17.0.2
   '@mdx-js/react': 1.6.22_react@17.0.2
@@ -2867,6 +2869,19 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+
+  /@iconify/react/4.0.0_react@17.0.2:
+    resolution: {integrity: sha512-YE+z5PCegYyuJtLR6KBbJNlssmuVgRyFyRxcgxSPVkN3Gsm7npSzrUh+gWlBxrNb5g4Q6Nnb1gczPBNcwtUpng==}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      '@iconify/types': 2.0.0
+      react: 17.0.2
+    dev: false
+
+  /@iconify/types/2.0.0:
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+    dev: false
 
   /@jest/schemas/29.0.0:
     resolution: {integrity: sha512-3Ab5HgYIIAnS0HjqJHQYZS+zXc4tUmTmBH3z83ajI6afXp8X3ZtdLX+nXx+I7LNkJD7uN9LAVhgnjDgZa2z0kA==}
