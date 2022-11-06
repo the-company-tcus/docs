@@ -5,6 +5,8 @@
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const lightCodeTheme = require('prism-react-renderer/themes/github');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -28,6 +30,19 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  plugins: [
+    function windicssPlugin() {
+      return {
+        name: 'windicss-plugin',
+        configureWebpack() {
+          return {
+            plugins: [new WindiCSSWebpackPlugin()],
+          };
+        },
+      };
+    },
+  ],
 
   presets: [
     [
