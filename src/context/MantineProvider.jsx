@@ -69,6 +69,14 @@ const theme = {
     // NOTE: WindiCSS border radius messed up with Mantine
     // ...windiDefaultTheme.borderRadius,
   },
+  fontFamily:
+    'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+  fontFamilyMonospace:
+    'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
+  headings: {
+    fontFamily:
+      'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+  },
   lineHeight: mantineDefaultTheme.lineHeight,
   loader: 'oval',
   shadows: {
