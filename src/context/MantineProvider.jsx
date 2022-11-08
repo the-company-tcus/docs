@@ -101,7 +101,9 @@ const MyGlobalStyles = () => {
 
 const MantineProvider = ({ children }) => {
   const [colorScheme, setColorScheme] = useState(
-    document.documentElement.dataset.theme,
+    typeof windows !== 'undefined'
+      ? document.documentElement.dataset.theme
+      : '',
   );
 
   useEffect(() => {
@@ -133,7 +135,7 @@ const MantineProvider = ({ children }) => {
     if (colorScheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       document.documentElement.classList.add('dark');
-    } else {
+    } else if (colorScheme === 'light') {
       document.documentElement.setAttribute('data-theme', 'light');
       document.documentElement.classList.remove('dark');
     }

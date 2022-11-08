@@ -7,7 +7,7 @@ export default function ColorModeToggleWrapper(props) {
   useEffect(() => {
     if (colorMode === 'dark') {
       document.documentElement.classList.add('dark');
-    } else {
+    } else if (colorMode === 'light') {
       document.documentElement.classList.remove('dark');
     }
   }, [colorMode]);
