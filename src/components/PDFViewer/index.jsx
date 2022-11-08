@@ -3,7 +3,7 @@ import ErrorBoundary from '@docusaurus/ErrorBoundary';
 import Head from '@docusaurus/Head';
 import { Icon } from '@iconify/react';
 import { Button, Stack, Title } from '@mantine/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
 function previewFile(url, title, embedMode, divId = 'adobe-dc-view') {
   // eslint-disable-next-line no-undef
@@ -60,9 +60,11 @@ function PDFViewerWrapper({ children }) {
 }
 
 function PDFViewer({ url, title, embedMode = 'FULL_WINDOW' }) {
+  const divId = useId();
+
   useEffect(() => {
     const handleLoad = () => {
-      previewFile(url, title, embedMode);
+      previewFile(url, title, embedMode, divId);
     };
 
     document.addEventListener('adobe_dc_view_sdk.ready', handleLoad);
@@ -78,7 +80,7 @@ function PDFViewer({ url, title, embedMode = 'FULL_WINDOW' }) {
         <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
       </Head>
 
-      <div id="adobe-dc-view" style={{ height: '100%', width: '100%' }} />
+      <div id={divId} style={{ height: '100%', width: '100%' }} />
     </PDFViewerWrapper>
   );
 }
@@ -95,6 +97,7 @@ function PDFViewerSimple({ url, title }) {
 
 function PDFViewerButton({ url, title }) {
   const [isReady, setIsReady] = useState(false);
+  const divId = useId();
 
   useEffect(() => {
     const handleLoad = () => {
@@ -115,7 +118,7 @@ function PDFViewerButton({ url, title }) {
       </Head>
 
       {/* NOTE: width and height have o set to 0 to prevent content reflow */}
-      <div id="adobe-dc-view-btn" style={{ width: 0, height: 0 }} />
+      <div id={divId} style={{ width: 0, height: 0 }} />
       <Button
         variant="light"
         leftIcon={
@@ -123,7 +126,7 @@ function PDFViewerButton({ url, title }) {
         }
         disabled={!isReady}
         onClick={() => {
-          previewFile(url, title, 'LIGHT_BOX', 'adobe-dc-view-btn');
+          previewFile(url, title, 'LIGHT_BOX', divId);
         }}
       >
         View PDF
