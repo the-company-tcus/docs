@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable global-require */
 import clsx from 'clsx';
+import React from 'react';
 import styles from './styles.module.css';
 
 const FeatureList = [
@@ -35,7 +37,7 @@ const FeatureList = [
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({ Svg, title, description }) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
