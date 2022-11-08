@@ -7,12 +7,14 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'The Company',
   tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://company-se.netlify.app',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -107,6 +109,13 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+  customFields: {
+    clientId:
+      process.env.NODE_ENV === 'production'
+        ? '9e81b60d0fbb4336840c8340107986d6' // Token for production url
+        : 'e11a56067bc646fcbbf5b6486f14283c', // Token for localhost
+  },
 };
 
 module.exports = config;

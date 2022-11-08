@@ -1,14 +1,16 @@
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import ErrorBoundary from '@docusaurus/ErrorBoundary';
 import Head from '@docusaurus/Head';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Icon } from '@iconify/react';
 import { Button, Stack, Title } from '@mantine/core';
 import React, { useEffect, useId, useState } from 'react';
 
-function previewFile(url, title, embedMode, divId = 'adobe-dc-view') {
+function previewFile(url, title, embedMode, clientId, divId = 'adobe-dc-view') {
   // eslint-disable-next-line no-undef
   const adobeDCView = new AdobeDC.View({
-    clientId: 'e11a56067bc646fcbbf5b6486f14283c',
+    // NOTE: ClientID token is defined in docuaurus.config.js
+    clientId,
     divId,
   });
   adobeDCView.previewFile(
@@ -61,10 +63,13 @@ function PDFViewerWrapper({ children }) {
 
 function PDFViewer({ url, title, embedMode = 'FULL_WINDOW' }) {
   const divId = useId();
+  const {
+    siteConfig: { customFields },
+  } = useDocusaurusContext();
 
   useEffect(() => {
     const handleLoad = () => {
-      previewFile(url, title, embedMode, divId);
+      previewFile(url, title, embedMode, customFields.clientId, divId);
     };
 
     document.addEventListener('adobe_dc_view_sdk.ready', handleLoad);
@@ -98,6 +103,9 @@ function PDFViewerSimple({ url, title }) {
 function PDFViewerButton({ url, title }) {
   const [isReady, setIsReady] = useState(false);
   const divId = useId();
+  const {
+    siteConfig: { customFields },
+  } = useDocusaurusContext();
 
   useEffect(() => {
     const handleLoad = () => {
@@ -126,7 +134,7 @@ function PDFViewerButton({ url, title }) {
         }
         disabled={!isReady}
         onClick={() => {
-          previewFile(url, title, 'LIGHT_BOX', divId);
+          previewFile(url, title, 'LIGHT_BOX', customFields.clientId, divId);
         }}
       >
         View PDF
