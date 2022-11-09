@@ -149,11 +149,7 @@ const MantineProvider = ({ children }) => {
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}
     >
-      <BaseMantineProvider
-        theme={{ ...theme, colorScheme }}
-        withGlobalStyles
-        withNormalizeCSS
-      >
+      <BaseMantineProvider theme={{ ...theme, colorScheme }}>
         <MyGlobalStyles />
         {children}
       </BaseMantineProvider>

@@ -2,7 +2,9 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import React, { useEffect, useRef } from 'react';
 import { MantineProvider } from '../context/MantineProvider';
 // eslint-disable-next-line import/no-unresolved
-import 'windi.css';
+import 'windi-components.css';
+// eslint-disable-next-line import/no-unresolved
+import 'windi-utilities.css';
 
 // Default implementation, that you can customize
 export default function Root({ children }) {
