@@ -44,21 +44,21 @@ manager?
 
 :::
 
-## Getting Started:
+## Getting Started
 
-### Install dependencies:
+### Install dependencies
 
 ```bash
 sudo apt install curl git
 ```
 
-### Download asdf:
+### Download asdf
 
 |   **git**    | `git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2` |
 | :----------: | :----------------------------------------------------------------------: |
 | **Homebrew** |                           `brew install asdf`                            |
 
-### Install asdf:
+### Install asdf
 
 Bash & Git:
 
@@ -67,7 +67,7 @@ echo ". $HOME/.asdf/asdf.sh" >> ~/.bashrc
 echo ". $HOME/.asdf/completions/asdf.bash" >> ~/.bashrc
 ```
 
-### Install plugins:
+### Install plugins
 
 :::info
 
@@ -76,7 +76,7 @@ should be listed.
 
 :::
 
-#### asdf-nodejs:
+#### asdf-nodejs
 
 Use [node-build](https://github.com/nodenv/node-build) under the hood
 
@@ -92,7 +92,7 @@ Use [node-build](https://github.com/nodenv/node-build) under the hood
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 ```
 
-#### asdf-python:
+#### asdf-python
 
 Use
 [python-build](https://github.com/pyenv/pyenv/tree/master/plugins/python-build)
@@ -118,9 +118,9 @@ under the hood), you can go to that package and find solutions.
 
 :::
 
-### Install a version:
+### Install a version
 
-#### asdf-nodejs:
+#### asdf-nodejs
 
 ```bash
 asdf install nodejs latest
@@ -133,37 +133,37 @@ resolve to the actual version number at the time of execution.
 
 :::
 
-#### asdf-python:
+#### asdf-python
 
 ```bash
 asdf install python 3.9.13
 ```
 
-### Set a version:
+### Set a version
 
-#### Global:
+#### Global
 
 Global defaults are managed in `$HOME/.tool-versions`. Set a global version with:
 
-##### asdf-nodejs:
+##### asdf-nodejs
 
 ```bash
 asdf global nodejs latest
 ```
 
-##### asdf-python:
+##### asdf-python
 
 ```bash
 asdf global python 3.9.13
 ```
 
-#### Local:
+#### Local
 
 Local versions are defined in the `$PWD/.tool-versions` file (your current
 working directory). Usually, this will be the Git repository for a project.
 When in your desired directory execute:
 
-##### asdf-nodejs:
+##### asdf-nodejs
 
 ```bash
 asdf local nodejs latest
@@ -175,7 +175,7 @@ asdf local nodejs latest
 nodejs 18.9.1
 ```
 
-##### asdf-python:
+##### asdf-python
 
 ```bash
 asdf local python 3.9.13
@@ -194,7 +194,7 @@ or npm or Pnpm:
 asdf install
 ```
 
-## Going further with Nix:
+## Going further with Nix
 
 `asdf` is great, but [Nix](https://nixos.org/) is much better, it has a big
 [ecosystem](https://nixos.wiki/wiki/Nix_Ecosystem) with a thousand packages
@@ -209,11 +209,11 @@ or [Flakes](https://nixos.wiki/wiki/Flakes).
 
 So it will take time and more research to bring Nix into action. Stay tuned .
 
-## Related Articles:
+## Related Articles
 
-- Switching from pyenv, rbenv, goenv and nvm to asdf: https://jinyuz.dev/2020/07/switching-from-pyenv-rbenv-goenv-and-nvm-to-asdf/
-
-- ASDF, the version manager for all your languages: https://alchemist.camp/episodes/asdf-language-versions
-
-- Why Learning NixOS is Difficult, and How to Fix It:
-  https://ostina.to/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html
+- [Switching from pyenv, rbenv, goenv and nvm to
+  asdf](https://jinyuz.dev/2020/07/switching-from-pyenv-rbenv-goenv-and-nvm-to-asdf/)
+- [ASDF, the version manager for all your
+  languages](https://alchemist.camp/episodes/asdf-language-versions)
+- [Why Learning NixOS is Difficult, and How to Fix
+  It](https://ostina.to/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html)

@@ -11,7 +11,7 @@ tags:
 
 This document will guide developers to Git hooks.
 
-## Getting Started:
+## Getting Started
 
 > Like many other Version Control Systems, Git has a way to fire off custom
 > scripts when certain important actions occur. There are two groups of these
@@ -20,7 +20,7 @@ This document will guide developers to Git hooks.
 > network operations such as receiving pushed commits. You can use these hooks
 > for all sorts of reasons.
 
-## Configured Git Hooks:
+## Configured Git Hooks
 
 The repository will use [Husky](https://typicode.github.io/husky/#/) to run
 configured git hooks:
@@ -45,7 +45,7 @@ configured git hooks:
   1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) and have the correct
   format.
 
-## Bypass Hooks:
+## Bypass Hooks
 
 You can bypass `pre-commit` and `commit-msg` hooks using Git `-n/--no-verify`
 option:
@@ -61,10 +61,8 @@ environment variable:
 HUSKY=0 git push # yolo!
 ```
 
-## Related Articles:
+## Related Articles
 
-- Husky documentation: https://typicode.github.io/husky/#/
-
-- Git Hooks: https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
-
-- Lint-staged documentation: https://github.com/okonet/lint-staged
+- [Husky documentation](https://typicode.github.io/husky/#/)
+- [Git Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+- [Lint-staged documentation](https://github.com/okonet/lint-staged)

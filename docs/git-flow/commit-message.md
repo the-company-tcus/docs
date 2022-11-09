@@ -16,7 +16,7 @@ Every commit message will be automatically linted with
 hook using [Husky](https://typicode.github.io/husky/#/) to ensure each commit
 message has the same format **before the commit is created**.
 
-## Conventional Commit Message Format:
+## Conventional Commit Message Format
 
 Each commit message consists of a **header**, a **body**, and a **footer** :
 
@@ -44,7 +44,7 @@ The `BLANK LINE` between `header` and `body` is **optional** or can be
 
 :::
 
-### Commit Message Header:
+### Commit Message Header
 
 The header is built from these main parts:
 
@@ -140,7 +140,7 @@ The header is built from these main parts:
 
     - No dot **(“.”)** at the end.
 
-### Commit Message Body:
+### Commit Message Body
 
 Just as in the `subject`, use the imperative, present tense: "fix" not "fixed"
 nor "fixes".
@@ -150,7 +150,7 @@ message should explain why you are making the change. You can include a
 comparison of the previous behavior with the new behavior in order to illustrate
 the impact of the change.
 
-### Commit Message Footer:
+### Commit Message Footer
 
 The footer can contain information about breaking changes and deprecations and
 is also the place to reference GitHub issues, Jira tickets, and other PRs that
@@ -184,7 +184,7 @@ Similarly, a Deprecation section should start with "DEPRECATED: " followed by a
 short description of what is deprecated, a blank line, and a detailed
 description of the deprecation that also mentions the recommended update path.
 
-### Special commit:
+### Special commit
 
 - Merge commit: won’t be linted because most of this commit type will be
   committed via the GitHub page.
@@ -211,9 +211,9 @@ description of the deprecation that also mentions the recommended update path.
     This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
     ```
 
-## Submit a Commit:
+## Submit a Commit
 
-### Console (Recommend):
+### Console (Recommend)
 
 Use the [commitizen](https://github.com/commitizen/cz-cli) CLI to build a commit
 message:
@@ -238,7 +238,7 @@ pnpm cm
 git push origin dev
 ```
 
-### GitHub Desktop:
+### GitHub Desktop
 
 :::note
 
@@ -255,9 +255,9 @@ Node.js version to at least `14.13.1`, or `16.0.0` onward.
 
 - Click `Push origin` button.
 
-## Troubleshoot:
+## Troubleshoot
 
-### Command not found:
+### Command not found
 
 If you're running Git from an app (like GitHub Desktop) and the command can be
 found in your terminal, this means that the `PATH` in your app is different from
@@ -292,21 +292,17 @@ export ASDF_DIR="$HOME/.asdf"
 [ -s "$ASDF_DIR/asdf.sh" ] && \. "$ASDF_DIR/asdf.sh"
 ```
 
-### GitHub Desktop: “`SyntaxError: Unexpected token '.'`":
+### GitHub Desktop: “`SyntaxError: Unexpected token '.'`"
 
 Make sure your Node.js is at least `14.13.1`, or `16.0.0` onward. If you are
 using `nvm` or `asdf`, please refer to [Command not found](#command-not-found)
 section to edit your `PATH` correctly.
 
-## Related Articles:
+## Related Articles
 
-- Angular Commit Message Format:
-  https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format
-
-- Conventional Commit Message Format:
-  https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser
-
-- Commitizen CLI: https://github.com/commitizen/cz-cli
-
-- Commitizen CLI for Jira:
-  https://github.com/digitalroute/cz-conventional-changelog-for-jira
+- [Angular Commit Message
+  Format](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format)
+- [Conventional Commit Message
+  Format](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser)
+- [Commitizen CLI](https://github.com/commitizen/cz-cli)
+- [Commitizen CLI for Jira](https://github.com/digitalroute/cz-conventional-changelog-for-jira)

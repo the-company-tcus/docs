@@ -14,9 +14,9 @@ If you want to start your work full-featured and isolated, then you can read
 through this documentation to set up a remote developing environment inside a
 Docker Container with the VSCode.
 
-## Getting Started:
+## Getting Started
 
-### System requirements:
+### System requirements
 
 **Local / Remote Host**:
 
@@ -50,7 +50,7 @@ only requires a properly configured kubectl CLI.
 
 - x86_64 Alpine Linux 3.9+
 
-### Installation:
+### Installation
 
 :::info
 
@@ -167,7 +167,7 @@ The Remote-Containers extension supports two primary operating models:
   container](https://code.visualstudio.com/docs/remote/attach-container) to
   inspect it.
 
-## About .devcontainer.json file:
+## About .devcontainer.json file
 
 In your repository, there is a directory `.devcontainer/devcontainer.json` to
 configure VSCode’s container.
@@ -251,12 +251,10 @@ like in file `.vscode/extensions.json`, which only recommend.
 
 :::
 
-## Related Articles:
+## Related Articles
 
-- Developing inside a Container:
-  https://code.visualstudio.com/docs/remote/containers
-
-- devcontainer.json reference:
-  https://containers.dev/implementors/json_reference/
-
-- Available Features: https://containers.dev/features
+- [Developing inside a
+  Container](https://code.visualstudio.com/docs/remote/containers)
+- [devcontainer.json
+  reference](https://containers.dev/implementors/json_reference/)
+- [devcontainer Available Features](https://containers.dev/features)

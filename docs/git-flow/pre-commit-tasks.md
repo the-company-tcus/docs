@@ -13,7 +13,7 @@ The project will use [Husky](https://typicode.github.io/husky/#/) to run
 [lint-staged](https://github.com/okonet/lint-staged) for `pre-commit` hook to
 inspect staged files before typing the commit message.
 
-## Getting Started:
+## Getting Started
 
 About [lint-staged](https://github.com/okonet/lint-staged):
 
@@ -25,14 +25,14 @@ About [lint-staged](https://github.com/okonet/lint-staged):
 > This project contains a script that will run arbitrary shell tasks with a list
 > of staged files as an argument, filtered by a specified glob pattern.
 
-## Configuration Files:
+## Configuration Files
 
 The project will have a root configuration file to run tasks for common files:
 `.md`, `.html`, or `.css` files.
 
 In monorepo repository, each package will have a separate configuration file. When running, _lint-staged_ will always use the configuration closest to a staged file, so having separate configuration files makes sure linters do not "leak" into other packages.
 
-## Bypass Hooks:
+## Bypass Hooks
 
 You can bypass `pre-commit` and `commit-msg` hooks using Git `-n/--no-verify`
 option:
