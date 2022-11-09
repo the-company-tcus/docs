@@ -1,3 +1,4 @@
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import {
   MantineProvider as BaseMantineProvider,
   ColorSchemeProvider,
@@ -101,7 +102,7 @@ const MyGlobalStyles = () => {
 
 const MantineProvider = ({ children }) => {
   const [colorScheme, setColorScheme] = useState(
-    typeof windows !== 'undefined'
+    ExecutionEnvironment.canUseDOM
       ? document.documentElement.dataset.theme
       : '',
   );
@@ -114,7 +115,7 @@ const MantineProvider = ({ children }) => {
         if (mutation.attributeName === 'data-theme') {
           if (mutation.target.dataset.theme === 'dark') {
             setColorScheme('dark');
-          } else {
+          } else if (mutation.target.dataset.theme === 'light') {
             setColorScheme('light');
           }
         }
