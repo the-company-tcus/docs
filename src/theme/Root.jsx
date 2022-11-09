@@ -1,6 +1,7 @@
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import React, { useEffect, useRef } from 'react';
 import { MantineProvider } from '../context/MantineProvider';
+import { QueryProvider } from '../context/QueryProvider';
 // eslint-disable-next-line import/no-unresolved
 import 'windi-components.css';
 // eslint-disable-next-line import/no-unresolved
@@ -47,5 +48,9 @@ export default function Root({ children }) {
     }
   }, [colorScheme]);
 
-  return <MantineProvider>{children}</MantineProvider>;
+  return (
+    <QueryProvider>
+      <MantineProvider>{children}</MantineProvider>
+    </QueryProvider>
+  );
 }
