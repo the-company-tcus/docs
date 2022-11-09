@@ -1,6 +1,3 @@
-import pluginAnimations from '@windicss/plugin-animations';
-import colors from 'windicss/colors';
-
 export default {
   alias: {
     // ...
@@ -11,14 +8,7 @@ export default {
     exclude: ['node_modules', '.git', '.next/**/*'],
     include: ['**/*.{jsx,css}'],
   },
-  plugins: [
-    // Other plugins
-    pluginAnimations({
-      settings: {
-        // animatedSpeed: 1000,
-      },
-    }),
-  ],
+  plugins: [],
   shortcuts: {
     // ...
   },
