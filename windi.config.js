@@ -1,6 +1,3 @@
-import pluginAnimations from '@windicss/plugin-animations';
-import colors from 'windicss/colors';
-
 export default {
   alias: {
     // ...
@@ -11,14 +8,7 @@ export default {
     exclude: ['node_modules', '.git', '.next/**/*'],
     include: ['**/*.{jsx,css}'],
   },
-  plugins: [
-    // Other plugins
-    pluginAnimations({
-      settings: {
-        // animatedSpeed: 1000,
-      },
-    }),
-  ],
+  plugins: [],
   shortcuts: {
     // ...
   },
@@ -28,52 +18,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: colors.blue,
+        primary: {
+          DEFAULT: '#2e8555',
+          dark: '#29784c',
+          darker: '#277148',
+          darkest: '#205d3b',
+          light: '#33925d',
+          lighter: '#359962',
+          lightest: '#3cad6e',
+        },
+        'dark-primary': {
+          DEFAULT: '#25c2a0',
+          dark: '#21af90',
+          darker: '#1fa588',
+          darkest: '#1a8870',
+          light: '#29d5b0',
+          lighter: '#32d8b4',
+          lightest: '#4fddbf',
+        },
       },
       fontFamily: {
-        sans: [
-          'system-ui',
-          '-apple-system',
-          'Segoe UI,Roboto',
-          'Ubuntu',
-          'Cantarell',
-          'Noto Sans',
-          'sans-serif',
-          'BlinkMacSystemFont',
-          '"Segoe UI"',
-          'Helvetica',
-          'Arial',
-          'sans-serif',
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-        ],
-        mono: [
-          'SFMono-Regular',
-          'Menlo',
-          'Monaco',
-          'Consolas',
-          '"Liberation Mono"',
-          '"Courier New"',
-          'monospace',
-        ],
-        heading: [
-          'system-ui',
-          '-apple-system',
-          'Segoe UI,Roboto',
-          'Ubuntu',
-          'Cantarell',
-          'Noto Sans',
-          'sans-serif',
-          'BlinkMacSystemFont',
-          '"Segoe UI"',
-          'Helvetica',
-          'Arial',
-          'sans-serif',
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-        ],
+        sans: 'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+        mono: 'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
       },
     },
   },
