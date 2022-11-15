@@ -1,7 +1,7 @@
 ---
 id: pre-commit-tasks
 title: Pre-commit Tasks
-sidebar_position: 2
+sidebar_position: 3
 tags:
   - git
   - guide

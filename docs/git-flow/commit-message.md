@@ -1,7 +1,7 @@
 ---
 id: commit-message
 title: Commit Message
-sidebar_position: 3
+sidebar_position: 4
 tags:
   - git
   - guide
