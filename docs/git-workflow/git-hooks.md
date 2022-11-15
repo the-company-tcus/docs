@@ -1,7 +1,7 @@
 ---
 id: git-hooks
 title: Git Hooks
-sidebar_position: 1
+sidebar_position: 2
 tags:
   - git
   - guide
