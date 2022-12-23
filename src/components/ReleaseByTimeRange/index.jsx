@@ -92,7 +92,8 @@ const ReleaseByTimeRange = ({ from, to }) => {
           <Group position="apart">
             <Text>View releases</Text>
             <Text fs="italic" fw={700}>
-              {moment(from).format('ll')} - {moment(to).format('ll')}
+              {moment(from, 'MM-DD-YYYY').format('ll')} -{' '}
+              {moment(to, 'MM-DD-YYYY').format('ll')}
             </Text>
           </Group>
         </summary>
