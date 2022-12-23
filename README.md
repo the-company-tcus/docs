@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/logo.png" alt="logo" width="200" height="auto" />
+  <img src="https://user-images.githubusercontent.com/64480713/209274246-69141878-b6b2-433f-851f-b4764c9bd643.svg" alt="logo" width="200" height="auto" />
   <h1>The Company Docs</h1>
 
   <p>
@@ -9,34 +9,34 @@
 
 <!-- Badges -->
 <p>
-  <a href="https://github.com/The-Company-TCUS/docs/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/The-Company-TCUS/docs" alt="contributors" />
+  <a href="https://github.com/the-company-tcus/docs/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/the-company-tcus/docs" alt="contributors" />
   </a>
   <a href="">
-    <img src="https://img.shields.io/github/last-commit/The-Company-TCUS/docs" alt="last update" />
+    <img src="https://img.shields.io/github/last-commit/the-company-tcus/docs" alt="last update" />
   </a>
-  <a href="https://github.com/The-Company-TCUS/docs/network/members">
-    <img src="https://img.shields.io/github/forks/The-Company-TCUS/docs" alt="forks" />
+  <a href="https://github.com/the-company-tcus/docs/network/members">
+    <img src="https://img.shields.io/github/forks/the-company-tcus/docs" alt="forks" />
   </a>
-  <a href="https://github.com/The-Company-TCUS/docs/stargazers">
-    <img src="https://img.shields.io/github/stars/The-Company-TCUS/docs" alt="stars" />
+  <a href="https://github.com/the-company-tcus/docs/stargazers">
+    <img src="https://img.shields.io/github/stars/the-company-tcus/docs" alt="stars" />
   </a>
-  <a href="https://github.com/The-Company-TCUS/docs/issues/">
-    <img src="https://img.shields.io/github/issues/The-Company-TCUS/docs" alt="open issues" />
+  <a href="https://github.com/the-company-tcus/docs/issues/">
+    <img src="https://img.shields.io/github/issues/the-company-tcus/docs" alt="open issues" />
   </a>
-  <a href="https://github.com/The-Company-TCUS/docs/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/The-Company-TCUS/docs.svg" alt="license" />
+  <a href="https://github.com/the-company-tcus/docs/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/the-company-tcus/docs.svg" alt="license" />
   </a>
 </p>
 
 <h4>
-    <a href="https://github.com/The-Company-TCUS/docs/">View Demo</a>
+    <a href="https://github.com/the-company-tcus/docs/">View Demo</a>
   <span> · </span>
-    <a href="https://github.com/The-Company-TCUS/docs">Documentation</a>
+    <a href="https://github.com/the-company-tcus/docs">Documentation</a>
   <span> · </span>
-    <a href="https://github.com/The-Company-TCUS/docs/issues/">Report Bug</a>
+    <a href="https://github.com/the-company-tcus/docs/issues/">Report Bug</a>
   <span> · </span>
-    <a href="https://github.com/The-Company-TCUS/docs/issues/">Request Feature</a>
+    <a href="https://github.com/the-company-tcus/docs/issues/">Request Feature</a>
   </h4>
 </div>
 
@@ -47,14 +47,14 @@
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
+  - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   - [Prerequisites](#bangbang-prerequisites)
   - [Run Locally](#running-run-locally)
   - [Deployment](#triangular_flag_on_post-deployment)
 - [Usage](#eyes-usage)
+  - [Components](#package-components)
 - [Roadmap](#compass-roadmap)
-- [Contributing](#wave-contributing)
-  - [Code of Conduct](#scroll-code-of-conduct)
 - [Contact](#handshake-contact)
 - [Acknowledgements](#gem-acknowledgements)
 
@@ -65,6 +65,27 @@
 [Docusaurus](https://docusaurus.io/) is a modern static website generator that
 helps you maintain open source documentation websites. We use Docusaurus to
 showcase our team documentation and update project progress.
+
+<!-- Env Variables -->
+
+### :key: Environment Variables
+
+To run this project, you will need to add the following environment variables to
+your `.env` file:
+
+- **App configs:**
+
+  `GH_TOKEN`: GitHub personal access token to fetch data from GitHub API.
+
+E.g:
+
+```
+# .env
+GH_TOKEN=ghp_HH8T***
+```
+
+You can also check out the file `.env.example` to see all required environment
+variables.
 
 <!-- Getting Started -->
 
@@ -87,7 +108,7 @@ npm install --global pnpm
 Clone the project:
 
 ```bash
-git clone https://github.com/The-Company-TCUS/docs.git
+git clone https://github.com/the-company-tcus/docs.git
 ```
 
 Go to the project directory:
@@ -122,16 +143,222 @@ pnpm deploy
 
 ## :eyes: Usage
 
-Use this space to tell a little more about your project and how it can be used.
-Show additional screenshots, code samples, demos, or links to other resources.
+<!-- Components -->
 
-```javascript
-import Component from 'awesome-readme-template';
+### :package: Components
 
-function App() {
-  return <Component />;
-}
+#### PDFViewer
+
+This component is used to display PDF files.
+
+This will have three variants:
+
+- `PDFViewer`: Use [PDF Embed
+  API](https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/)
+  from Adobe to display PDF files.
+
+  - **Usage**:
+
+    ```jsx
+    import { PDFViewer } from '@site/src/components/PDFViewer';
+    // Import sample PDF from static/pdf folder
+    import sample from '@site/static/pdf/sample.pdf';
+    import React from 'react';
+
+    export default function MyPage() {
+      return (
+        <div
+          style={{
+            height: '100vh',
+          }}
+        >
+          {/* From URL */}
+          <PDFViewer
+            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
+            title="Dummy PDF"
+          />
+          {/* From import */}
+          <PDFViewer url={sample} title="Sample PDF" />
+          {/* From static URL */}
+          <PDFViewer url="/pdf/sample.pdf" title="Sample PDF" />
+        </div>
+      );
+    }
+    ```
+
+  - **Props**:
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>url</td>
+          <td>string</td>
+          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+        </tr>
+        <tr>
+          <td>title</td>
+          <td>string</td>
+          <td>Title of the PDF file</td>
+        </tr>
+        <tr>
+          <td>embedMode</td>
+          <td>"FULL_WINDOW" | "SIZED_CONTAINER" | "IN_LINE" | "LIGHT_BOX"</td>
+          <td>Embed mode of the PDF file (Default: `FULL_WINDOW`) supported by PDF Embed API</td>
+        </tr>
+      </table>
+
+- `PDFViewerButton`: Pre-defined component for PDFViewer with `embedMode` set to
+  `LIGHT_BOX`. The button is **disabled** if the PDF file is not fully loaded.
+
+  - **Usage**:
+
+    ```jsx
+    import { PDFViewerButton } from '@site/src/components/PDFViewer';
+    import React from 'react';
+
+    export default function MyPage() {
+      return (
+        <div
+          style={{
+            height: '100vh',
+          }}
+        >
+          <PDFViewerButton
+            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
+            title="Dummy PDF"
+          />
+        </div>
+      );
+    }
+    ```
+
+  - **Props**:
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>url</td>
+          <td>string</td>
+          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+        </tr>
+        <tr>
+          <td>title</td>
+          <td>string</td>
+          <td>Title of the PDF file</td>
+        </tr>
+      </table>
+
+- `PDFViewerSimple`: Use built-in PDF viewer of the browser to display PDF
+  files. If the file is not found, it will redirect to the Docusaurus 404 page,
+  create nested layout in your page.
+
+  - **Usage**:
+
+    ```jsx
+    import { PDFViewerSimple } from '@site/src/components/PDFViewer';
+    import React from 'react';
+
+    export default function MyPage() {
+      return (
+        <div
+          style={{
+            height: '100vh',
+          }}
+        >
+          <PDFViewerSimple
+            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
+            title="Dummy PDF"
+          />
+        </div>
+      );
+    }
+    ```
+
+  - **Props**:
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>url</td>
+          <td>string</td>
+          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+        </tr>
+        <tr>
+          <td>title</td>
+          <td>string</td>
+          <td>Title of the PDF file</td>
+        </tr>
+      </table>
+
+#### ReleaseByTimeRange
+
+`ReleaseByTimeRange` will fetch releases within a time range from GitHub API and
+display them in a dropdown menu.
+
+You will have to set GitHub token (`ghToken`), repo owner (`owner`) and repo
+name (`repo`) in the `docusaurus.config.js` file. For example:
+
+```js
+require('dotenv').config();
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  customFields: {
+    ghToken: process.env.GH_TOKEN,
+    owner: 'mantinedev',
+    repo: 'mantine',
+  },
+};
+
+module.exports = config;
 ```
+
+- **Usage**:
+
+  ```jsx
+  import { ReleaseByTimeRange } from '@site/src/components/ReleaseByTimeRange';
+  import React from 'react';
+
+  export default function MyPage() {
+    return (
+      <div
+        style={{
+          height: '100vh',
+        }}
+      >
+        <ReleaseByTimeRange from="05-12-2022" to="12-12-2022" />
+      </div>
+    );
+  }
+  ```
+
+- **Props**:
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>from</td>
+      <td>string</td>
+      <td>Start date of the time range. In format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object</td>
+    </tr>
+    <tr>
+      <td>to</td>
+      <td>string</td>
+      <td>End date of the time range. In format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object</td>
+    </tr>
+  </table>
 
 <!-- Roadmap -->
 
@@ -140,24 +367,6 @@ function App() {
 - [x] Todo 1.
 - [ ] Todo 2.
 
-<!-- Contributing -->
-
-## :wave: Contributing
-
-<a href="https://github.com/The-Company-TCUS/docs/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=The-Company-TCUS/docs" />
-</a>
-
-Contributions are always welcome!
-
-See `CONTRIBUTING.md` for ways to get started.
-
-<!-- Code of Conduct -->
-
-### :scroll: Code of Conduct
-
-Please read the [Code of Conduct](https://github.com/The-Company-TCUS/docs/blob/main/CODE_OF_CONDUCT.md).
-
 <!-- Contact -->
 
 ## :handshake: Contact
@@ -165,7 +374,7 @@ Please read the [Code of Conduct](https://github.com/The-Company-TCUS/docs/blob/
 Duong Vinh - [@duckymomo20012](https://twitter.com/duckymomo20012) -
 tienvinh.duong4@gmail.com
 
-Project Link: [https://github.com/The-Company-TCUS/docs](https://github.com/The-Company-TCUS/docs).
+Project Link: [https://github.com/the-company-tcus/docs](https://github.com/the-company-tcus/docs).
 
 <!-- Acknowledgments -->
 
