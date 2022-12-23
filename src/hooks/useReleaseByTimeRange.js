@@ -22,8 +22,8 @@ const useReleaseByTimeRange = (
   from,
   to,
 ) => {
-  const fromTime = moment(from);
-  const toTime = moment(to);
+  const fromTime = moment(from, 'MM-DD-YYYY');
+  const toTime = moment(to, 'MM-DD-YYYY');
 
   if (toTime.isBefore(fromTime)) {
     throw new Error('From date is greater than to date');

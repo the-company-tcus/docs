@@ -40,9 +40,17 @@ const ReleaseByTimeRange = ({ from, to }) => {
     });
 
     return (
-      <Group key={release.id} align="flex-start" className="mb-4">
-        <Stack justify="flex-start" className="md:w-1/10">
-          <Text>{moment(release.published_at).fromNow()}</Text>
+      <Group
+        key={release.id}
+        align="flex-start"
+        className="mb-4 md:flex-row flex-col"
+        spacing="lg"
+        noWrap
+      >
+        <Stack justify="flex-start">
+          <Text className="whitespace-nowrap">
+            {moment(release.published_at).fromNow()}
+          </Text>
           <Stack spacing="xs" className="flex-row md:flex-col">
             <Group spacing="xs">
               <Avatar src={release.author.avatar_url} size={20} />
@@ -69,7 +77,7 @@ const ReleaseByTimeRange = ({ from, to }) => {
             </Anchor>
           </Stack>
         </Stack>
-        <Card className="md:w-3/4">
+        <Card className="w-300">
           <Title order={1}>{release.name}</Title>
           <BodyContent />
         </Card>
@@ -78,7 +86,20 @@ const ReleaseByTimeRange = ({ from, to }) => {
   });
 
   return (
-    <Details summary={<summary>View releases</summary>} open>
+    <Details
+      summary={
+        <summary>
+          <Group position="apart">
+            <Text>View releases</Text>
+            <Text fs="italic" fw={700}>
+              {moment(from, 'MM-DD-YYYY').format('ll')} -{' '}
+              {moment(to, 'MM-DD-YYYY').format('ll')}
+            </Text>
+          </Group>
+        </summary>
+      }
+      open
+    >
       <Title order={2}>{`${
         releases?.length || 'No'
       } version(s) released`}</Title>
