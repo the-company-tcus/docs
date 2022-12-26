@@ -1,11 +1,9 @@
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import {
   MantineProvider as BaseMantineProvider,
-  ColorSchemeProvider,
   Global,
   DEFAULT_THEME as mantineDefaultTheme,
 } from '@mantine/core';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import windiColors from 'windicss/colors';
 import windiDefaultTheme from 'windicss/defaultTheme';
 
@@ -100,61 +98,12 @@ const MyGlobalStyles = () => {
   );
 };
 
-const MantineProvider = ({ children }) => {
-  const [colorScheme, setColorScheme] = useState(
-    ExecutionEnvironment.canUseDOM
-      ? document.documentElement.dataset.theme
-      : '',
-  );
-
-  useEffect(() => {
-    const root = document.documentElement;
-
-    const observer = new MutationObserver((mutationList) => {
-      mutationList.forEach((mutation) => {
-        if (mutation.attributeName === 'data-theme') {
-          if (mutation.target.dataset.theme === 'dark') {
-            setColorScheme('dark');
-          } else if (mutation.target.dataset.theme === 'light') {
-            setColorScheme('light');
-          }
-        }
-      });
-    });
-
-    observer.observe(root, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (colorScheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      document.documentElement.classList.add('dark');
-    } else if (colorScheme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
-      document.documentElement.classList.remove('dark');
-    }
-  }, [colorScheme]);
-
-  const toggleColorScheme = (value) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
-
+const MantineProvider = ({ children, theme: themeProps, ...props }) => {
   return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <BaseMantineProvider theme={{ ...theme, colorScheme }}>
-        <MyGlobalStyles />
-        {children}
-      </BaseMantineProvider>
-    </ColorSchemeProvider>
+    <BaseMantineProvider theme={{ ...theme, ...themeProps }} {...props}>
+      <MyGlobalStyles />
+      {children}
+    </BaseMantineProvider>
   );
 };
 
