@@ -1,35 +1,45 @@
 ---
-slug: integrate-with-windicss
-title: Integrate with WindiCSS
+slug: integrate-docusaurus-with-windicss-and-mantine
+title: Integrate Docusaurus with WindiCSS and Mantine
 authors:
   - duckymomo20012
 tags:
   - setup
   - windicss
+  - mantine
   - guide
 ---
 
-# Integrate with WindiCSS
+# Integrate Docusaurus with WindiCSS and Mantine
 
 [Docusaurus](https://docusaurus.io/) is an excellent tool for building
 documentation websites. However, it does not support
-[WindiCSS](https://windicss.org/) out of the box. This guide will show you how
-to integrate WindiCSS with Docusaurus.
+[WindiCSS](https://windicss.org/) out of the box.
+[Mantine](https://mantine.dev/) is a React UI library that provides a lot of UI
+components and hooks, so you can use it to build your own components.
+
+This guide will show you how to integrate WindiCSS and Mantine with Docusaurus.
 
 ## Getting Started
 
 We will go through setting up these features:
 
 - ✅ WindiCSS
-- ✅ Dark mode
-- ✅ Fonts
-- ✅ Animations (from
-  [@windicss/plugin-animations](https://github.com/windicss/plugins/tree/main/packages/animations))
-- ✅ Attributify mode
-- ✅ Colors
-- ❌ Design in DevTools mode
+  - ✅ Dark mode
+  - ✅ Typography
+  - ✅ Animations (from
+    [@windicss/plugin-animations](https://github.com/windicss/plugins/tree/main/packages/animations))
+  - ✅ Attributify mode
+  - ✅ Colors
+  - ❌ Design in DevTools mode
+- ✅ Mantine
+  - ✅ Dark mode
+  - ✅ Typography
+  - ✅ Colors
 
-Currently, there are some bugs with WindiCSS Devtool, which are reported in
+Currently, there are some bugs with WindiCSS Devtool in [windicss-webpack-plugin
+](https://github.com/windicss/windicss-webpack-plugin) package, which are
+reported in
 [#118](https://github.com/windicss/windicss-webpack-plugin/issues/118#issue-1360067669)
 and
 [#115](https://github.com/windicss/windicss-webpack-plugin/issues/115#issue-1328556055).
@@ -141,8 +151,8 @@ export default function Root({ children }) {
 }
 ```
 
-Because the file `windi-base.css` overrides the default styles of Docusaurus, so
-I recommend not importing it:
+Because the file `windi-base.css` **overrides the default styles of
+Docusaurus**, so I recommend not importing it:
 
 ```diff title="src/theme/Root.jsx"
 import React from 'react';
@@ -162,6 +172,7 @@ Now, we can test the result by writing some classes in `HomepageHeader`
 the component in the file `src/pages/index.js`:
 
 ```jsx title="src/pages/index.jsx"
+// ...
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -182,6 +193,7 @@ function HomepageHeader() {
     </header>
   );
 }
+// ...
 ```
 
 And we can see the result:
@@ -214,63 +226,45 @@ export default {
 ```
 
 To manually add class `dark` to the `<html>` element, we can add some logics in
-the `Root` component:
+the `Layout/Provider` wrapper:
 
-- Use `ExecutionEnvironment.canUseDOM` to check if the code is running in the
-  browser and get the default theme.
-- Use `MutationObserver` to observe the `<html>` element.
 - Add or remove the class `dark` based on the color scheme.
 
-```jsx title="src/theme/Root.jsx"
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import React, { useEffect, useRef } from 'react';
-import 'windi-components.css';
-import 'windi-utilities.css';
+```jsx title="src/theme/Layout/Provider/index.jsx"
+import { useColorMode } from '@docusaurus/theme-common';
+import Provider from '@theme-original/Layout/Provider';
+import React, { useEffect } from 'react';
 
-// Default implementation, that you can customize
-export default function Root({ children }) {
-  const colorScheme = useRef(
-    ExecutionEnvironment.canUseDOM
-      ? document.documentElement.dataset.theme
-      : '',
-  );
+const CustomProvider = ({ children }) => {
+  const { colorMode, setColorMode } = useColorMode();
 
   useEffect(() => {
-    const root = document.documentElement;
-
-    const observer = new MutationObserver((mutationList) => {
-      mutationList.forEach((mutation) => {
-        if (mutation.attributeName === 'data-theme') {
-          if (mutation.target.dataset.theme === 'dark') {
-            colorScheme.current = 'dark';
-          } else if (mutation.target.dataset.theme === 'light') {
-            colorScheme.current = 'light';
-          }
-        }
-      });
-    });
-
-    observer.observe(root, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (colorScheme.current === 'dark') {
+    if (colorMode === 'dark') {
       document.documentElement.classList.add('dark');
-    } else if (colorScheme.current === 'light') {
+    } else if (colorMode === 'light') {
       document.documentElement.classList.remove('dark');
     }
-  }, [colorScheme]);
+  }, [colorMode]);
 
   return <>{children}</>;
+};
+
+export default function ProviderWrapper({ children, ...props }) {
+  return (
+    <Provider {...props}>
+      <CustomProvider>{children}</CustomProvider>
+    </Provider>
+  );
 }
 ```
+
+:::caution
+
+`useColorMode` hook MUST be called inside the `ProviderWrapper` component.
+That's why I have to create a separate component `CustomProvider` to wrap the
+`useColorMode` hook.
+
+:::
 
 <details>
   <summary>Another approach by swizzling the <code>ColorModeToggle</code> component</summary>
@@ -314,13 +308,28 @@ rendered.
 
 > Why don't we use hook `useColorMode`?
 >
-> Because it will throw the error: "Hook useColorMode is called outside the
-> `<ColorModeProvider>`"; even if I wrap the component `ColorModeToggle` with
-> `<Layout>`.
+> Yes, you can, but the color mode is already passed to the component as a prop,
+> we can use it directly.
 
 </details>
 
-### Fonts
+:::note
+
+Error: "Hook useColorMode is called outside the `<ColorModeProvider>`"
+
+If you have this error and you are using `pnpm`, then you may having hoisting
+issue([#7880](https://github.com/facebook/docusaurus/issues/7880#issuecomment-1201994009)
+and
+[#6724](https://github.com/facebook/docusaurus/issues/6724#issuecomment-1280912963)).
+You can fix it by adding the following code to the file `.npmrc`:
+
+```text title=.npmrc
+public-hoist-pattern[]=@docusaurus/theme-common*
+```
+
+:::
+
+### Typography
 
 WindiCSS font family utilities (`font-sans`, `font-serif`, `font-mono`)
 configured fonts is quite different from the ones configured in Docusaurus. So
@@ -385,6 +394,7 @@ export default {
 Then you can use the animation utilities:
 
 ```jsx title="src/pages/index.jsx"
+// ...
 function HomepageHeader() {
   return (
     <p className="animate-animated animate-infinite animate-rubberBand">
@@ -392,6 +402,7 @@ function HomepageHeader() {
     </p>
   );
 }
+// ...
 ```
 
 ### Attributify Mode
@@ -407,6 +418,7 @@ export default {
 Then you can use the WindiCSS utilities as HTML attributes:
 
 ```jsx title="src/pages/index.jsx"
+// ...
 function HomepageHeader() {
   return (
     <button
@@ -420,6 +432,7 @@ function HomepageHeader() {
     </button>
   );
 }
+// ...
 ```
 
 ### Colors
@@ -486,6 +499,7 @@ export default {
 Then you can use Docusaurus primary colors in class:
 
 ```jsx title="src/pages/index.jsx"
+// ...
 function HomepageHeader() {
   return (
     <p className="bg-primary hover:bg-primary-dark dark:bg-dark-primary dark:hover:bg-dark-primary-dark">
@@ -493,6 +507,460 @@ function HomepageHeader() {
     </p>
   );
 }
+// ...
+```
+
+## Setup Mantine
+
+### Install dependencies
+
+```bash
+pnpm add @mantine/core @mantine/hooks @emotion/react
+```
+
+### Configure Mantine Provider
+
+In this step, we will add Mantine Provider to the `<Root>` to
+ensure that all Mantine components are using the same theme.
+
+```diff title="src/theme/Root.jsx"
++import { MantineProvider } from '@mantine/core';
+import React from 'react';
+import { QueryProvider } from '../context/QueryProvider';
+// eslint-disable-next-line import/no-unresolved
+import 'windi-components.css';
+// eslint-disable-next-line import/no-unresolved
+import 'windi-utilities.css';
+
+// Default implementation, that you can customize
+export default function Root({ children }) {
+  return (
+    <QueryProvider>
+-     <>{children}</>
++     <MantineProvider>{children}</MantineProvider>
+    </QueryProvider>
+  );
+}
+```
+
+:::note
+
+This is just a basic setup, we will use our custom `<MantineProvider>` in the
+next step.
+
+:::
+
+### Custom Mantine Provider
+
+In this file, we will configure the Mantine Provider to use the WindiCSS theme
+(colors, fonts, breakpoints, etc) and Docusaurus theme (colors, fonts, etc), so
+we can ensure the consistency between the Docusaurus site, Mantine components,
+and WindiCSS utilities.
+
+```jsx title="src/context/MantineProvider.jsx"
+import {
+  MantineProvider as BaseMantineProvider,
+  Global,
+  DEFAULT_THEME as mantineDefaultTheme,
+} from '@mantine/core';
+import React from 'react';
+import windiColors from 'windicss/colors';
+import windiDefaultTheme from 'windicss/defaultTheme';
+
+const convertBreakpoint = (breakpoint) => {
+  const convertedBreakpoint = {};
+  Object.keys(breakpoint).forEach((size) => {
+    // NOTE: Have to remove 'px' from breakpoint and convert to number
+    convertedBreakpoint[size] = breakpoint[size].replace('px', '') * 1;
+  });
+  return convertedBreakpoint;
+};
+
+const convertColor = (colors) => {
+  const convertedColor = {};
+  Object.keys(colors).forEach((color) => {
+    if (color === 'lightBlue') {
+      color = 'sky';
+    } else if (color === 'warmGray') {
+      color = 'stone';
+    } else if (color === 'trueGray') {
+      color = 'neutral';
+    } else if (color === 'coolGray') {
+      color = 'gray';
+    } else if (color === 'blueGray') {
+      color = 'slate';
+    } else if (color === 'zink') {
+      color = 'zinc';
+    }
+
+    if (colors[color] instanceof Object) {
+      convertedColor[color] = Object.values(colors[color]);
+    }
+  });
+  return convertedColor;
+};
+
+const convertFontSize = (fontSize) => {
+  const convertedFontSize = {};
+  Object.keys(fontSize).forEach((size) => {
+    // NOTE: Don't have to convert 'rem' to 'px'
+    convertedFontSize[size] = fontSize[size][0];
+  });
+  return convertedFontSize;
+};
+
+const theme = {
+  breakpoints: {
+    ...mantineDefaultTheme.breakpoints,
+    ...convertBreakpoint(windiDefaultTheme.screens), // WindiCSS
+  },
+  colors: convertColor(windiColors),
+  defaultRadius: 'md',
+  black: windiColors.black,
+  white: windiColors.white,
+  primaryColor: 'blue',
+  fontSizes: {
+    ...mantineDefaultTheme.fontSizes,
+    ...convertFontSize(windiDefaultTheme.fontSize),
+  },
+  radius: {
+    ...mantineDefaultTheme.radius,
+    // NOTE: WindiCSS border radius messed up with Mantine
+    // ...windiDefaultTheme.borderRadius,
+  },
+  fontFamily:
+    'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+  fontFamilyMonospace:
+    'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
+  headings: {
+    fontFamily:
+      'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+  },
+  lineHeight: mantineDefaultTheme.lineHeight,
+  loader: 'oval',
+  shadows: {
+    ...mantineDefaultTheme.shadows,
+    ...windiDefaultTheme.boxShadow,
+  },
+};
+
+const MyGlobalStyles = () => {
+  return (
+    <Global
+      styles={{
+        'html.dark': {
+          img: {
+            filter: 'brightness(.8) contrast(1.2)',
+          },
+        },
+      }}
+    />
+  );
+};
+
+const MantineProvider = ({ children, theme: themeProps, ...props }) => {
+  return (
+    <BaseMantineProvider theme={{ ...theme, ...themeProps }} {...props}>
+      <MyGlobalStyles />
+      {children}
+    </BaseMantineProvider>
+  );
+};
+
+export { MantineProvider };
+```
+
+Use our custom `<MantineProvider>` in `src/theme/Layout/Provider/index.jsx`:
+
+```diff title="src/theme/Layout/Provider/index.jsx"
+import { useColorMode } from '@docusaurus/theme-common';
+import Provider from '@theme-original/Layout/Provider';
+import React, { useEffect } from 'react';
++import { MantineProvider } from '../../../context/MantineProvider';
+
+const CustomProvider = ({ children }) => {
+  const { colorMode, setColorMode } = useColorMode();
+
+  useEffect(() => {
+    if (colorMode === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else if (colorMode === 'light') {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [colorMode]);
+
+- return <>{children}</>;
++ return (
++   <MantineProvider>
++     {children}
++   </MantineProvider>
++ );
+};
+
+export default function ProviderWrapper({ children, ...props }) {
+  return (
+    <Provider {...props}>
+      <CustomProvider>{children}</CustomProvider>
+    </Provider>
+  );
+}
+```
+
+## Configure Mantine
+
+### Dark Mode
+
+We will pass the color mode to Mantine using the `ColorSchemeProvider` component
+and `theme.colorScheme` props:
+
+```diff title="src/theme/Layout/Provider/index.jsx"
+import { useColorMode } from '@docusaurus/theme-common';
++import { ColorSchemeProvider } from '@mantine/core';
+import Provider from '@theme-original/Layout/Provider';
+import React, { useEffect } from 'react';
++import { MantineProvider } from '../../../context/MantineProvider';
+
+const CustomProvider = ({ children }) => {
+  const { colorMode, setColorMode } = useColorMode();
+
+  useEffect(() => {
+    if (colorMode === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else if (colorMode === 'light') {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [colorMode]);
+
++ const toggleColorScheme = (value) =>
++   setColorMode(value || (colorMode === 'dark' ? 'light' : 'dark'));
+
+- return (
+-   <MantineProvider>
+-     {children}
+-   </MantineProvider>
+- );
++ return (
++   <ColorSchemeProvider
++     colorScheme={colorMode}
++     toggleColorScheme={toggleColorScheme}
++   >
++     <MantineProvider theme={{ colorScheme: colorMode }}>
++       {children}
++     </MantineProvider>
++   </ColorSchemeProvider>
++ );
+};
+
+export default function ProviderWrapper({ children, ...props }) {
+  return (
+    <Provider {...props}>
+      <CustomProvider>{children}</CustomProvider>
+    </Provider>
+  );
+}
+```
+
+So now we can use the `useMantineColorScheme` (or `useColorMode` from
+Docusaurus) hook to get the color mode:
+
+```jsx title="src/pages/index.jsx"
+// ...
+import { Button, useMantineColorScheme } from '@mantine/core';
+
+function HomepageHeader() {
+  const { siteConfig } = useDocusaurusContext();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
+  return (
+    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      <div className="container">
+        <h1 className="hero__title">{siteConfig.title}</h1>
+        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <div className={styles.buttons}>
+          <Link
+            className="button button--secondary button--lg"
+            to="/docs/intro"
+          >
+            Docusaurus Tutorial - 5min ⏱️
+          </Link>
+        </div>
+        <Button
+          variant="outline"
+          onClick={() => toggleColorScheme()}
+          title="Toggle color scheme"
+        >
+          {dark ? 'dark' : 'light'}
+        </Button>
+      </div>
+    </header>
+  );
+}
+// ...
+```
+
+:::caution
+
+The `useMantineColorScheme` (or `useColorMode`) hook MUST be called inside the
+`Layout` component.
+
+:::
+
+### Typography
+
+We will have to convert font sizes from WindiCSS types to Mantine types, apply
+font family (from Docusaurus) and line height:
+
+For example:
+
+<table>
+<tr>
+  <th>WindiCSS sample</th>
+  <th>Mantine sample</th>
+</tr>
+<tr>
+  <td>
+
+    {
+      "xs": [
+        "0.75rem",
+        {
+          "lineHeight": "1rem"
+        }
+      ]
+    }
+
+  </td>
+  <td>
+
+    {
+      "xs": "0.75rem"
+    }
+
+  </td>
+</tr>
+</table>
+
+```jsx title="src/context/MantineProvider.jsx"
+// ...
+import { DEFAULT_THEME as mantineDefaultTheme } from '@mantine/core';
+import windiDefaultTheme from 'windicss/defaultTheme';
+
+const convertFontSize = (fontSize) => {
+  console.log('fontSize', fontSize);
+  const convertedFontSize = {};
+  Object.keys(fontSize).forEach((size) => {
+    // NOTE: Don't have to convert 'rem' to 'px'
+    convertedFontSize[size] = fontSize[size][0];
+  });
+  console.log('convertedFontSize', convertedFontSize);
+  return convertedFontSize;
+};
+
+const theme = {
+  fontSizes: {
+    ...mantineDefaultTheme.fontSizes,
+    ...convertFontSize(windiDefaultTheme.fontSize),
+  },
+  fontFamily:
+    'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+  fontFamilyMonospace:
+    'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
+  headings: {
+    fontFamily:
+      'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+  },
+  lineHeight: mantineDefaultTheme.lineHeight,
+};
+// ...
+```
+
+### Colors
+
+At this step we have to convert the WindiCSS color types to Mantine color types
+and remove unused colors.
+
+For example:
+
+<table>
+<tr>
+  <th>WindiCSS sample</th>
+  <th>Mantine sample</th>
+</tr>
+<tr>
+  <td>
+
+    {
+      "amber": {
+        "50": "#fffbeb",
+        "100": "#fef3c7",
+        "200": "#fde68a",
+        "300": "#fcd34d",
+        "400": "#fbbf24",
+        "500": "#f59e0b",
+        "600": "#d97706",
+        "700": "#b45309",
+        "800": "#92400e",
+        "900": "#78350f"
+      }
+    }
+
+  </td>
+  <td>
+
+    {
+      "amber": [
+        "#fffbeb",
+        "#fef3c7",
+        "#fde68a",
+        "#fcd34d",
+        "#fbbf24",
+        "#f59e0b",
+        "#d97706",
+        "#b45309",
+        "#92400e",
+        "#78350f"
+      ]
+    }
+
+  </td>
+</tr>
+</table>
+
+```jsx title="src/context/MantineProvider.jsx"
+// ...
+import windiColors from 'windicss/colors';
+
+const convertColor = (colors) => {
+  const convertedColor = {};
+  Object.keys(colors).forEach((color) => {
+    if (color === 'lightBlue') {
+      color = 'sky';
+    } else if (color === 'warmGray') {
+      color = 'stone';
+    } else if (color === 'trueGray') {
+      color = 'neutral';
+    } else if (color === 'coolGray') {
+      color = 'gray';
+    } else if (color === 'blueGray') {
+      color = 'slate';
+    } else if (color === 'zink') {
+      color = 'zinc';
+    }
+
+    if (colors[color] instanceof Object) {
+      convertedColor[color] = Object.values(colors[color]);
+    }
+  });
+  return convertedColor;
+};
+
+const theme = {
+  colors: convertColor(windiColors),
+  black: windiColors.black,
+  white: windiColors.white,
+  primaryColor: 'blue',
+};
+// ...
 ```
 
 ## Related Articles
