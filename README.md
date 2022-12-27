@@ -196,17 +196,17 @@ This will have three variants:
         <tr>
           <td>url</td>
           <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
         </tr>
         <tr>
           <td>title</td>
           <td>string</td>
-          <td>Title of the PDF file</td>
+          <td>Title of the PDF file.</td>
         </tr>
         <tr>
           <td>embedMode</td>
           <td>"FULL_WINDOW" | "SIZED_CONTAINER" | "IN_LINE" | "LIGHT_BOX"</td>
-          <td>Embed mode of the PDF file (Default: `FULL_WINDOW`) supported by PDF Embed API</td>
+          <td>Embed mode of the PDF file (Default: `FULL_WINDOW`) supported by PDF Embed API.</td>
         </tr>
       </table>
 
@@ -245,18 +245,20 @@ This will have three variants:
         <tr>
           <td>url</td>
           <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
         </tr>
         <tr>
           <td>title</td>
           <td>string</td>
-          <td>Title of the PDF file</td>
+          <td>Title of the PDF file.</td>
         </tr>
       </table>
 
-- `PDFViewerSimple`: Use built-in PDF viewer of the browser to display PDF
-  files. If the file is not found, it will redirect to the Docusaurus 404 page,
-  create nested layout in your page.
+- `PDFViewerSimple`: Use the built-in PDF viewer of the browser to display PDF
+  files.
+
+  > **Note**: If the file is not found, it will redirect to the Docusaurus 404
+  > page, create a nested layout on your page.
 
   - **Usage**:
 
@@ -290,12 +292,12 @@ This will have three variants:
         <tr>
           <td>url</td>
           <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
         </tr>
         <tr>
           <td>title</td>
           <td>string</td>
-          <td>Title of the PDF file</td>
+          <td>Title of the PDF file.</td>
         </tr>
       </table>
 
@@ -304,8 +306,8 @@ This will have three variants:
 `ReleaseByTimeRange` will fetch releases within a time range from GitHub API and
 display them in a dropdown menu.
 
-You will have to set GitHub token (`ghToken`), repo owner (`owner`) and repo
-name (`repo`) in the `docusaurus.config.js` file. For example:
+You will have to set the GitHub token (`ghToken`) in the `docusaurus.config.js`
+file. For example:
 
 ```js
 require('dotenv').config();
@@ -314,8 +316,6 @@ require('dotenv').config();
 const config = {
   customFields: {
     ghToken: process.env.GH_TOKEN,
-    owner: 'mantinedev',
-    repo: 'mantine',
   },
 };
 
@@ -335,7 +335,12 @@ module.exports = config;
           height: '100vh',
         }}
       >
-        <ReleaseByTimeRange from="05-12-2022" to="12-12-2022" />
+        <ReleaseByTimeRange
+          owner="mantinedev"
+          repo="mantine"
+          from="05-12-2022"
+          to="12-12-2022"
+        />
       </div>
     );
   }
@@ -349,14 +354,24 @@ module.exports = config;
       <th>Description</th>
     </tr>
     <tr>
+      <td>owner</td>
+      <td>string</td>
+      <td>The account owner of the repository. The name is not case sensitive.</td>
+    </tr>
+    <tr>
+      <td>repo</td>
+      <td>string</td>
+      <td>The name of the repository. The name is not case sensitive.</td>
+    </tr>
+    <tr>
       <td>from</td>
       <td>string</td>
-      <td>Start date of the time range. In format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object</td>
+      <td>Start date of the time range. Format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
     </tr>
     <tr>
       <td>to</td>
       <td>string</td>
-      <td>End date of the time range. In format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object</td>
+      <td>End date of the time range. Format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
     </tr>
   </table>
 
