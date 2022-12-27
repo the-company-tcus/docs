@@ -47,6 +47,7 @@
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
+  - [Screenshots](#camera-screenshots)
   - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   - [Prerequisites](#bangbang-prerequisites)
@@ -65,6 +66,14 @@
 [Docusaurus](https://docusaurus.io/) is a modern static website generator that
 helps you maintain open source documentation websites. We use Docusaurus to
 showcase our team documentation and update project progress.
+
+<!-- Screenshots -->
+
+### :camera: Screenshots
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/64480713/209646899-4c830fd4-2c18-46d2-87b6-bd0964746a0c.png" alt="screenshot" />
+</div>
 
 <!-- Env Variables -->
 
@@ -133,10 +142,20 @@ pnpm start
 
 ### :triangular_flag_on_post: Deployment
 
+### Deploying to Netlify
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/the-company-tcus/docs#GH_TOKEN=)
+
+### Deploying to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fthe-company-tcus%2Fdocs&env=GH_TOKEN&envDescription=GitHub%20personal%20access%20token%20to%20fetch%20data%20from%20GitHub%20API&envLink=https%3A%2F%2Fgithub.com%2Fthe-company-tcus%2Fdocs%23key-environment-variables&demo-title=The%20Company%20Documentation&demo-description=A%20statically%20generated%20document%20site%20for%20The%20Company&demo-url=https%3A%2F%2Fcompany-se.netlify.app%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F64480713%2F209646899-4c830fd4-2c18-46d2-87b6-bd0964746a0c.png)
+
+### Deploying to GitHub Pages
+
 To deploy this project run:
 
 ```bash
-pnpm deploy
+GIT_USER=<GITHUB_USERNAME> pnpm deploy
 ```
 
 <!-- Usage -->
