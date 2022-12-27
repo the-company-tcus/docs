@@ -16,7 +16,7 @@ tags:
 documentation websites. However, it does not support
 [WindiCSS](https://windicss.org/) out of the box.
 [Mantine](https://mantine.dev/) is a React UI library that provides a lot of UI
-components and hooks, so you can use it to build your own components.
+components and hooks, so you can use them to build your components.
 
 This guide will show you how to integrate WindiCSS and Mantine with Docusaurus.
 
@@ -134,8 +134,8 @@ creating a **wrapper** around it to import the module.
 
 :::caution
 
-You should aware that `Root` component is not mentioned whether it is **Safe**
-or **Unsafe** by running the command `pnpm swizzle`.
+You should aware that the `Root` component is not mentioned whether it is
+**Safe** or **Unsafe** by running the command `pnpm swizzle`.
 
 :::
 
@@ -225,7 +225,7 @@ export default {
 };
 ```
 
-To manually add class `dark` to the `<html>` element, we can add some logics in
+To manually add class `dark` to the `<html>` element, we can add some logic in
 the `Layout/Provider` wrapper:
 
 - Add or remove the class `dark` based on the color scheme.
@@ -260,7 +260,7 @@ export default function ProviderWrapper({ children, ...props }) {
 
 :::caution
 
-`useColorMode` hook MUST be called inside the `ProviderWrapper` component.
+The `useColorMode` hook MUST be called inside the `ProviderWrapper` component.
 That's why I have to create a separate component `CustomProvider` to wrap the
 `useColorMode` hook.
 
@@ -318,7 +318,8 @@ rendered.
 Error: "Hook useColorMode is called outside the `<ColorModeProvider>`"
 
 If you have this error and you are using `pnpm`, then you may having hoisting
-issue([#7880](https://github.com/facebook/docusaurus/issues/7880#issuecomment-1201994009)
+package issue
+([#7880](https://github.com/facebook/docusaurus/issues/7880#issuecomment-1201994009)
 and
 [#6724](https://github.com/facebook/docusaurus/issues/6724#issuecomment-1280912963)).
 You can fix it by adding the following code to the file `.npmrc`:
@@ -332,7 +333,7 @@ public-hoist-pattern[]=@docusaurus/theme-common*
 ### Typography
 
 WindiCSS font family utilities (`font-sans`, `font-serif`, `font-mono`)
-configured fonts is quite different from the ones configured in Docusaurus. So
+configured fonts are quite different from the ones configured in Docusaurus. So
 we can configure the fonts in `windi.config.js` to match with Docusaurus
 configurations:
 
@@ -808,7 +809,7 @@ The `useMantineColorScheme` (or `useColorMode`) hook MUST be called inside the
 ### Typography
 
 We will have to convert font sizes from WindiCSS types to Mantine types, apply
-font family (from Docusaurus) and line height:
+font-family (from Docusaurus) and line-height:
 
 For example:
 
@@ -876,7 +877,7 @@ const theme = {
 
 ### Colors
 
-At this step we have to convert the WindiCSS color types to Mantine color types
+At this step, we have to convert the WindiCSS color types to Mantine color types
 and remove unused colors.
 
 For example:

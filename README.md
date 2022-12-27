@@ -47,6 +47,7 @@
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
+  - [Screenshots](#camera-screenshots)
   - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   - [Prerequisites](#bangbang-prerequisites)
@@ -65,6 +66,14 @@
 [Docusaurus](https://docusaurus.io/) is a modern static website generator that
 helps you maintain open source documentation websites. We use Docusaurus to
 showcase our team documentation and update project progress.
+
+<!-- Screenshots -->
+
+### :camera: Screenshots
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/64480713/209646899-4c830fd4-2c18-46d2-87b6-bd0964746a0c.png" alt="screenshot" />
+</div>
 
 <!-- Env Variables -->
 
@@ -133,10 +142,20 @@ pnpm start
 
 ### :triangular_flag_on_post: Deployment
 
+### Deploying to Netlify
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/the-company-tcus/docs#GH_TOKEN=)
+
+### Deploying to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fthe-company-tcus%2Fdocs&env=GH_TOKEN&envDescription=GitHub%20personal%20access%20token%20to%20fetch%20data%20from%20GitHub%20API&envLink=https%3A%2F%2Fgithub.com%2Fthe-company-tcus%2Fdocs%23key-environment-variables&demo-title=The%20Company%20Documentation&demo-description=A%20statically%20generated%20document%20site%20for%20The%20Company&demo-url=https%3A%2F%2Fcompany-se.netlify.app%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F64480713%2F209646899-4c830fd4-2c18-46d2-87b6-bd0964746a0c.png)
+
+### Deploying to GitHub Pages
+
 To deploy this project run:
 
 ```bash
-pnpm deploy
+GIT_USER=<GITHUB_USERNAME> pnpm deploy
 ```
 
 <!-- Usage -->
@@ -196,17 +215,17 @@ This will have three variants:
         <tr>
           <td>url</td>
           <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
         </tr>
         <tr>
           <td>title</td>
           <td>string</td>
-          <td>Title of the PDF file</td>
+          <td>Title of the PDF file.</td>
         </tr>
         <tr>
           <td>embedMode</td>
           <td>"FULL_WINDOW" | "SIZED_CONTAINER" | "IN_LINE" | "LIGHT_BOX"</td>
-          <td>Embed mode of the PDF file (Default: `FULL_WINDOW`) supported by PDF Embed API</td>
+          <td>Embed mode of the PDF file (Default: `FULL_WINDOW`) supported by PDF Embed API.</td>
         </tr>
       </table>
 
@@ -245,18 +264,20 @@ This will have three variants:
         <tr>
           <td>url</td>
           <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
         </tr>
         <tr>
           <td>title</td>
           <td>string</td>
-          <td>Title of the PDF file</td>
+          <td>Title of the PDF file.</td>
         </tr>
       </table>
 
-- `PDFViewerSimple`: Use built-in PDF viewer of the browser to display PDF
-  files. If the file is not found, it will redirect to the Docusaurus 404 page,
-  create nested layout in your page.
+- `PDFViewerSimple`: Use the built-in PDF viewer of the browser to display PDF
+  files.
+
+  > **Note**: If the file is not found, it will redirect to the Docusaurus 404
+  > page, create a nested layout on your page.
 
   - **Usage**:
 
@@ -290,12 +311,12 @@ This will have three variants:
         <tr>
           <td>url</td>
           <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL or imported to file</td>
+          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
         </tr>
         <tr>
           <td>title</td>
           <td>string</td>
-          <td>Title of the PDF file</td>
+          <td>Title of the PDF file.</td>
         </tr>
       </table>
 
@@ -304,8 +325,8 @@ This will have three variants:
 `ReleaseByTimeRange` will fetch releases within a time range from GitHub API and
 display them in a dropdown menu.
 
-You will have to set GitHub token (`ghToken`), repo owner (`owner`) and repo
-name (`repo`) in the `docusaurus.config.js` file. For example:
+You will have to set the GitHub token (`ghToken`) in the `docusaurus.config.js`
+file. For example:
 
 ```js
 require('dotenv').config();
@@ -314,8 +335,6 @@ require('dotenv').config();
 const config = {
   customFields: {
     ghToken: process.env.GH_TOKEN,
-    owner: 'mantinedev',
-    repo: 'mantine',
   },
 };
 
@@ -335,7 +354,12 @@ module.exports = config;
           height: '100vh',
         }}
       >
-        <ReleaseByTimeRange from="05-12-2022" to="12-12-2022" />
+        <ReleaseByTimeRange
+          owner="mantinedev"
+          repo="mantine"
+          from="05-12-2022"
+          to="12-12-2022"
+        />
       </div>
     );
   }
@@ -349,14 +373,24 @@ module.exports = config;
       <th>Description</th>
     </tr>
     <tr>
+      <td>owner</td>
+      <td>string</td>
+      <td>The account owner of the repository. The name is not case sensitive.</td>
+    </tr>
+    <tr>
+      <td>repo</td>
+      <td>string</td>
+      <td>The name of the repository. The name is not case sensitive.</td>
+    </tr>
+    <tr>
       <td>from</td>
       <td>string</td>
-      <td>Start date of the time range. In format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object</td>
+      <td>Start date of the time range. Format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
     </tr>
     <tr>
       <td>to</td>
       <td>string</td>
-      <td>End date of the time range. In format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object</td>
+      <td>End date of the time range. Format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
     </tr>
   </table>
 
