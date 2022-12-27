@@ -13,7 +13,8 @@ require('dotenv').config();
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'The Company',
-  tagline: 'Dinosaurs are cool',
+  tagline:
+    'Your problems are my problems, my problems are your problems. But your tasks are your tasks.',
   url: 'https://company-se.netlify.app',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -22,8 +23,9 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'The Company', // Usually your GitHub org/user name.
+  organizationName: 'the-company-tcus', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
+  trailingSlash: false,
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -39,6 +41,8 @@ const config = {
         name: 'windicss-plugin',
         configureWebpack() {
           return {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             plugins: [new WindiCSSWebpackPlugin()],
           };
         },
@@ -55,7 +59,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/The-Company-TCUS/docs/tree/main/',
+          editUrl: 'https://github.com/the-company-tcus/docs/tree/main/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
@@ -63,7 +67,7 @@ const config = {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/The-Company-TCUS/docs/tree/main/',
+          editUrl: 'https://github.com/the-company-tcus/docs/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -76,9 +80,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'The Company',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'The Company Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -94,7 +98,7 @@ const config = {
             label: 'Release',
           },
           {
-            href: 'https://github.com/The-Company-TCUS/',
+            href: 'https://github.com/the-company-tcus/',
             label: 'GitHub',
             position: 'right',
           },
@@ -117,8 +121,6 @@ const config = {
         : 'e11a56067bc646fcbbf5b6486f14283c', // Token for localhost
 
     ghToken: process.env.GH_TOKEN,
-    owner: 'mantinedev',
-    repo: 'mantine',
   },
 };
 
