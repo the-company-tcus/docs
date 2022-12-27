@@ -21,7 +21,7 @@ import React from 'react';
 import * as runtime from 'react/jsx-runtime';
 import { useReleaseByTimeRange } from '../../hooks/useReleaseByTimeRange';
 
-const ReleaseByTimeRange = ({ from, to }) => {
+const ReleaseByTimeRange = ({ owner, repo, from, to }) => {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
@@ -29,7 +29,7 @@ const ReleaseByTimeRange = ({ from, to }) => {
 
   const { releases, isLoading } = useReleaseByTimeRange(
     octokit,
-    { owner: customFields.owner, repo: customFields.repo, perPage: 1 },
+    { owner, repo, perPage: 1 },
     from,
     to,
   );
