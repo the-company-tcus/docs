@@ -38,6 +38,9 @@ const useReleaseByTimeRange = (
         perPage,
       });
     },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
 
     getNextPageParam: (lastPage) => {
       const { url, data: lastPageData } = lastPage;
@@ -78,7 +81,17 @@ const useReleaseByTimeRange = (
   const selectedReleases = data?.pages?.flatMap((releasePage) => {
     return releasePage.data.filter((release) => {
       const releaseTime = moment(release.published_at);
-      return releaseTime.isBetween(fromTime, toTime, undefined, '[]');
+
+      if (fromTime.isValid() && toTime.isValid()) {
+        return releaseTime.isBetween(fromTime, toTime, undefined, '[]');
+      }
+      if (fromTime.isValid()) {
+        return releaseTime.isSameOrAfter(fromTime);
+      }
+      if (toTime.isValid()) {
+        return releaseTime.isSameOrBefore(toTime);
+      }
+      return true;
     });
   });
 
