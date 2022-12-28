@@ -15,7 +15,7 @@ const config = {
   title: 'The Company',
   tagline:
     'Your problems are my problems, my problems are your problems. But your tasks are your tasks.',
-  url: 'https://company-se.netlify.app',
+  url: 'https://the-company-tcus.netlify.app/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -90,7 +90,7 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Document',
+            label: 'Docs',
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
