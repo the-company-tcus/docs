@@ -1,3 +1,4 @@
+import ErrorBoundary from '@docusaurus/ErrorBoundary';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Icon } from '@iconify/react';
 import {
@@ -15,6 +16,7 @@ import {
   Tooltip,
 } from '@mantine/core';
 import { evaluateSync } from '@mdx-js/mdx';
+import Admonition from '@theme/Admonition';
 import Details from '@theme/Details';
 import moment from 'moment';
 import { Octokit } from 'octokit';
@@ -22,11 +24,15 @@ import React from 'react';
 import * as runtime from 'react/jsx-runtime';
 import { useReleaseByTimeRange } from '../../hooks/useReleaseByTimeRange';
 
-const ReleaseCard = ({ release }) => {
-  const { default: BodyContent } = evaluateSync(release.body, {
+const ReleaseBody = ({ body }) => {
+  const { default: BodyContent } = evaluateSync(body, {
     ...runtime,
   });
 
+  return <BodyContent />;
+};
+
+const ReleaseCard = ({ release }) => {
   return (
     <Group
       key={release.id}
@@ -69,7 +75,18 @@ const ReleaseCard = ({ release }) => {
       </Stack>
       <Card className="w-300">
         <Title order={1}>{release.name}</Title>
-        <BodyContent />
+        <ErrorBoundary
+          fallback={({ error }) => (
+            <>
+              <Admonition type="danger" title="Error">
+                <p>This component crashed because of error: {error.message}.</p>
+              </Admonition>
+              <Text>{release.body}</Text>
+            </>
+          )}
+        >
+          <ReleaseBody body={release.body} />
+        </ErrorBoundary>
       </Card>
     </Group>
   );
