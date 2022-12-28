@@ -12,6 +12,7 @@ import {
   Stack,
   Text,
   Title,
+  Tooltip,
 } from '@mantine/core';
 import { evaluateSync } from '@mdx-js/mdx';
 import Details from '@theme/Details';
@@ -35,9 +36,11 @@ const ReleaseCard = ({ release }) => {
       noWrap
     >
       <Stack justify="flex-start">
-        <Text className="whitespace-nowrap">
-          {moment(release.published_at).fromNow()}
-        </Text>
+        <Tooltip.Floating label={moment(release.published_at).format('lll')}>
+          <Text className="whitespace-nowrap">
+            {moment(release.published_at).fromNow()}
+          </Text>
+        </Tooltip.Floating>
         <Stack spacing="xs" className="flex-row md:flex-col">
           <Group spacing="xs">
             <Avatar src={release.author.avatar_url} size={20} />
@@ -85,6 +88,9 @@ const ReleaseByTimeRange = ({ owner, repo, from, to }) => {
     to,
   );
 
+  const fromTime = moment(from, 'MM-DD-YYYY');
+  const toTime = moment(to, 'MM-DD-YYYY');
+
   const releaseList = releases?.map((release) => {
     return <ReleaseCard key={release.id} release={release} />;
   });
@@ -98,8 +104,8 @@ const ReleaseByTimeRange = ({ owner, repo, from, to }) => {
               View releases ({owner}/{repo})
             </Text>
             <Text fs="italic" fw={700}>
-              {moment(from, 'MM-DD-YYYY').format('ll')} -{' '}
-              {moment(to, 'MM-DD-YYYY').format('ll')}
+              Time: {fromTime.isValid() && `from ${fromTime.format('ll')} `}
+              {toTime.isValid() ? `to ${toTime.format('ll')}` : 'to Current'}
             </Text>
           </Group>
         </summary>
