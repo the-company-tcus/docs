@@ -38,7 +38,7 @@ const config = {
   plugins: [
     function windicssPlugin() {
       return {
-        name: 'windicss-plugin',
+        name: 'plugin-windicss',
         configureWebpack() {
           return {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
