@@ -1,4 +1,4 @@
-import { Group, ScrollArea, Text } from '@mantine/core';
+import { Container, Group, Stack, Text } from '@mantine/core';
 import Details from '@theme/Details';
 import moment from 'moment';
 import React from 'react';
@@ -25,9 +25,11 @@ const ReleaseDropdown = ({ owner, repo, from, to }) => {
       }
       open
     >
-      <ScrollArea className="h-80 relative">
-        <ReleaseList owner={owner} repo={repo} from={from} to={to} />
-      </ScrollArea>
+      <Stack className="h-100 overflow-auto">
+        <Container className="w-full">
+          <ReleaseList owner={owner} repo={repo} from={from} to={to} />
+        </Container>
+      </Stack>
     </Details>
   );
 };

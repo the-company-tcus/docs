@@ -3,8 +3,10 @@ import { Icon } from '@iconify/react';
 import {
   Anchor,
   Avatar,
+  Badge,
   Card,
   Group,
+  Space,
   Stack,
   Text,
   Title,
@@ -24,7 +26,7 @@ const ReleaseBody = ({ body }) => {
   return <BodyContent />;
 };
 
-const ReleaseCard = ({ release }) => {
+const ReleaseCard = ({ release, latest = false }) => {
   return (
     <Group
       key={release.id}
@@ -33,7 +35,7 @@ const ReleaseCard = ({ release }) => {
       spacing="lg"
       noWrap
     >
-      <Stack justify="flex-start">
+      <Stack justify="flex-start" className="w-full md:w-1/6">
         <Tooltip.Floating label={moment(release.published_at).format('lll')}>
           <Text className="whitespace-nowrap">
             {moment(release.published_at).fromNow()}
@@ -54,19 +56,44 @@ const ReleaseCard = ({ release }) => {
           <Anchor
             underline={false}
             color="dimmed"
-            className="hover:text-blue-700"
             href={release.html_url.replace('releases/tag', 'tree')}
             target="_blank"
           >
             <Group spacing={14}>
               <Icon icon="octicon:tag-16" width={16} height={16} />
-              <Text>{release.name}</Text>
+              <Text>{release.tag_name}</Text>
             </Group>
           </Anchor>
         </Stack>
       </Stack>
-      <Card className="w-300">
-        <Title order={1}>{release.name}</Title>
+      <Card className="w-full md:max-w-3/4" withBorder>
+        <Group noWrap>
+          <Anchor href={release.html_url} target="_blank">
+            <Title order={1}>{release.name}</Title>
+          </Anchor>
+          {release.prerelease ? (
+            <Badge
+              color="yellow"
+              variant="outline"
+              size="lg"
+              className="min-w-max normal-case"
+            >
+              Pre-release
+            </Badge>
+          ) : (
+            latest && (
+              <Badge
+                color="green"
+                variant="outline"
+                size="lg"
+                className="min-w-max normal-case"
+              >
+                Latest
+              </Badge>
+            )
+          )}
+        </Group>
+        <Space h="xl" />
         <ErrorBoundary
           fallback={({ error }) => (
             <>
