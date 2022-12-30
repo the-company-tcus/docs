@@ -2,14 +2,35 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Center, Loader, Space, Title } from '@mantine/core';
 import { ReleaseCard } from '@site/src/components/elements/ReleaseCard';
 import { useReleaseByTimeRange } from '@site/src/hooks/useReleaseByTimeRange';
+import { useQuery } from '@tanstack/react-query';
 import { Octokit } from 'octokit';
 import React from 'react';
+
+const fetchLatestRelease = async (octokit, { owner, repo }) => {
+  const data = await octokit.request(
+    'GET /repos/{owner}/{repo}/releases/latest',
+    {
+      owner,
+      repo,
+    },
+  );
+
+  return data;
+};
 
 const ReleaseList = ({ owner, repo, from, to }) => {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
   const octokit = new Octokit({ auth: customFields.ghToken });
+
+  const { data: latestRelease } = useQuery({
+    queryKey: ['latest-release', octokit, { owner, repo }],
+    queryFn: () => fetchLatestRelease(octokit, { owner, repo }),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
 
   const { releases, isFetching } = useReleaseByTimeRange(
     octokit,
@@ -19,6 +40,9 @@ const ReleaseList = ({ owner, repo, from, to }) => {
   );
 
   const releaseList = releases?.map((release) => {
+    if (latestRelease.data.id === release.id) {
+      return <ReleaseCard key={release.id} release={release} latest />;
+    }
     return <ReleaseCard key={release.id} release={release} />;
   });
 
