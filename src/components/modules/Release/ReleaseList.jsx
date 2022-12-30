@@ -1,5 +1,5 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { Center, Loader, Space, Title } from '@mantine/core';
+import { Button, Center, Group, Loader, Space, Title } from '@mantine/core';
 import { ReleaseCard } from '@site/src/components/elements/ReleaseCard';
 import { useReleaseByTimeRange } from '@site/src/hooks/useReleaseByTimeRange';
 import { useQuery } from '@tanstack/react-query';
@@ -24,7 +24,11 @@ const ReleaseList = ({ owner, repo, from, to }) => {
   } = useDocusaurusContext();
   const octokit = new Octokit({ auth: customFields.ghToken });
 
-  const { data: latestRelease } = useQuery({
+  const {
+    data: latestRelease,
+    refetch: refetchLatestRelease,
+    isFetching: isFetchingLatestRelease,
+  } = useQuery({
     queryKey: ['latest-release', octokit, { owner, repo }],
     queryFn: () => fetchLatestRelease(octokit, { owner, repo }),
     refetchOnMount: false,
@@ -32,12 +36,11 @@ const ReleaseList = ({ owner, repo, from, to }) => {
     refetchOnReconnect: false,
   });
 
-  const { releases, isFetching } = useReleaseByTimeRange(
-    octokit,
-    { owner, repo, perPage: 100 },
-    from,
-    to,
-  );
+  const {
+    releases,
+    isFetching: isFetchingReleases,
+    refetch: refetchReleases,
+  } = useReleaseByTimeRange(octokit, { owner, repo, perPage: 100 }, from, to);
 
   const releaseList = releases?.map((release) => {
     if (latestRelease.data.id === release.id) {
@@ -48,12 +51,23 @@ const ReleaseList = ({ owner, repo, from, to }) => {
 
   return (
     <>
-      <Title order={2}>{`${
-        releases?.length || 'No'
-      } version(s) released`}</Title>
+      <Group position="apart">
+        <Title order={2}>{`${
+          releases?.length || 'No'
+        } version(s) released`}</Title>
+        <Button
+          onClick={() => {
+            refetchLatestRelease();
+            refetchReleases();
+          }}
+          loading={isFetchingLatestRelease || isFetchingReleases}
+        >
+          Refresh
+        </Button>
+      </Group>
       <Space h="md" />
       {releaseList}
-      {isFetching && (
+      {isFetchingReleases && (
         <Center className="w-full" my="md">
           <Loader size="md" />
         </Center>

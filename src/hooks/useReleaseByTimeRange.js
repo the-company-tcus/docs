@@ -27,54 +27,55 @@ const useReleaseByTimeRange = (
   if (toTime.isBefore(fromTime)) {
     throw new Error('From date is greater than to date');
   }
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
-    queryKey: ['releases'],
-    // NOTE: `page` will be used as starting page
-    queryFn: ({ pageParam = page }) => {
-      return fetchReleases(octokit, {
-        owner,
-        repo,
-        page: pageParam,
-        perPage,
-      });
-    },
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+  const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
+    useInfiniteQuery({
+      queryKey: ['releases'],
+      // NOTE: `page` will be used as starting page
+      queryFn: ({ pageParam = page }) => {
+        return fetchReleases(octokit, {
+          owner,
+          repo,
+          page: pageParam,
+          perPage,
+        });
+      },
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
 
-    getNextPageParam: (lastPage) => {
-      const { url, data: lastPageData } = lastPage;
+      getNextPageParam: (lastPage) => {
+        const { url, data: lastPageData } = lastPage;
 
-      // Ref: https://stackoverflow.com/a/901144/12512981
-      const params = new Proxy(new URLSearchParams(new URL(url).search), {
-        get: (searchParams, prop) => searchParams.get(prop),
-      });
+        // Ref: https://stackoverflow.com/a/901144/12512981
+        const params = new Proxy(new URLSearchParams(new URL(url).search), {
+          get: (searchParams, prop) => searchParams.get(prop),
+        });
 
-      const prevPage = params.page;
+        const prevPage = params.page;
 
-      if (lastPageData.length === 0) {
-        return undefined;
-      }
+        if (lastPageData.length === 0) {
+          return undefined;
+        }
 
-      const lastReleaseTime = moment(
-        lastPageData[lastPageData.length - 1].published_at,
-      );
+        const lastReleaseTime = moment(
+          lastPageData[lastPageData.length - 1].published_at,
+        );
 
-      // NOTE: We have to check if the last release is before the from time to
-      // stop fetching the next page
-      if (lastReleaseTime.isBefore(fromTime)) {
-        return undefined;
-      }
+        // NOTE: We have to check if the last release is before the from time to
+        // stop fetching the next page
+        if (lastReleaseTime.isBefore(fromTime)) {
+          return undefined;
+        }
 
-      return +prevPage + 1;
-    },
+        return +prevPage + 1;
+      },
 
-    onSuccess: () => {
-      if (hasNextPage !== false) {
-        fetchNextPage();
-      }
-    },
-  });
+      onSuccess: () => {
+        if (hasNextPage !== false) {
+          fetchNextPage();
+        }
+      },
+    });
 
   // NOTE: You will see a "redundant" render here because we have to fetch the
   // next page then check if it's finished
@@ -98,6 +99,7 @@ const useReleaseByTimeRange = (
   return {
     releases: selectedReleases,
     isFetching,
+    refetch,
   };
 };
 
