@@ -6,10 +6,11 @@ import { Icon } from '@iconify/react';
 import { Button, Stack, Title } from '@mantine/core';
 import React, { useEffect, useId, useState } from 'react';
 
-function previewFile(url, title, embedMode, clientId, divId = 'adobe-dc-view') {
+function previewFile(url, title, clientId, options) {
+  const { embedMode, divId = 'adobe-dc-view' } = options;
   // eslint-disable-next-line no-undef
   const adobeDCView = new AdobeDC.View({
-    // NOTE: ClientID token is defined in docuaurus.config.js
+    // NOTE: ClientID token is defined in docusaurus.config.js
     clientId,
     divId,
   });
@@ -61,7 +62,7 @@ function PDFViewerWrapper({ children }) {
   );
 }
 
-function PDFViewer({ url, title, embedMode = 'FULL_WINDOW' }) {
+function PDFViewer({ url, title = 'Untitled', embedMode = 'FULL_WINDOW' }) {
   const divId = useId();
   const {
     siteConfig: { customFields },
@@ -69,7 +70,7 @@ function PDFViewer({ url, title, embedMode = 'FULL_WINDOW' }) {
 
   useEffect(() => {
     const handleLoad = () => {
-      previewFile(url, title, embedMode, customFields.clientId, divId);
+      previewFile(url, title, customFields.clientId, { embedMode, divId });
     };
 
     document.addEventListener('adobe_dc_view_sdk.ready', handleLoad);
@@ -90,7 +91,7 @@ function PDFViewer({ url, title, embedMode = 'FULL_WINDOW' }) {
   );
 }
 
-function PDFViewerSimple({ url, title }) {
+function PDFViewerSimple({ url, title = 'Untitled' }) {
   return (
     <iframe
       title={title}
@@ -100,7 +101,7 @@ function PDFViewerSimple({ url, title }) {
   );
 }
 
-function PDFViewerButton({ url, title }) {
+function PDFViewerButton({ url, title = 'Untitled' }) {
   const [isReady, setIsReady] = useState(false);
   const divId = useId();
   const {
@@ -134,7 +135,10 @@ function PDFViewerButton({ url, title }) {
         }
         disabled={!isReady}
         onClick={() => {
-          previewFile(url, title, 'LIGHT_BOX', customFields.clientId, divId);
+          previewFile(url, title, customFields.clientId, {
+            embedMode: 'LIGHT_BOX',
+            divId,
+          });
         }}
       >
         View PDF
