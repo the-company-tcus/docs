@@ -59,6 +59,12 @@ const config = {
             exact: false, // this is needed for sub-routes to match!
             component: '@site/src/components/layouts/ReleaseLayout/index.jsx',
           },
+          {
+            // using Route schema from react-router
+            path: '/pdf-viewer',
+            exact: false, // this is needed for sub-routes to match!
+            component: '@site/src/components/layouts/PDFViewerLayout/index.jsx',
+          },
         ],
       },
     ],
