@@ -1,9 +1,8 @@
-import BrowserOnly from '@docusaurus/BrowserOnly';
-import ErrorBoundary from '@docusaurus/ErrorBoundary';
 import Head from '@docusaurus/Head';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Icon } from '@iconify/react';
-import { Button, Stack, Title } from '@mantine/core';
+import { Button } from '@mantine/core';
+import ErrorPageContent from '@theme/ErrorPageContent';
 import React, { useEffect, useId, useState } from 'react';
 
 function previewFile(url, title, clientId, options) {
@@ -41,28 +40,8 @@ function previewFile(url, title, clientId, options) {
   );
 }
 
-function PDFViewerWrapper({ children }) {
-  return (
-    <BrowserOnly>
-      {() => {
-        return (
-          <ErrorBoundary
-            fallback={({ tryAgain }) => (
-              <Stack align="center">
-                <Title order={1}>This component crashed</Title>
-                <Button onClick={tryAgain}>Try Again!</Button>
-              </Stack>
-            )}
-          >
-            {children}
-          </ErrorBoundary>
-        );
-      }}
-    </BrowserOnly>
-  );
-}
-
 function PDFViewer({ url, title = 'Untitled', embedMode = 'FULL_WINDOW' }) {
+  const [error, setError] = useState(null);
   const divId = useId();
   const {
     siteConfig: { customFields },
@@ -70,7 +49,11 @@ function PDFViewer({ url, title = 'Untitled', embedMode = 'FULL_WINDOW' }) {
 
   useEffect(() => {
     const handleLoad = () => {
-      previewFile(url, title, customFields.clientId, { embedMode, divId });
+      try {
+        previewFile(url, title, customFields.clientId, { embedMode, divId });
+      } catch (err) {
+        setError(new Error(err));
+      }
     };
 
     document.addEventListener('adobe_dc_view_sdk.ready', handleLoad);
@@ -80,14 +63,18 @@ function PDFViewer({ url, title = 'Untitled', embedMode = 'FULL_WINDOW' }) {
     };
   }, []);
 
+  if (error) {
+    return <ErrorPageContent error={error} />;
+  }
+
   return (
-    <PDFViewerWrapper>
+    <>
       <Head>
         <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
       </Head>
 
       <div id={divId} style={{ height: '100%', width: '100%' }} />
-    </PDFViewerWrapper>
+    </>
   );
 }
 
@@ -102,6 +89,7 @@ function PDFViewerSimple({ url, title = 'Untitled' }) {
 }
 
 function PDFViewerButton({ url, title = 'Untitled' }) {
+  const [error, setError] = useState(null);
   const [isReady, setIsReady] = useState(false);
   const divId = useId();
   const {
@@ -120,8 +108,12 @@ function PDFViewerButton({ url, title = 'Untitled' }) {
     };
   }, []);
 
+  if (error) {
+    return <ErrorPageContent error={error} />;
+  }
+
   return (
-    <PDFViewerWrapper>
+    <>
       <Head>
         <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
       </Head>
@@ -135,15 +127,19 @@ function PDFViewerButton({ url, title = 'Untitled' }) {
         }
         disabled={!isReady}
         onClick={() => {
-          previewFile(url, title, customFields.clientId, {
-            embedMode: 'LIGHT_BOX',
-            divId,
-          });
+          try {
+            previewFile(url, title, customFields.clientId, {
+              embedMode: 'LIGHT_BOX',
+              divId,
+            });
+          } catch (err) {
+            setError(err);
+          }
         }}
       >
         View PDF
       </Button>
-    </PDFViewerWrapper>
+    </>
   );
 }
 
