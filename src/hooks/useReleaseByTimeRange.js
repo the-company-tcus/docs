@@ -1,6 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import moment from 'moment';
-import { useRef } from 'react';
 
 const fetchReleases = async (
   octokit,
@@ -28,66 +27,79 @@ const useReleaseByTimeRange = (
   if (toTime.isBefore(fromTime)) {
     throw new Error('From date is greater than to date');
   }
-  const isFetchFinished = useRef(false);
+  const { data, fetchNextPage, hasNextPage, isFetching, refetch } =
+    useInfiniteQuery({
+      queryKey: ['releases'],
+      // NOTE: `page` will be used as starting page
+      queryFn: ({ pageParam = page }) => {
+        return fetchReleases(octokit, {
+          owner,
+          repo,
+          page: pageParam,
+          perPage,
+        });
+      },
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
 
-  const { data, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['releases'],
-    // NOTE: `page` will be used as starting page
-    queryFn: ({ pageParam = page }) => {
-      return fetchReleases(octokit, {
-        owner,
-        repo,
-        page: pageParam,
-        perPage,
-      });
-    },
+      getNextPageParam: (lastPage) => {
+        const { url, data: lastPageData } = lastPage;
 
-    getNextPageParam: (lastPage) => {
-      const { url, data: lastPageData } = lastPage;
+        // Ref: https://stackoverflow.com/a/901144/12512981
+        const params = new Proxy(new URLSearchParams(new URL(url).search), {
+          get: (searchParams, prop) => searchParams.get(prop),
+        });
 
-      const params = new Proxy(new URLSearchParams(new URL(url).search), {
-        get: (searchParams, prop) => searchParams.get(prop),
-      });
+        const prevPage = params.page;
 
-      const prevPage = params.page;
+        if (lastPageData.length === 0) {
+          return undefined;
+        }
 
-      if (lastPageData.length === 0) {
-        isFetchFinished.current = true;
-        return undefined;
-      }
+        const lastReleaseTime = moment(
+          lastPageData[lastPageData.length - 1].published_at,
+        );
 
-      const lastReleaseTime = moment(
-        lastPageData[lastPageData.length - 1].published_at,
-      );
+        // NOTE: We have to check if the last release is before the from time to
+        // stop fetching the next page
+        if (lastReleaseTime.isBefore(fromTime)) {
+          return undefined;
+        }
 
-      if (lastReleaseTime.isBefore(fromTime)) {
-        isFetchFinished.current = true;
-        return undefined;
-      }
+        return +prevPage + 1;
+      },
 
-      return +prevPage + 1;
-    },
-
-    onSuccess: () => {
-      // NOTE: hasNextPage is not updated yet
-      if (!isFetchFinished.current) {
-        fetchNextPage();
-      }
-    },
-  });
+      onSuccess: () => {
+        if (hasNextPage !== false) {
+          fetchNextPage();
+        }
+      },
+    });
 
   // NOTE: You will see a "redundant" render here because we have to fetch the
   // next page then check if it's finished
   const selectedReleases = data?.pages?.flatMap((releasePage) => {
     return releasePage.data.filter((release) => {
       const releaseTime = moment(release.published_at);
-      return releaseTime.isBetween(fromTime, toTime, undefined, '[]');
+
+      if (fromTime.isValid() && toTime.isValid()) {
+        return releaseTime.isBetween(fromTime, toTime, undefined, '[]');
+      }
+      if (fromTime.isValid()) {
+        return releaseTime.isSameOrAfter(fromTime);
+      }
+      if (toTime.isValid()) {
+        return releaseTime.isSameOrBefore(toTime);
+      }
+      return true;
     });
   });
 
   return {
     releases: selectedReleases,
-    isLoading: !isFetchFinished.current,
+    isFetching,
+    refetch,
   };
 };
 

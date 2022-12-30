@@ -15,7 +15,7 @@ const config = {
   title: 'The Company',
   tagline:
     'Your problems are my problems, my problems are your problems. But your tasks are your tasks.',
-  url: 'https://company-se.netlify.app',
+  url: 'https://the-company-tcus.netlify.app/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -38,7 +38,7 @@ const config = {
   plugins: [
     function windicssPlugin() {
       return {
-        name: 'windicss-plugin',
+        name: 'plugin-windicss',
         configureWebpack() {
           return {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -48,6 +48,20 @@ const config = {
         },
       };
     },
+
+    [
+      './src/plugins/plugin-dynamic-route/index.js',
+      {
+        routes: [
+          {
+            // using Route schema from react-router
+            path: '/releases',
+            exact: false, // this is needed for sub-routes to match!
+            component: '@site/src/components/layouts/ReleaseLayout/index.jsx',
+          },
+        ],
+      },
+    ],
   ],
 
   presets: [
@@ -90,11 +104,11 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Document',
+            label: 'Docs',
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
-            to: '/release',
+            to: '/releases',
             label: 'Release',
           },
           {
@@ -111,6 +125,11 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
       },
     }),
 

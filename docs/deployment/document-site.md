@@ -81,7 +81,7 @@ name` to your own site name (configured in `docusaurus.config.js`).
 
 Your site should be deployed and available at the URL specified in the `url`:
 
-![netlify-demo](https://user-images.githubusercontent.com/64480713/209609984-2132caf7-22f7-4e2c-bd59-693955280dc6.png)
+![netlify-demo](https://user-images.githubusercontent.com/64480713/209820269-92fbc170-f3a8-4596-8828-5deac5b13b73.png)
 
 ## Deploying to Vercel
 
@@ -115,7 +115,7 @@ in `docusaurus.config.js`:
 Click `Save` and your site should be deployed and available at the URL
 specified:
 
-![vercel-demo](https://user-images.githubusercontent.com/64480713/209610969-277011ed-7c0d-43ab-bd6b-56ae61167310.png)
+![vercel-demo](https://user-images.githubusercontent.com/64480713/209820948-159ae08a-5361-4c38-a4cb-6b75f9f842ad.png)
 
 ## Deploying to Render
 
@@ -144,7 +144,7 @@ While you set up the site, specify the build commands and directories as follows
 
 Click `Create Static Site` and your site should be deployed:
 
-![render-demo](https://user-images.githubusercontent.com/64480713/209611856-ab1e4cd3-9c46-46bb-8d84-2bfd86669501.png)
+![render-demo](https://user-images.githubusercontent.com/64480713/209821454-050b5774-ffc2-4619-881e-1ae54f12b4e5.png)
 
 ## Deploying to GitHub Pages
 
@@ -188,4 +188,4 @@ For automated deployment, you can use GitHub Actions, following the steps in the
 
 And your site should be deployed properly:
 
-![gh-pages-demo](https://user-images.githubusercontent.com/64480713/209614909-04da505a-efce-419f-8e29-bc291eb5f2cf.png)
+![gh-pages-demo](https://user-images.githubusercontent.com/64480713/209821670-9bd280d2-cf55-4420-b342-dd05e2b7c6a5.png)

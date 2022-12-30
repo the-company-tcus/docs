@@ -158,6 +158,12 @@ To deploy this project run:
 GIT_USER=<GITHUB_USERNAME> pnpm deploy
 ```
 
+> **Warning**: You have to change the `baseUrl` in `docusaurus.config.js` to
+> `docs/` before deploying to GitHub Pages.
+
+For more information, check out the doc [Document Site
+Deployment](./docs//deployment/document-site.md).
+
 <!-- Usage -->
 
 ## :eyes: Usage
@@ -166,7 +172,7 @@ GIT_USER=<GITHUB_USERNAME> pnpm deploy
 
 ### :package: Components
 
-#### PDFViewer
+#### PDFViewer component
 
 This component is used to display PDF files.
 
@@ -320,7 +326,7 @@ This will have three variants:
         </tr>
       </table>
 
-#### ReleaseByTimeRange
+#### ReleaseByTimeRange component
 
 `ReleaseByTimeRange` will fetch releases within a time range from GitHub API and
 display them in a dropdown menu.
