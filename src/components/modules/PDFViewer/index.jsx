@@ -5,6 +5,15 @@ import { Button } from '@mantine/core';
 import ErrorPageContent from '@theme/ErrorPageContent';
 import React, { useEffect, useId, useState } from 'react';
 
+function detectFileNameFromURL(url) {
+  try {
+    const fileName = decodeURIComponent(url).split('/').pop();
+    return fileName;
+  } catch (err) {
+    return 'Untitled';
+  }
+}
+
 function previewFile(url, title, clientId, options) {
   const { embedMode, divId = 'adobe-dc-view' } = options;
   // eslint-disable-next-line no-undef
@@ -40,12 +49,21 @@ function previewFile(url, title, clientId, options) {
   );
 }
 
-function PDFViewer({ url, title = 'Untitled', embedMode = 'FULL_WINDOW' }) {
+function PDFViewer({
+  url,
+  title = 'Untitled',
+  embedMode = 'FULL_WINDOW',
+  detectFileName,
+}) {
   const [error, setError] = useState(null);
   const divId = useId();
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
+
+  if (detectFileName) {
+    title = detectFileNameFromURL(url);
+  }
 
   useEffect(() => {
     const handleLoad = () => {
@@ -78,7 +96,10 @@ function PDFViewer({ url, title = 'Untitled', embedMode = 'FULL_WINDOW' }) {
   );
 }
 
-function PDFViewerSimple({ url, title = 'Untitled' }) {
+function PDFViewerSimple({ url, title = 'Untitled', detectFileName }) {
+  if (detectFileName) {
+    title = detectFileNameFromURL(url);
+  }
   return (
     <iframe
       title={title}
@@ -88,13 +109,17 @@ function PDFViewerSimple({ url, title = 'Untitled' }) {
   );
 }
 
-function PDFViewerButton({ url, title = 'Untitled' }) {
+function PDFViewerButton({ url, title = 'Untitled', detectFileName }) {
   const [error, setError] = useState(null);
   const [isReady, setIsReady] = useState(false);
   const divId = useId();
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
+
+  if (detectFileName) {
+    title = detectFileNameFromURL(url);
+  }
 
   useEffect(() => {
     const handleLoad = () => {
