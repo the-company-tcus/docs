@@ -68,7 +68,6 @@ const config = {
         ],
       },
     ],
-    './src/plugins/plugin-cursor-effects/index.js',
   ],
 
   presets: [
