@@ -37,13 +37,13 @@ configured git hooks:
 
 - `commit-msg`:
 
-- Validate the project state or commit message before allowing a commit to go
-  through.
+  - Validate the project state or commit message before allowing a commit to go
+    through.
 
-- Each commit will be linted using [commitlint](https://commitlint.js.org/#/) to
-  ensure the commit message follow [Conventional Commits
-  1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) and have the correct
-  format.
+  - Each commit will be linted using [commitlint](https://commitlint.js.org/#/) to
+    ensure the commit message follow [Conventional Commits
+    1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) and have the correct
+    format.
 
 ## Bypass Hooks
 
