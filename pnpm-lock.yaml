@@ -18,6 +18,7 @@ specifiers:
   '@typescript-eslint/parser': 5.47.0
   clsx: 1.2.1
   commitizen: 4.2.6
+  cursor-effects: 1.0.8
   dotenv: 16.0.3
   eslint: 8.30.0
   eslint-config-airbnb-base: 15.0.0
@@ -66,6 +67,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 5.47.0_ncmi6noazr3nzas7jxykisekym
   '@typescript-eslint/parser': 5.47.0_lzzuuodtsqwxnvqeq4g4likcqa
   commitizen: 4.2.6
+  cursor-effects: 1.0.8
   eslint: 8.30.0
   eslint-config-airbnb-base: 15.0.0_2lbwmhbr7bncddqbzzpg77o75m
   eslint-config-prettier: 8.5.0_eslint@8.30.0
@@ -5569,6 +5571,10 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+
+  /cursor-effects/1.0.8:
+    resolution: {integrity: sha512-LdQ3gPZqrTZERCCWNMuvkZbxztik+90aGitXPIEjy23XHNQPISqsuijUwZlb2/KeXaXAJ2RcOAf2OVcVDU7gWA==}
+    dev: true
 
   /cz-conventional-changelog/3.3.0:
     resolution: {integrity: sha512-U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==}

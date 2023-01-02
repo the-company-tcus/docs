@@ -122,6 +122,78 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
+          {
+            type: 'custom-cursor-effect-dropdown-navbar-item',
+            position: 'right',
+            label: '',
+            // For more info about options, see:
+            // https://github.com/tholman/cursor-effects
+            items: [
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🗿 Default',
+                cursorType: 'defaultCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🌈 Rainbow',
+                cursorType: 'rainbowCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '💧 Bubble',
+                cursorType: 'bubbleCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '⏰ Clock',
+                cursorType: 'clockCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🦄 Emoji',
+                cursorType: 'emojiCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🧚 Fairy Dust',
+                cursorType: 'fairyDustCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '⚫️ Dot',
+                cursorType: 'followingDotCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '👻 Ghost',
+                cursorType: 'ghostCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '❄️ Snowflake',
+                cursorType: 'snowflakeCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🪗 Springy Emoji',
+                cursorType: 'springyEmojiCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🚩 Text Flag',
+                cursorType: 'textFlag',
+                options: {
+                  text: 'Welcome',
+                },
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '👣 Trailing',
+                cursorType: 'trailingCursor',
+              },
+            ],
+          },
         ],
       },
       footer: {
