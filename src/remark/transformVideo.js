@@ -86,6 +86,8 @@ function plugin(options) {
         node.type = 'html';
         node.value = newValue;
         node.children = [];
+        delete node.url;
+        delete node.title;
       }
     });
   }
