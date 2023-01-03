@@ -5,6 +5,7 @@
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
+const transformVideo = require('./src/remark/transformVideo');
 
 require('dotenv').config();
 
@@ -80,6 +81,9 @@ const config = {
           editUrl: 'https://github.com/the-company-tcus/docs/tree/main/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
+          beforeDefaultRemarkPlugins: [
+            [transformVideo, { patterns: ['youtube.com'] }],
+          ],
         },
         blog: {
           showReadingTime: true,
