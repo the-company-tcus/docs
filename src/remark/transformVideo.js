@@ -37,15 +37,18 @@ function checkPatterns(patterns, url) {
 }
 
 function plugin(options) {
-  const { patterns: customPatterns = [] } = options;
+  let patterns = [...DEFAULT_PATTERN];
 
-  if (Array.isArray(customPatterns) === false) {
-    throw new Error(
-      'remark-plugin-transform-video: Patterns should be an array',
-    );
+  if (options) {
+    const { patterns: customPatterns = [] } = options;
+    if (Array.isArray(customPatterns) === false) {
+      throw new Error(
+        'remark-plugin-transform-video: Patterns should be an array',
+      );
+    }
+
+    patterns = [...DEFAULT_PATTERN, ...customPatterns];
   }
-
-  const patterns = [...customPatterns, ...DEFAULT_PATTERN];
 
   // NOTE: Create function inside the plugin to access options
   async function transformer(tree) {
