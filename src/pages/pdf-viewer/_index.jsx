@@ -1,3 +1,4 @@
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import { Center } from '@mantine/core';
 import {
   PDFViewer,
@@ -14,10 +15,12 @@ const PDFViewerPage = () => {
   const title = query.get('title') || 'Untitled';
   const embedMode = query.get('embedMode') || 'FULL_WINDOW';
 
+  // NOTE: MUST be rendered in browser only, to prevent SSR errors: divId is not
+  // rendered, classnames are not rendered, inline styles overridden, etc.
   return (
-    <>
-      {
-        {
+    <BrowserOnly>
+      {() => {
+        return {
           LIGHT_BOX: (
             <Center className="h-screen">
               <PDFViewerButton url={url} title={title} />
@@ -34,9 +37,9 @@ const PDFViewerPage = () => {
             </div>
           ),
           IN_LINE: <PDFViewer url={url} title={title} embedMode="IN_LINE" />,
-        }[embedMode]
-      }
-    </>
+        }[embedMode];
+      }}
+    </BrowserOnly>
   );
 };
 
