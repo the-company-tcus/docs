@@ -7,6 +7,7 @@ import React, { useEffect, useId, useState } from 'react';
 
 function detectFileNameFromURL(url) {
   try {
+    // url should be a component of the URL (query), not the entire URL
     const fileName = decodeURIComponent(url).split('/').pop();
     return fileName;
   } catch (err) {
