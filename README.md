@@ -48,6 +48,9 @@
 
 - [About the Project](#star2-about-the-project)
   - [Screenshots](#camera-screenshots)
+  - [Tech Stack](#space_invader-tech-stack)
+  - [Features](#dart-features)
+  - [Color Reference](#art-color-reference)
   - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   - [Prerequisites](#bangbang-prerequisites)
@@ -74,6 +77,119 @@ showcase our team documentation and update project progress.
 <div align="center">
   <img src="https://user-images.githubusercontent.com/64480713/209646899-4c830fd4-2c18-46d2-87b6-bd0964746a0c.png" alt="screenshot" />
 </div>
+
+<!-- TechStack -->
+
+### :space_invader: Tech Stack
+
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://windicss.org/">WindiCSS</a></li>
+    <li><a href="https://tanstack.com/query/v4">TanStack Query</a></li>
+    <li><a href="https://v5.reactrouter.com/">React Router v5</a></li>
+    <li><a href="https://docusaurus.io/">Docusaurus v2</a></li>
+    <li><a href="https://mantine.dev/">Mantine</a></li>
+
+  </ul>
+</details>
+
+<details>
+  <summary>Server</summary>
+  <ul>
+    <li><a href="https://docusaurus.io/">Docusaurus v2</a></li>
+  </ul>
+</details>
+
+<!-- Features -->
+
+### :dart: Features
+
+- PDF viewer.
+- GitHub release viewer.
+- Dynamic routes (pdf viewer, release viewer).
+- Custom navbar (cursor-effect button).
+
+<!-- Color Reference -->
+
+### :art: Color Reference
+
+> These colors are defined in the `src/css/custom.css` file when bootstrapping a
+> new project.
+
+- **Light theme**:
+
+| Color                               | Hex                                                                      | CSS variable                          | WindiCSS utility (custom)\* |
+| ----------------------------------- | ------------------------------------------------------------------------ | ------------------------------------- | --------------------------- |
+| primary                             | ![#2E8555](https://placehold.jp/2E8555/2E8555/10x10.png) #2E8555         | --ifm-color-primary                   | primary                     |
+| primary dark                        | ![#29784C](https://placehold.jp/29784C/29784C/10x10.png) #29784C         | --ifm-color-primary-dark              | primary-dark                |
+| primary darker                      | ![#277148](https://placehold.jp/277148/277148/10x10.png) #277148         | --ifm-color-primary-darker            | primary-darker              |
+| primary darkest                     | ![#205D3B](https://placehold.jp/205D3B/205D3B/10x10.png) #205D3B         | --ifm-color-primary-darkest           | primary-darkest             |
+| primary light                       | ![#33925D](https://placehold.jp/33925D/33925D/10x10.png) #33925D         | --ifm-color-primary-light             | primary-light               |
+| primary lighter                     | ![#359962](https://placehold.jp/359962/359962/10x10.png) #359962         | --ifm-color-primary-lighter           | primary-lighter             |
+| primary lightest                    | ![#3CAD6E](https://placehold.jp/3CAD6E/3CAD6E/10x10.png) #3CAD6E         | --ifm-color-primary-lightest          | primary-lightest            |
+| docusaurus-highlighted-code-line-bg | ![#0000001A](https://placehold.jp/0000001A/0000001A/10x10.png) #0000001A | --docusaurus-highlighted-code-line-bg | Not set                     |
+
+- **Dark theme**:
+
+| Color                               | Hex                                                                      | CSS variable (\[data-theme='dark'\])\*\* | WindiCSS utility (custom)\* |
+| ----------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------- | --------------------------- |
+| primary                             | ![#25C2A0](https://placehold.jp/25C2A0/25C2A0/10x10.png) #25C2A0         | --ifm-color-primary                      | dark-primary                |
+| primary dark                        | ![#21AF90](https://placehold.jp/21AF90/21AF90/10x10.png) #21AF90         | --ifm-color-primary-dark                 | dark-primary-dark           |
+| primary darker                      | ![#1FA588](https://placehold.jp/1FA588/1FA588/10x10.png) #1FA588         | --ifm-color-primary-darker               | dark-primary-darker         |
+| primary darkest                     | ![#1A8870](https://placehold.jp/1A8870/1A8870/10x10.png) #1A8870         | --ifm-color-primary-darkest              | dark-primary-darkest        |
+| primary light                       | ![#29D5B0](https://placehold.jp/29D5B0/29D5B0/10x10.png) #29D5B0         | --ifm-color-primary-light                | dark-primary-light          |
+| primary lighter                     | ![#32D8B4](https://placehold.jp/32D8B4/32D8B4/10x10.png) #32D8B4         | --ifm-color-primary-lighter              | dark-primary-lighter        |
+| primary lightest                    | ![#4FDDBF](https://placehold.jp/4FDDBF/4FDDBF/10x10.png) #4FDDBF         | --ifm-color-primary-lightest             | dark-primary-lightest       |
+| docusaurus-highlighted-code-line-bg | ![#0000004D](https://placehold.jp/0000004D/0000004D/10x10.png) #0000004D | --docusaurus-highlighted-code-line-bg    | Not set                     |
+
+\*: These are not default WindiCSS utilities. It is defined in `windi.config.js`.
+See example configuration below.
+
+\*\*: These variables applies to selector `[data-theme='dark']` only.
+
+- WindiCSS colors:
+
+You can style your components with WindiCSS colors. See color reference at
+[WindiCSS color utility](https://windicss.org/utilities/general/colors.html).
+
+---
+
+<details>
+<summary>Configure WindiCSS colors</summary>
+
+```js
+// windi.config.js
+export default {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#2e8555',
+          dark: '#29784c',
+          darker: '#277148',
+          darkest: '#205d3b',
+          light: '#33925d',
+          lighter: '#359962',
+          lightest: '#3cad6e',
+        },
+        'dark-primary': {
+          DEFAULT: '#25c2a0',
+          dark: '#21af90',
+          darker: '#1fa588',
+          darkest: '#1a8870',
+          light: '#29d5b0',
+          lighter: '#32d8b4',
+          lightest: '#4fddbf',
+        },
+      },
+    },
+  },
+};
+```
+
+</details>
 
 <!-- Env Variables -->
 
