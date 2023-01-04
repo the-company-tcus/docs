@@ -74,9 +74,27 @@ showcase our team documentation and update project progress.
 
 ### :camera: Screenshots
 
+- Home page:
+
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/64480713/209646899-4c830fd4-2c18-46d2-87b6-bd0964746a0c.png" alt="screenshot" />
+  <img src="https://user-images.githubusercontent.com/64480713/210539148-70cf8981-7891-456a-beac-16ae1eb499a4.png" alt="screenshot" />
 </div>
+
+- Release viewer:
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/64480713/210564500-5f9463df-041e-4b51-8d1d-3fb789e8740d.png" alt="screenshot" />
+</div>
+
+Demo: https://the-company-tcus.netlify.app/releases/view/nocodb/nocodb?from=11-30-2022&to=01-04-2023
+
+- PDF viewer:
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/64480713/210540121-2b8a89d9-f600-431b-9a3b-b199fb6e0239.png" alt="screenshot" />
+</div>
+
+Demo: https://the-company-tcus.netlify.app/pdf-viewer?url=https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf&title=Bodea%20Brochure&embedMode=FULL_WINDOW
 
 <!-- TechStack -->
 
