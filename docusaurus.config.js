@@ -5,7 +5,7 @@
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
-const transformVideo = require('./src/remark/transformVideo');
+// const transformVideo = require('./src/remark/transformVideo');
 
 require('dotenv').config();
 
@@ -82,7 +82,7 @@ const config = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           beforeDefaultRemarkPlugins: [
-            [transformVideo, { patterns: ['youtube.com'] }],
+            // [transformVideo, { patterns: ['youtube.com'] }],
           ],
         },
         blog: {
@@ -115,9 +115,9 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
+          { to: 'blog', label: 'Blog', position: 'left' },
           {
-            to: '/releases',
+            to: 'releases',
             label: 'Release',
           },
           {
@@ -214,11 +214,11 @@ const config = {
             items: [
               {
                 label: 'Introduction',
-                to: 'docs',
+                to: 'docs/intro',
               },
               {
                 label: 'Deployment Guide',
-                to: 'http://localhost:3000/docs/category/deployment',
+                to: '/docs/category/deployment',
               },
             ],
           },
@@ -231,7 +231,7 @@ const config = {
               },
               {
                 label: 'Release',
-                to: '/releases',
+                to: 'releases',
               },
               {
                 label: 'GitHub',
