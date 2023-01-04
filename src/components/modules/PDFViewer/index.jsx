@@ -1,15 +1,24 @@
-import BrowserOnly from '@docusaurus/BrowserOnly';
-import ErrorBoundary from '@docusaurus/ErrorBoundary';
 import Head from '@docusaurus/Head';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Icon } from '@iconify/react';
-import { Button, Stack, Title } from '@mantine/core';
+import { Button } from '@mantine/core';
+import ErrorPageContent from '@theme/ErrorPageContent';
 import React, { useEffect, useId, useState } from 'react';
 
-function previewFile(url, title, embedMode, clientId, divId = 'adobe-dc-view') {
+function detectFileNameFromURL(url) {
+  try {
+    const fileName = decodeURIComponent(url).split('/').pop();
+    return fileName;
+  } catch (err) {
+    return 'Untitled';
+  }
+}
+
+function previewFile(url, title, clientId, options) {
+  const { embedMode, divId = 'adobe-dc-view' } = options;
   // eslint-disable-next-line no-undef
   const adobeDCView = new AdobeDC.View({
-    // NOTE: ClientID token is defined in docuaurus.config.js
+    // NOTE: ClientID token is defined in docusaurus.config.js
     clientId,
     divId,
   });
@@ -40,36 +49,29 @@ function previewFile(url, title, embedMode, clientId, divId = 'adobe-dc-view') {
   );
 }
 
-function PDFViewerWrapper({ children }) {
-  return (
-    <BrowserOnly>
-      {() => {
-        return (
-          <ErrorBoundary
-            fallback={({ tryAgain }) => (
-              <Stack align="center">
-                <Title order={1}>This component crashed</Title>
-                <Button onClick={tryAgain}>Try Again!</Button>
-              </Stack>
-            )}
-          >
-            {children}
-          </ErrorBoundary>
-        );
-      }}
-    </BrowserOnly>
-  );
-}
-
-function PDFViewer({ url, title, embedMode = 'FULL_WINDOW' }) {
+function PDFViewer({
+  url,
+  title = 'Untitled',
+  embedMode = 'FULL_WINDOW',
+  detectFileName,
+}) {
+  const [error, setError] = useState(null);
   const divId = useId();
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
 
+  if (detectFileName) {
+    title = detectFileNameFromURL(url);
+  }
+
   useEffect(() => {
     const handleLoad = () => {
-      previewFile(url, title, embedMode, customFields.clientId, divId);
+      try {
+        previewFile(url, title, customFields.clientId, { embedMode, divId });
+      } catch (err) {
+        setError(new Error(err));
+      }
     };
 
     document.addEventListener('adobe_dc_view_sdk.ready', handleLoad);
@@ -79,18 +81,25 @@ function PDFViewer({ url, title, embedMode = 'FULL_WINDOW' }) {
     };
   }, []);
 
+  if (error) {
+    return <ErrorPageContent error={error} />;
+  }
+
   return (
-    <PDFViewerWrapper>
+    <>
       <Head>
         <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
       </Head>
 
       <div id={divId} style={{ height: '100%', width: '100%' }} />
-    </PDFViewerWrapper>
+    </>
   );
 }
 
-function PDFViewerSimple({ url, title }) {
+function PDFViewerSimple({ url, title = 'Untitled', detectFileName }) {
+  if (detectFileName) {
+    title = detectFileNameFromURL(url);
+  }
   return (
     <iframe
       title={title}
@@ -100,12 +109,17 @@ function PDFViewerSimple({ url, title }) {
   );
 }
 
-function PDFViewerButton({ url, title }) {
+function PDFViewerButton({ url, title = 'Untitled', detectFileName }) {
+  const [error, setError] = useState(null);
   const [isReady, setIsReady] = useState(false);
   const divId = useId();
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
+
+  if (detectFileName) {
+    title = detectFileNameFromURL(url);
+  }
 
   useEffect(() => {
     const handleLoad = () => {
@@ -119,8 +133,12 @@ function PDFViewerButton({ url, title }) {
     };
   }, []);
 
+  if (error) {
+    return <ErrorPageContent error={error} />;
+  }
+
   return (
-    <PDFViewerWrapper>
+    <>
       <Head>
         <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
       </Head>
@@ -134,12 +152,19 @@ function PDFViewerButton({ url, title }) {
         }
         disabled={!isReady}
         onClick={() => {
-          previewFile(url, title, 'LIGHT_BOX', customFields.clientId, divId);
+          try {
+            previewFile(url, title, customFields.clientId, {
+              embedMode: 'LIGHT_BOX',
+              divId,
+            });
+          } catch (err) {
+            setError(err);
+          }
         }}
       >
         View PDF
       </Button>
-    </PDFViewerWrapper>
+    </>
   );
 }
 

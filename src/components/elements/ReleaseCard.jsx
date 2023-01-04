@@ -12,18 +12,38 @@ import {
   Title,
   Tooltip,
 } from '@mantine/core';
-import { evaluateSync } from '@mdx-js/mdx';
+import { evaluate, nodeTypes } from '@mdx-js/mdx';
+import { useMDXComponents } from '@mdx-js/react';
+import transformVideo from '@site/src/remark/transformVideo';
 import Admonition from '@theme/Admonition';
+import MDXContent from '@theme/MDXContent';
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as runtime from 'react/jsx-runtime';
+import rehypeRaw from 'rehype-raw';
 
 const ReleaseBody = ({ body }) => {
-  const { default: BodyContent } = evaluateSync(body, {
-    ...runtime,
-  });
+  const components = useMDXComponents();
 
-  return <BodyContent />;
+  const [parsed, setParsed] = useState();
+
+  useEffect(() => {
+    const evaluateBody = async () => {
+      const { default: BodyContent } = await evaluate(body, {
+        ...runtime,
+        remarkPlugins: [transformVideo],
+        // Ref: https://github.com/atomiks/rehype-pretty-code/issues/6#issuecomment-1006220771
+        rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
+        useMDXComponents: () => components,
+      });
+
+      setParsed(<BodyContent />);
+    };
+
+    evaluateBody();
+  }, [body]);
+
+  return parsed;
 };
 
 const ReleaseCard = ({ release, latest = false }) => {
@@ -106,7 +126,9 @@ const ReleaseCard = ({ release, latest = false }) => {
             </>
           )}
         >
-          <ReleaseBody body={release.body} />
+          <MDXContent>
+            <ReleaseBody body={release.body} />
+          </MDXContent>
         </ErrorBoundary>
       </Card>
     </Group>

@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+const transformVideo = require('./src/remark/transformVideo');
+
 require('dotenv').config();
 
 /** @type {import('@docusaurus/types').Config} */
@@ -59,6 +58,12 @@ const config = {
             exact: false, // this is needed for sub-routes to match!
             component: '@site/src/components/layouts/ReleaseLayout/index.jsx',
           },
+          {
+            // using Route schema from react-router
+            path: '/pdf-viewer',
+            exact: false, // this is needed for sub-routes to match!
+            component: '@site/src/components/layouts/PDFViewerLayout/index.jsx',
+          },
         ],
       },
     ],
@@ -76,6 +81,9 @@ const config = {
           editUrl: 'https://github.com/the-company-tcus/docs/tree/main/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
+          beforeDefaultRemarkPlugins: [
+            [transformVideo, { patterns: ['youtube.com'] }],
+          ],
         },
         blog: {
           showReadingTime: true,
@@ -94,6 +102,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
+        hideOnScroll: true,
         title: 'The Company',
         logo: {
           alt: 'The Company Logo',
@@ -116,11 +125,143 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
+          {
+            type: 'custom-cursor-effect-dropdown-navbar-item',
+            position: 'right',
+            label: '',
+            // For more info about options, see:
+            // https://github.com/tholman/cursor-effects
+            items: [
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🗿 Default',
+                cursorType: 'defaultCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🌈 Rainbow',
+                cursorType: 'rainbowCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '💧 Bubble',
+                cursorType: 'bubbleCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '⏰ Clock',
+                cursorType: 'clockCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🦄 Emoji',
+                cursorType: 'emojiCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🧚 Fairy Dust',
+                cursorType: 'fairyDustCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '⚫️ Dot',
+                cursorType: 'followingDotCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '👻 Ghost',
+                cursorType: 'ghostCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '❄️ Snowflake',
+                cursorType: 'snowflakeCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🪗 Springy Emoji',
+                cursorType: 'springyEmojiCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🚩 Text Flag',
+                cursorType: 'textFlag',
+                options: {
+                  text: 'Welcome',
+                },
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '👣 Trailing',
+                cursorType: 'trailingCursor',
+              },
+            ],
+          },
         ],
       },
       footer: {
         style: 'dark',
+        logo: {
+          alt: 'The Company Logo',
+          src: 'https://avatars.githubusercontent.com/u/112080943?s=400&u=a6fd3da164032bbbba04dfee2c54172a3c55fa00&v=4',
+          href: 'https://github.com/the-company-tcus',
+          height: '100px',
+        },
         copyright: `Copyright © ${new Date().getFullYear()} The Company. Built with Docusaurus.`,
+        links: [
+          {
+            title: 'Documentation',
+            items: [
+              {
+                label: 'Introduction',
+                to: 'docs',
+              },
+              {
+                label: 'Deployment Guide',
+                to: 'http://localhost:3000/docs/category/deployment',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Blog',
+                to: 'blog',
+              },
+              {
+                label: 'Release',
+                to: '/releases',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/the-company-tcus',
+              },
+              {
+                html: `
+                <a href="https://www.netlify.com" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
+                  <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" width="114" height="51" />
+                </a>
+              `,
+              },
+            ],
+          },
+          {
+            title: 'Legal',
+            // Please don't remove the privacy and terms, it's a legal
+            // requirement.
+            items: [
+              {
+                label: 'Privacy',
+                href: 'https://the-company-tcus.netlify.app/',
+              },
+              {
+                label: 'Terms',
+                href: 'https://the-company-tcus.netlify.app/',
+              },
+            ],
+          },
+        ],
       },
       prism: {
         theme: lightCodeTheme,
