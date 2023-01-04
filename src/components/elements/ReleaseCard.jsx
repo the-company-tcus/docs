@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import { evaluate, nodeTypes } from '@mdx-js/mdx';
 import { useMDXComponents } from '@mdx-js/react';
-import transformVideo from '@site/src/remark/transformVideo';
+// import transformVideo from '@site/src/remark/transformVideo';
 import Admonition from '@theme/Admonition';
 import MDXContent from '@theme/MDXContent';
 import moment from 'moment';
@@ -31,7 +31,7 @@ const ReleaseBody = ({ body }) => {
     const evaluateBody = async () => {
       const { default: BodyContent } = await evaluate(body, {
         ...runtime,
-        remarkPlugins: [transformVideo],
+        // remarkPlugins: [transformVideo],
         // Ref: https://github.com/atomiks/rehype-pretty-code/issues/6#issuecomment-1006220771
         rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
         useMDXComponents: () => components,
