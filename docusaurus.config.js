@@ -277,7 +277,7 @@ const config = {
   customFields: {
     clientId:
       process.env.NODE_ENV === 'production'
-        ? '9e81b60d0fbb4336840c8340107986d6' // Token for production url
+        ? '4d2152eafeec48ea934a8f5ad365879f' // Token for production url
         : 'e11a56067bc646fcbbf5b6486f14283c', // Token for localhost
 
     ghToken: process.env.GH_TOKEN,
