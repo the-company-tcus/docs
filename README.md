@@ -220,11 +220,25 @@ your `.env` file:
 
   `GH_TOKEN`: GitHub personal access token to fetch data from GitHub API.
 
+  > **Note**: It's recommended that the token has the following scopes:
+  > `repo.public_repo`.
+
+  `PDF_EMBED_CLIENT_ID` (optional): Client ID (API Key) for Adobe PDF Embed API.
+  You can checkout the
+  [documentation](https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/),
+  or generate a new one
+  [here](https://documentservices.adobe.com/dc-integration-creation-app-cdn/main.html?api=pdf-embed-api).
+
+  > **Note**: This is optional because the default client id for domains: `localhost`
+  > (development) and `the-company-tcus.netlify.app` (production) are already
+  > set in the file `docusaurus.config.js`.
+
 E.g:
 
 ```
 # .env
 GH_TOKEN=ghp_HH8T***
+PDF_EMBED_CLIENT_ID=e11a5***
 ```
 
 You can also check out the file `.env.example` to see all required environment
