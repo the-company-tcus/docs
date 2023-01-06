@@ -106,19 +106,6 @@ function PDFViewer({
   );
 }
 
-function PDFViewerSimple({ url, title = 'Untitled', detectFileName }) {
-  if (detectFileName) {
-    title = detectFileNameFromURL(url);
-  }
-  return (
-    <iframe
-      title={title}
-      src={url}
-      style={{ height: '100%', width: '100%' }}
-    ></iframe>
-  );
-}
-
 function PDFViewerButton({ url, title = 'Untitled', detectFileName }) {
   const [error, setError] = useState(null);
   const [isReady, setIsReady] = useState(false);
@@ -178,4 +165,4 @@ function PDFViewerButton({ url, title = 'Untitled', detectFileName }) {
   );
 }
 
-export { PDFViewer, PDFViewerSimple, PDFViewerButton };
+export { PDFViewer, PDFViewerButton };
