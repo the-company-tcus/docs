@@ -56,8 +56,11 @@ function PDFViewer({
   embedMode = 'FULL_WINDOW',
   detectFileName,
   fallback,
+  container,
 }) {
   const [error, setError] = useState(null);
+  const [containerComp, setContainerComp] = useState(null);
+  const [isReady, setIsReady] = useState(false);
   const divId = useId();
   const {
     siteConfig: { customFields },
@@ -77,10 +80,14 @@ function PDFViewer({
 
   useEffect(() => {
     const handleLoad = () => {
-      try {
-        previewFile(url, title, customFields.clientId, { embedMode, divId });
-      } catch (err) {
-        setError(new Error(err));
+      setIsReady(true);
+
+      if (!container) {
+        try {
+          previewFile(url, title, customFields.clientId, { embedMode, divId });
+        } catch (err) {
+          setError(new Error(err));
+        }
       }
     };
 
@@ -90,6 +97,22 @@ function PDFViewer({
       document.removeEventListener('adobe_dc_view_sdk.ready', handleLoad);
     };
   }, []);
+
+  useEffect(() => {
+    if (!container) {
+      return;
+    }
+    try {
+      setContainerComp(
+        container({
+          isReady,
+          previewFile,
+        }),
+      );
+    } catch (err) {
+      setError(new Error(err));
+    }
+  }, [container, isReady]);
 
   if (error) {
     return fallbackComp;
@@ -101,7 +124,11 @@ function PDFViewer({
         <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
       </Head>
 
-      <div id={divId} style={{ height: '100%', width: '100%' }} />
+      {!container && (
+        <div id={divId} style={{ height: '100%', width: '100%' }} />
+      )}
+
+      {containerComp}
     </>
   );
 }
