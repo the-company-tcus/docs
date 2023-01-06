@@ -4,7 +4,7 @@ import { Center } from '@mantine/core';
 import {
   PDFViewer,
   PDFViewerButton,
-} from '@site/src/components/modules/PDFViewer';
+} from '@site/src/components/elements/PDFViewer';
 import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
