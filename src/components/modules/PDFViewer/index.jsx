@@ -55,6 +55,7 @@ function PDFViewer({
   title = 'Untitled',
   embedMode = 'FULL_WINDOW',
   detectFileName,
+  fallback,
 }) {
   const [error, setError] = useState(null);
   const divId = useId();
@@ -65,6 +66,14 @@ function PDFViewer({
   if (detectFileName) {
     title = detectFileNameFromURL(url);
   }
+
+  const fallbackComp = fallback || (
+    <iframe
+      title={title}
+      src={url}
+      style={{ height: '100%', width: '100%', display: 'block' }}
+    ></iframe>
+  );
 
   useEffect(() => {
     const handleLoad = () => {
@@ -83,7 +92,7 @@ function PDFViewer({
   }, []);
 
   if (error) {
-    return <ErrorPageContent error={error} />;
+    return fallbackComp;
   }
 
   return (
