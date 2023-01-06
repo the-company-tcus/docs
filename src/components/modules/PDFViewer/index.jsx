@@ -2,7 +2,6 @@ import Head from '@docusaurus/Head';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Icon } from '@iconify/react';
 import { Button } from '@mantine/core';
-import ErrorPageContent from '@theme/ErrorPageContent';
 import React, { useEffect, useId, useState } from 'react';
 
 function detectFileNameFromURL(url) {
@@ -105,6 +104,7 @@ function PDFViewer({
     try {
       setContainerComp(
         container({
+          divId,
           isReady,
           previewFile,
         }),
@@ -134,61 +134,40 @@ function PDFViewer({
 }
 
 function PDFViewerButton({ url, title = 'Untitled', detectFileName }) {
-  const [error, setError] = useState(null);
-  const [isReady, setIsReady] = useState(false);
-  const divId = useId();
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
-
-  if (detectFileName) {
-    title = detectFileNameFromURL(url);
-  }
-
-  useEffect(() => {
-    const handleLoad = () => {
-      setIsReady(true);
-    };
-
-    document.addEventListener('adobe_dc_view_sdk.ready', handleLoad);
-
-    return () => {
-      document.removeEventListener('adobe_dc_view_sdk.ready', handleLoad);
-    };
-  }, []);
-
-  if (error) {
-    return <ErrorPageContent error={error} />;
-  }
-
   return (
-    <>
-      <Head>
-        <script src="https://documentservices.adobe.com/view-sdk/viewer.js"></script>
-      </Head>
-
-      {/* NOTE: width and height have o set to 0 to prevent content reflow */}
-      <div id={divId} style={{ width: 0, height: 0 }} />
-      <Button
-        variant="light"
-        leftIcon={
-          <Icon icon="ant-design:file-pdf-twotone" width={24} height={24} />
-        }
-        disabled={!isReady}
-        onClick={() => {
-          try {
-            previewFile(url, title, customFields.clientId, {
-              embedMode: 'LIGHT_BOX',
-              divId,
-            });
-          } catch (err) {
-            setError(err);
-          }
-        }}
-      >
-        View PDF
-      </Button>
-    </>
+    <PDFViewer
+      url={url}
+      title={title}
+      detectFileName={detectFileName}
+      // eslint-disable-next-line no-shadow
+      container={({ divId, isReady, preview }) => {
+        return (
+          <Button
+            id={divId}
+            variant="light"
+            leftIcon={
+              <Icon icon="ant-design:file-pdf-twotone" width={24} height={24} />
+            }
+            disabled={!isReady}
+            onClick={() => {
+              try {
+                previewFile(url, title, customFields.clientId, {
+                  embedMode: 'LIGHT_BOX',
+                  divId,
+                });
+              } catch (err) {
+                throw new Error(err);
+              }
+            }}
+          >
+            View PDF
+          </Button>
+        );
+      }}
+    />
   );
 }
 
