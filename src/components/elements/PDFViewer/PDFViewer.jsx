@@ -7,7 +7,7 @@ function detectFileNameFromURL(url) {
     const fileName = decodeURIComponent(url).split('/').pop();
     return fileName;
   } catch (err) {
-    return 'Untitled';
+    return '';
   }
 }
 
@@ -51,7 +51,7 @@ function PDFViewer({
   title = 'Untitled',
   clientId,
   embedMode = 'FULL_WINDOW',
-  detectFileName,
+  detectFileName = false,
   fallback,
   container,
 }) {
@@ -61,7 +61,7 @@ function PDFViewer({
   const divId = useId();
 
   if (detectFileName) {
-    title = detectFileNameFromURL(url);
+    title = detectFileNameFromURL(url) || title;
   }
 
   useEffect(() => {
