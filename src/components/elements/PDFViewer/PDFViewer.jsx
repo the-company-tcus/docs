@@ -64,14 +64,6 @@ function PDFViewer({
     title = detectFileNameFromURL(url);
   }
 
-  const fallbackComp = fallback || (
-    <iframe
-      title={title}
-      src={url}
-      style={{ height: '100%', width: '100%', display: 'block' }}
-    ></iframe>
-  );
-
   useEffect(() => {
     const handleLoad = () => {
       setIsReady(true);
@@ -111,7 +103,17 @@ function PDFViewer({
   }, [container, isReady]);
 
   if (error) {
-    return fallbackComp;
+    if (fallback) {
+      return fallback({ error });
+    }
+
+    return (
+      <iframe
+        title={title}
+        src={url}
+        style={{ height: '100%', width: '100%', display: 'block' }}
+      ></iframe>
+    );
   }
 
   return (
