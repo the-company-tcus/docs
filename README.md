@@ -316,244 +316,34 @@ Deployment](./docs//deployment/document-site.md).
 
 ## :eyes: Usage
 
-<!-- Components -->
+### Guides
 
-### :package: Components
-
-#### PDFViewer component
-
-This component is used to display PDF files.
-
-This will have three variants:
-
-- `PDFViewer`: Use [PDF Embed
-  API](https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/)
-  from Adobe to display PDF files.
-
-  - **Usage**:
-
-    ```jsx
-    import { PDFViewer } from '@site/src/components/PDFViewer';
-    // Import sample PDF from static/pdf folder
-    import sample from '@site/static/pdf/sample.pdf';
-    import React from 'react';
-
-    export default function MyPage() {
-      return (
-        <div
-          style={{
-            height: '100vh',
-          }}
-        >
-          {/* From URL */}
-          <PDFViewer
-            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
-            title="Dummy PDF"
-          />
-          {/* From import */}
-          <PDFViewer url={sample} title="Sample PDF" />
-          {/* From static URL */}
-          <PDFViewer url="/pdf/sample.pdf" title="Sample PDF" />
-        </div>
-      );
-    }
-    ```
-
-  - **Props**:
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>url</td>
-          <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
-        </tr>
-        <tr>
-          <td>title</td>
-          <td>string</td>
-          <td>Title of the PDF file.</td>
-        </tr>
-        <tr>
-          <td>embedMode</td>
-          <td>"FULL_WINDOW" | "SIZED_CONTAINER" | "IN_LINE" | "LIGHT_BOX"</td>
-          <td>Embed mode of the PDF file (Default: `FULL_WINDOW`) supported by PDF Embed API.</td>
-        </tr>
-      </table>
-
-- `PDFViewerButton`: Pre-defined component for PDFViewer with `embedMode` set to
-  `LIGHT_BOX`. The button is **disabled** if the PDF file is not fully loaded.
-
-  - **Usage**:
-
-    ```jsx
-    import { PDFViewerButton } from '@site/src/components/PDFViewer';
-    import React from 'react';
-
-    export default function MyPage() {
-      return (
-        <div
-          style={{
-            height: '100vh',
-          }}
-        >
-          <PDFViewerButton
-            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
-            title="Dummy PDF"
-          />
-        </div>
-      );
-    }
-    ```
-
-  - **Props**:
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>url</td>
-          <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
-        </tr>
-        <tr>
-          <td>title</td>
-          <td>string</td>
-          <td>Title of the PDF file.</td>
-        </tr>
-      </table>
-
-- `PDFViewerSimple`: Use the built-in PDF viewer of the browser to display PDF
-  files.
-
-  > **Note**: If the file is not found, it will redirect to the Docusaurus 404
-  > page, create a nested layout on your page.
-
-  - **Usage**:
-
-    ```jsx
-    import { PDFViewerSimple } from '@site/src/components/PDFViewer';
-    import React from 'react';
-
-    export default function MyPage() {
-      return (
-        <div
-          style={{
-            height: '100vh',
-          }}
-        >
-          <PDFViewerSimple
-            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
-            title="Dummy PDF"
-          />
-        </div>
-      );
-    }
-    ```
-
-  - **Props**:
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>url</td>
-          <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
-        </tr>
-        <tr>
-          <td>title</td>
-          <td>string</td>
-          <td>Title of the PDF file.</td>
-        </tr>
-      </table>
-
-#### ReleaseByTimeRange component
-
-`ReleaseByTimeRange` will fetch releases within a time range from GitHub API and
-display them in a dropdown menu.
-
-You will have to set the GitHub token (`ghToken`) in the `docusaurus.config.js`
-file. For example:
-
-```js
-require('dotenv').config();
-
-/** @type {import('@docusaurus/types').Config} */
-const config = {
-  customFields: {
-    ghToken: process.env.GH_TOKEN,
-  },
-};
-
-module.exports = config;
-```
-
-- **Usage**:
-
-  ```jsx
-  import { ReleaseByTimeRange } from '@site/src/components/ReleaseByTimeRange';
-  import React from 'react';
-
-  export default function MyPage() {
-    return (
-      <div
-        style={{
-          height: '100vh',
-        }}
-      >
-        <ReleaseByTimeRange
-          owner="mantinedev"
-          repo="mantine"
-          from="05-12-2022"
-          to="12-12-2022"
-        />
-      </div>
-    );
-  }
-  ```
-
-- **Props**:
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>owner</td>
-      <td>string</td>
-      <td>The account owner of the repository. The name is not case sensitive.</td>
-    </tr>
-    <tr>
-      <td>repo</td>
-      <td>string</td>
-      <td>The name of the repository. The name is not case sensitive.</td>
-    </tr>
-    <tr>
-      <td>from</td>
-      <td>string</td>
-      <td>Start date of the time range. Format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
-    </tr>
-    <tr>
-      <td>to</td>
-      <td>string</td>
-      <td>End date of the time range. Format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
-    </tr>
-  </table>
+- [Architecture](./docs/_usage/architecture.md).
+- [Components Management](./docs/_usage/components.md).
+- [Dynamic Routes](./docs/_usage/dynamic-routes.md).
+- [Document Site Deployment](./docs/deployment/document-site.md).
+- [API References](./docs/_usage/api.md).
 
 <!-- Roadmap -->
 
 ## :compass: Roadmap
 
-- [x] Todo 1.
-- [ ] Todo 2.
+- Features:
+
+  - [ ] Remark plugin to transform PDF links to `PDFViewer` component.
+  - [ ] Integrate [`remark-emoji`](https://github.com/rhysd/remark-emoji)
+        plugin.
+  - [ ] Algolia search.
+
+- Blogs:
+
+  - [ ] Add custom dynamic routes to Docusaurus.
+  - [ ] Add your custom navbar to Docusaurus.
+  - [ ] Create your first remark plugin.
+
+- Docs:
+  - [ ] Privacy Policy.
+  - [ ] Terms of Service.
 
 <!-- Contact -->
 
