@@ -48,6 +48,9 @@
 
 - [About the Project](#star2-about-the-project)
   - [Screenshots](#camera-screenshots)
+  - [Tech Stack](#space_invader-tech-stack)
+  - [Features](#dart-features)
+  - [Color Reference](#art-color-reference)
   - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   - [Prerequisites](#bangbang-prerequisites)
@@ -71,9 +74,140 @@ showcase our team documentation and update project progress.
 
 ### :camera: Screenshots
 
+- Home page:
+
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/64480713/209646899-4c830fd4-2c18-46d2-87b6-bd0964746a0c.png" alt="screenshot" />
+  <img src="https://user-images.githubusercontent.com/64480713/210539148-70cf8981-7891-456a-beac-16ae1eb499a4.png" alt="screenshot" />
 </div>
+
+- Release viewer:
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/64480713/210564500-5f9463df-041e-4b51-8d1d-3fb789e8740d.png" alt="screenshot" />
+</div>
+
+Demo: https://the-company-tcus.netlify.app/releases/view/nocodb/nocodb?from=11-30-2022&to=01-04-2023
+
+- PDF viewer:
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/64480713/210540121-2b8a89d9-f600-431b-9a3b-b199fb6e0239.png" alt="screenshot" />
+</div>
+
+Demo: https://the-company-tcus.netlify.app/pdf-viewer?url=https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf&title=Bodea%20Brochure&embedMode=FULL_WINDOW
+
+<!-- TechStack -->
+
+### :space_invader: Tech Stack
+
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://windicss.org/">WindiCSS</a></li>
+    <li><a href="https://tanstack.com/query/v4">TanStack Query</a></li>
+    <li><a href="https://v5.reactrouter.com/">React Router v5</a></li>
+    <li><a href="https://docusaurus.io/">Docusaurus v2</a></li>
+    <li><a href="https://mantine.dev/">Mantine</a></li>
+
+  </ul>
+</details>
+
+<details>
+  <summary>Server</summary>
+  <ul>
+    <li><a href="https://docusaurus.io/">Docusaurus v2</a></li>
+  </ul>
+</details>
+
+<!-- Features -->
+
+### :dart: Features
+
+- PDF viewer.
+- GitHub release viewer.
+- Dynamic routes (pdf viewer, release viewer).
+- Custom navbar (cursor-effect button).
+
+<!-- Color Reference -->
+
+### :art: Color Reference
+
+> These colors are defined in the `src/css/custom.css` file when bootstrapping a
+> new project.
+
+- **Light theme**:
+
+| Color                               | Hex                                                                      | CSS variable                          | WindiCSS utility (custom)\* |
+| ----------------------------------- | ------------------------------------------------------------------------ | ------------------------------------- | --------------------------- |
+| primary                             | ![#2E8555](https://placehold.jp/2E8555/2E8555/10x10.png) #2E8555         | --ifm-color-primary                   | primary                     |
+| primary dark                        | ![#29784C](https://placehold.jp/29784C/29784C/10x10.png) #29784C         | --ifm-color-primary-dark              | primary-dark                |
+| primary darker                      | ![#277148](https://placehold.jp/277148/277148/10x10.png) #277148         | --ifm-color-primary-darker            | primary-darker              |
+| primary darkest                     | ![#205D3B](https://placehold.jp/205D3B/205D3B/10x10.png) #205D3B         | --ifm-color-primary-darkest           | primary-darkest             |
+| primary light                       | ![#33925D](https://placehold.jp/33925D/33925D/10x10.png) #33925D         | --ifm-color-primary-light             | primary-light               |
+| primary lighter                     | ![#359962](https://placehold.jp/359962/359962/10x10.png) #359962         | --ifm-color-primary-lighter           | primary-lighter             |
+| primary lightest                    | ![#3CAD6E](https://placehold.jp/3CAD6E/3CAD6E/10x10.png) #3CAD6E         | --ifm-color-primary-lightest          | primary-lightest            |
+| docusaurus-highlighted-code-line-bg | ![#0000001A](https://placehold.jp/0000001A/0000001A/10x10.png) #0000001A | --docusaurus-highlighted-code-line-bg | Not set                     |
+
+- **Dark theme**:
+
+| Color                               | Hex                                                                      | CSS variable (\[data-theme='dark'\])\*\* | WindiCSS utility (custom)\* |
+| ----------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------- | --------------------------- |
+| primary                             | ![#25C2A0](https://placehold.jp/25C2A0/25C2A0/10x10.png) #25C2A0         | --ifm-color-primary                      | dark-primary                |
+| primary dark                        | ![#21AF90](https://placehold.jp/21AF90/21AF90/10x10.png) #21AF90         | --ifm-color-primary-dark                 | dark-primary-dark           |
+| primary darker                      | ![#1FA588](https://placehold.jp/1FA588/1FA588/10x10.png) #1FA588         | --ifm-color-primary-darker               | dark-primary-darker         |
+| primary darkest                     | ![#1A8870](https://placehold.jp/1A8870/1A8870/10x10.png) #1A8870         | --ifm-color-primary-darkest              | dark-primary-darkest        |
+| primary light                       | ![#29D5B0](https://placehold.jp/29D5B0/29D5B0/10x10.png) #29D5B0         | --ifm-color-primary-light                | dark-primary-light          |
+| primary lighter                     | ![#32D8B4](https://placehold.jp/32D8B4/32D8B4/10x10.png) #32D8B4         | --ifm-color-primary-lighter              | dark-primary-lighter        |
+| primary lightest                    | ![#4FDDBF](https://placehold.jp/4FDDBF/4FDDBF/10x10.png) #4FDDBF         | --ifm-color-primary-lightest             | dark-primary-lightest       |
+| docusaurus-highlighted-code-line-bg | ![#0000004D](https://placehold.jp/0000004D/0000004D/10x10.png) #0000004D | --docusaurus-highlighted-code-line-bg    | Not set                     |
+
+\*: These are not default WindiCSS utilities. It is defined in `windi.config.js`.
+See example configuration below.
+
+\*\*: These variables applies to selector `[data-theme='dark']` only.
+
+- WindiCSS colors:
+
+You can style your components with WindiCSS colors. See color reference at
+[WindiCSS color utility](https://windicss.org/utilities/general/colors.html).
+
+---
+
+<details>
+<summary>Configure WindiCSS colors</summary>
+
+```js
+// windi.config.js
+export default {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#2e8555',
+          dark: '#29784c',
+          darker: '#277148',
+          darkest: '#205d3b',
+          light: '#33925d',
+          lighter: '#359962',
+          lightest: '#3cad6e',
+        },
+        'dark-primary': {
+          DEFAULT: '#25c2a0',
+          dark: '#21af90',
+          darker: '#1fa588',
+          darkest: '#1a8870',
+          light: '#29d5b0',
+          lighter: '#32d8b4',
+          lightest: '#4fddbf',
+        },
+      },
+    },
+  },
+};
+```
+
+</details>
 
 <!-- Env Variables -->
 
@@ -86,11 +220,25 @@ your `.env` file:
 
   `GH_TOKEN`: GitHub personal access token to fetch data from GitHub API.
 
+  > **Note**: It's recommended that the token has the following scopes:
+  > `repo.public_repo`.
+
+  `PDF_EMBED_CLIENT_ID` (optional): Client ID (API Key) for Adobe PDF Embed API.
+  You can checkout the
+  [documentation](https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/),
+  or generate a new one
+  [here](https://documentservices.adobe.com/dc-integration-creation-app-cdn/main.html?api=pdf-embed-api).
+
+  > **Note**: This is optional because the default client id for domains: `localhost`
+  > (development) and `the-company-tcus.netlify.app` (production) are already
+  > set in the file `docusaurus.config.js`.
+
 E.g:
 
 ```
 # .env
 GH_TOKEN=ghp_HH8T***
+PDF_EMBED_CLIENT_ID=e11a5***
 ```
 
 You can also check out the file `.env.example` to see all required environment
@@ -168,244 +316,34 @@ Deployment](./docs//deployment/document-site.md).
 
 ## :eyes: Usage
 
-<!-- Components -->
+### Guides
 
-### :package: Components
-
-#### PDFViewer component
-
-This component is used to display PDF files.
-
-This will have three variants:
-
-- `PDFViewer`: Use [PDF Embed
-  API](https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/)
-  from Adobe to display PDF files.
-
-  - **Usage**:
-
-    ```jsx
-    import { PDFViewer } from '@site/src/components/PDFViewer';
-    // Import sample PDF from static/pdf folder
-    import sample from '@site/static/pdf/sample.pdf';
-    import React from 'react';
-
-    export default function MyPage() {
-      return (
-        <div
-          style={{
-            height: '100vh',
-          }}
-        >
-          {/* From URL */}
-          <PDFViewer
-            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
-            title="Dummy PDF"
-          />
-          {/* From import */}
-          <PDFViewer url={sample} title="Sample PDF" />
-          {/* From static URL */}
-          <PDFViewer url="/pdf/sample.pdf" title="Sample PDF" />
-        </div>
-      );
-    }
-    ```
-
-  - **Props**:
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>url</td>
-          <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
-        </tr>
-        <tr>
-          <td>title</td>
-          <td>string</td>
-          <td>Title of the PDF file.</td>
-        </tr>
-        <tr>
-          <td>embedMode</td>
-          <td>"FULL_WINDOW" | "SIZED_CONTAINER" | "IN_LINE" | "LIGHT_BOX"</td>
-          <td>Embed mode of the PDF file (Default: `FULL_WINDOW`) supported by PDF Embed API.</td>
-        </tr>
-      </table>
-
-- `PDFViewerButton`: Pre-defined component for PDFViewer with `embedMode` set to
-  `LIGHT_BOX`. The button is **disabled** if the PDF file is not fully loaded.
-
-  - **Usage**:
-
-    ```jsx
-    import { PDFViewerButton } from '@site/src/components/PDFViewer';
-    import React from 'react';
-
-    export default function MyPage() {
-      return (
-        <div
-          style={{
-            height: '100vh',
-          }}
-        >
-          <PDFViewerButton
-            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
-            title="Dummy PDF"
-          />
-        </div>
-      );
-    }
-    ```
-
-  - **Props**:
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>url</td>
-          <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
-        </tr>
-        <tr>
-          <td>title</td>
-          <td>string</td>
-          <td>Title of the PDF file.</td>
-        </tr>
-      </table>
-
-- `PDFViewerSimple`: Use the built-in PDF viewer of the browser to display PDF
-  files.
-
-  > **Note**: If the file is not found, it will redirect to the Docusaurus 404
-  > page, create a nested layout on your page.
-
-  - **Usage**:
-
-    ```jsx
-    import { PDFViewerSimple } from '@site/src/components/PDFViewer';
-    import React from 'react';
-
-    export default function MyPage() {
-      return (
-        <div
-          style={{
-            height: '100vh',
-          }}
-        >
-          <PDFViewerSimple
-            url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
-            title="Dummy PDF"
-          />
-        </div>
-      );
-    }
-    ```
-
-  - **Props**:
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <td>url</td>
-          <td>string</td>
-          <td>URL of the PDF file. This can be an external URL, static URL, or imported to file.</td>
-        </tr>
-        <tr>
-          <td>title</td>
-          <td>string</td>
-          <td>Title of the PDF file.</td>
-        </tr>
-      </table>
-
-#### ReleaseByTimeRange component
-
-`ReleaseByTimeRange` will fetch releases within a time range from GitHub API and
-display them in a dropdown menu.
-
-You will have to set the GitHub token (`ghToken`) in the `docusaurus.config.js`
-file. For example:
-
-```js
-require('dotenv').config();
-
-/** @type {import('@docusaurus/types').Config} */
-const config = {
-  customFields: {
-    ghToken: process.env.GH_TOKEN,
-  },
-};
-
-module.exports = config;
-```
-
-- **Usage**:
-
-  ```jsx
-  import { ReleaseByTimeRange } from '@site/src/components/ReleaseByTimeRange';
-  import React from 'react';
-
-  export default function MyPage() {
-    return (
-      <div
-        style={{
-          height: '100vh',
-        }}
-      >
-        <ReleaseByTimeRange
-          owner="mantinedev"
-          repo="mantine"
-          from="05-12-2022"
-          to="12-12-2022"
-        />
-      </div>
-    );
-  }
-  ```
-
-- **Props**:
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>owner</td>
-      <td>string</td>
-      <td>The account owner of the repository. The name is not case sensitive.</td>
-    </tr>
-    <tr>
-      <td>repo</td>
-      <td>string</td>
-      <td>The name of the repository. The name is not case sensitive.</td>
-    </tr>
-    <tr>
-      <td>from</td>
-      <td>string</td>
-      <td>Start date of the time range. Format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
-    </tr>
-    <tr>
-      <td>to</td>
-      <td>string</td>
-      <td>End date of the time range. Format: <code>MM-DD-YYYY</code> or <code>MM/DD/YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
-    </tr>
-  </table>
+- [Architecture](./docs/_usage/architecture.md).
+- [Components Management](./docs/_usage/components.md).
+- [Dynamic Routes](./docs/_usage/dynamic-routes.md).
+- [Document Site Deployment](./docs/deployment/document-site.md).
+- [API References](./docs/_usage/api.md).
 
 <!-- Roadmap -->
 
 ## :compass: Roadmap
 
-- [x] Todo 1.
-- [ ] Todo 2.
+- Features:
+
+  - [ ] Remark plugin to transform PDF links to `PDFViewer` component.
+  - [ ] Integrate [`remark-emoji`](https://github.com/rhysd/remark-emoji)
+        plugin.
+  - [ ] Algolia search.
+
+- Blogs:
+
+  - [ ] Add custom dynamic routes to Docusaurus.
+  - [ ] Add your custom navbar to Docusaurus.
+  - [ ] Create your first remark plugin.
+
+- Docs:
+  - [ ] Privacy Policy.
+  - [ ] Terms of Service.
 
 <!-- Contact -->
 

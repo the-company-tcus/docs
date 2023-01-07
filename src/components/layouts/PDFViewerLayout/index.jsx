@@ -1,4 +1,4 @@
-import { PDFViewerPage } from '@site/src/pages/pdf-viewer/_index';
+import { PDFViewerPage } from '@site/src/pages/_pdf-viewer/index';
 import NotFound from '@theme/NotFound';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
