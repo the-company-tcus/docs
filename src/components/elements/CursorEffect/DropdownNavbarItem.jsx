@@ -49,9 +49,9 @@ const CursorEffectDropdownNavbarItem = (props) => {
   const navbarLabel = (
     <>
       <Icon
+        className="mr-5px align-text-bottom"
         icon="mdi:cursor-default-gesture-outline"
         width={24}
-        className="mr-5px align-text-bottom"
       />
       {props.label}
     </>

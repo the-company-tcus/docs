@@ -109,9 +109,9 @@ function PDFViewer({
 
     return (
       <iframe
-        title={title}
         src={url}
         style={{ height: '100%', width: '100%', display: 'block' }}
+        title={title}
       ></iframe>
     );
   }
