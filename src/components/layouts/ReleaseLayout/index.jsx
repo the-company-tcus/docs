@@ -10,13 +10,13 @@ function ReleaseLayout() {
 
   return (
     <Switch>
-      <Route path={`${match.path}/view/:owner/:repo`} exact>
+      <Route exact path={`${match.path}/view/:owner/:repo`}>
         <Layout title="Releases">
           <ViewRelease />
         </Layout>
       </Route>
 
-      <Route path={match.path} exact>
+      <Route exact path={match.path}>
         <Layout title="Releases">
           <ReleasePage />
         </Layout>

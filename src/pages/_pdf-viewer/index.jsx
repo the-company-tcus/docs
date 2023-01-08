@@ -29,8 +29,8 @@ const PDFViewerPage = () => {
             <Center className="h-screen">
               <PDFViewerButton
                 clientId={customFields.clientId}
-                url={url}
                 title={title}
+                url={url}
               />
             </Center>
           ),
@@ -38,9 +38,9 @@ const PDFViewerPage = () => {
             <div className="h-screen">
               <PDFViewer
                 clientId={customFields.clientId}
-                url={url}
-                title={title}
                 embedMode="FULL_WINDOW"
+                title={title}
+                url={url}
               />
             </div>
           ),
@@ -48,18 +48,18 @@ const PDFViewerPage = () => {
             <div className="h-screen">
               <PDFViewer
                 clientId={customFields.clientId}
-                url={url}
-                title={title}
                 embedMode="SIZED_CONTAINER"
+                title={title}
+                url={url}
               />
             </div>
           ),
           IN_LINE: (
             <PDFViewer
               clientId={customFields.clientId}
-              url={url}
-              title={title}
               embedMode="IN_LINE"
+              title={title}
+              url={url}
             />
           ),
         }[embedMode];

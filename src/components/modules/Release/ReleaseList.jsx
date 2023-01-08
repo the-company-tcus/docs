@@ -44,7 +44,7 @@ const ReleaseList = ({ owner, repo, from, to }) => {
 
   const releaseList = releases?.map((release) => {
     if (latestRelease.data.id === release.id) {
-      return <ReleaseCard key={release.id} release={release} latest />;
+      return <ReleaseCard key={release.id} latest release={release} />;
     }
     return <ReleaseCard key={release.id} release={release} />;
   });
@@ -56,11 +56,11 @@ const ReleaseList = ({ owner, repo, from, to }) => {
           releases?.length || 'No'
         } version(s) released`}</Title>
         <Button
+          loading={isFetchingLatestRelease || isFetchingReleases}
           onClick={() => {
             refetchLatestRelease();
             refetchReleases();
           }}
-          loading={isFetchingLatestRelease || isFetchingReleases}
         >
           Refresh
         </Button>

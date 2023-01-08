@@ -8,7 +8,7 @@ function PDFViewerLayout() {
 
   return (
     <Switch>
-      <Route path={match.path} exact>
+      <Route exact path={match.path}>
         <PDFViewerPage />
       </Route>
 

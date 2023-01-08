@@ -41,11 +41,11 @@ const CursorEffectNavbarItem = ({ cursorType, options, mobile, ...props }) => {
   return (
     <DefaultCursorEffectNavbarItem
       {...props}
-      isActive={activeCursor.cursorType === cursorType}
       activeClassName={
         props.activeClassName ??
         (mobile ? 'menu__link--active' : 'dropdown__link--active')
       }
+      isActive={activeCursor.cursorType === cursorType}
       mobile={mobile}
       onClick={handleClick}
     />
