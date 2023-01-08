@@ -43,7 +43,7 @@ const CursorEffectDropdownNavbarItem = (props) => {
         destroy();
       };
     }
-  }, [cursor]);
+  }, [cursorType, options]);
 
   // Ref: https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/src/theme/NavbarItem/LocaleDropdownNavbarItem/styles.module.css
   const navbarLabel = (

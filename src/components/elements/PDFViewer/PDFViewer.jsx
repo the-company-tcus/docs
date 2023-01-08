@@ -82,7 +82,7 @@ function PDFViewer({
     return () => {
       document.removeEventListener('adobe_dc_view_sdk.ready', handleLoad);
     };
-  }, []);
+  }, [clientId, url, title, container, embedMode, divId]);
 
   useEffect(() => {
     if (!container) {
@@ -100,7 +100,7 @@ function PDFViewer({
     } catch (err) {
       setError(new Error(err));
     }
-  }, [container, isReady]);
+  }, [container, clientId, url, title, embedMode, divId, isReady]);
 
   if (error) {
     if (fallback) {

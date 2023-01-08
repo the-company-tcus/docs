@@ -41,7 +41,7 @@ const ReleaseBody = ({ body }) => {
     };
 
     evaluateBody();
-  }, [body]);
+  }, [body, components]);
 
   return parsed;
 };
