@@ -57,7 +57,7 @@
   - [Run Locally](#running-run-locally)
   - [Deployment](#triangular_flag_on_post-deployment)
 - [Usage](#eyes-usage)
-  - [Components](#package-components)
+  - [Guides](#guides)
 - [Roadmap](#compass-roadmap)
 - [Contact](#handshake-contact)
 - [Acknowledgements](#gem-acknowledgements)
@@ -107,7 +107,6 @@ Demo: https://the-company-tcus.netlify.app/pdf-viewer?url=https://documentservic
     <li><a href="https://windicss.org/">WindiCSS</a></li>
     <li><a href="https://tanstack.com/query/v4">TanStack Query</a></li>
     <li><a href="https://v5.reactrouter.com/">React Router v5</a></li>
-    <li><a href="https://docusaurus.io/">Docusaurus v2</a></li>
     <li><a href="https://mantine.dev/">Mantine</a></li>
 
   </ul>
