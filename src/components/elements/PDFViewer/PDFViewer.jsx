@@ -54,6 +54,7 @@ function PDFViewer({
   detectFileName = false,
   fallback,
   container,
+  ...props
 }) {
   const [error, setError] = useState(null);
   const [containerComp, setContainerComp] = useState(null);
@@ -112,6 +113,7 @@ function PDFViewer({
         src={url}
         style={{ height: '100%', width: '100%', display: 'block' }}
         title={title}
+        {...props}
       ></iframe>
     );
   }
@@ -123,7 +125,7 @@ function PDFViewer({
       </Head>
 
       {!container && (
-        <div id={divId} style={{ height: '100%', width: '100%' }} />
+        <div id={divId} style={{ height: '100%', width: '100%' }} {...props} />
       )}
 
       {containerComp}
