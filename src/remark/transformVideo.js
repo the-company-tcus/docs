@@ -39,6 +39,7 @@ function plugin(options) {
         allow:
           'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
         allowfullscreen: true,
+        ...options?.iframeAttrs,
       },
     });
 
