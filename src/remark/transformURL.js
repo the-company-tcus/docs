@@ -3,7 +3,11 @@ const Joi = require('joi');
 
 const optionSchema = Joi.object({
   patterns: Joi.array().items(Joi.string(), Joi.object().regex()),
-  iframeAttrs: Joi.object().pattern(Joi.string(), [Joi.number(), Joi.string()]),
+  iframeAttrs: Joi.object().pattern(Joi.string(), [
+    Joi.number(),
+    Joi.string(),
+    Joi.boolean(),
+  ]),
 });
 
 // NOTE: Keep it simple because we only check for node type and url scheme
@@ -27,7 +31,12 @@ function checkPatterns(url, patterns) {
 
 function convertObjectToHTMLAttributes(obj) {
   return Object.entries(obj)
-    .map(([key, val]) => `${key}=${val}`)
+    .map(([key, val]) => {
+      if (typeof val === 'boolean' && val === true) {
+        return key;
+      }
+      return `${key}="${val}"`;
+    })
     .join(' ');
 }
 
