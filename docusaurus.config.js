@@ -5,6 +5,7 @@
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
+const transformEmoji = require('./src/remark/transformEmoji');
 const transformVideo = require('./src/remark/transformVideo');
 
 require('dotenv').config();
@@ -83,6 +84,7 @@ const config = {
           showLastUpdateTime: true,
           beforeDefaultRemarkPlugins: [
             [transformVideo, { patterns: ['youtube.com'] }],
+            [transformEmoji, { emoticon: true }],
           ],
         },
         blog: {

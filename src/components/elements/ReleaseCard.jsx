@@ -21,6 +21,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import * as runtime from 'react/jsx-runtime';
 import rehypeRaw from 'rehype-raw';
+import remarkEmoji from 'remark-emoji';
 
 const ReleaseBody = ({ body }) => {
   const components = useMDXComponents();
@@ -31,7 +32,7 @@ const ReleaseBody = ({ body }) => {
     const evaluateBody = async () => {
       const { default: BodyContent } = await evaluate(body, {
         ...runtime,
-        remarkPlugins: [transformVideo],
+        remarkPlugins: [transformVideo, [remarkEmoji, { emoticon: true }]],
         // Ref: https://github.com/atomiks/rehype-pretty-code/issues/6#issuecomment-1006220771
         rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
         useMDXComponents: () => components,

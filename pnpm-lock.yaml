@@ -40,6 +40,7 @@ specifiers:
   react-player: 2.11.0
   react-router-dom: 5.3.4
   rehype-raw: 6.1.1
+  remark-emoji: 3.0.2
   typescript: 4.9.4
   unist-util-visit: 4.1.1
   windicss: 3.5.6
@@ -67,6 +68,7 @@ dependencies:
   react-player: 2.11.0_react@18.2.0
   react-router-dom: 5.3.4_react@18.2.0
   rehype-raw: 6.1.1
+  remark-emoji: 3.0.2
   unist-util-visit: 4.1.1
 
 devDependencies:
@@ -5969,6 +5971,10 @@ packages:
     resolution: {integrity: sha512-SNujglcLTTg+lDAcApPNgEdudaqQFiAbJCqzjNxJkvN9vAwCGi0uu8IUVvx+f16h+V44KCY6Y2yboroc9pilHg==}
     dev: false
 
+  /emoticon/4.0.1:
+    resolution: {integrity: sha512-dqx7eA9YaqyvYtUhJwT4rC1HIp82j5ybS1/vQ42ur+jBe17dJMwZE4+gvL1XadSFfxaPFFGt3Xsw+Y8akThDlw==}
+    dev: false
+
   /encodeurl/1.0.2:
     resolution: {integrity: sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==}
     engines: {node: '>= 0.8'}
@@ -10433,6 +10439,15 @@ packages:
       emoticon: 3.2.0
       node-emoji: 1.11.0
       unist-util-visit: 2.0.3
+    dev: false
+
+  /remark-emoji/3.0.2:
+    resolution: {integrity: sha512-hEgxEv2sBtvhT3tNG/tQeeFY3EbslftaOoG14dDZndLo25fWJ6Fbg4ukFbIotOWWrfXyASjXjyHT+6n366k3mg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      emoticon: 4.0.1
+      node-emoji: 1.11.0
+      unist-util-visit: 4.1.1
     dev: false
 
   /remark-footnotes/2.0.0:
