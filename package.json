@@ -37,6 +37,7 @@
     "react-player": "2.11.0",
     "react-router-dom": "5.3.4",
     "rehype-raw": "6.1.1",
+    "remark-emoji": "3.0.2",
     "unist-util-visit": "4.1.1"
   },
   "devDependencies": {
