@@ -3,13 +3,13 @@ const transformURL = require('./transformURL');
 
 // Ref: https://cookpete.com/react-player/
 const DEFAULT_PATTERN = [
-  '.mp4',
-  '.webm',
-  '.ogv',
-  '.mp3',
-  '.m3u8',
-  '.mpd',
-  '.mov',
+  '\\.mp4$',
+  '\\.webm$',
+  '\\.ogv$',
+  '\\.mp3$',
+  '\\.m3u8$',
+  '\\.mpd$',
+  '\\.mov$',
   'soundcloud.com',
   'youtube.com',
   'facebook.com',

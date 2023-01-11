@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const transformURL = require('./transformURL');
 
-// Ref: https://cookpete.com/react-player/
-const DEFAULT_PATTERN = ['.pdf'];
+const DEFAULT_PATTERN = ['\\.pdf$'];
 
 function plugin(options) {
   return async (tree) => {
