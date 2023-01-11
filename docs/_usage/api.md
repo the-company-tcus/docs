@@ -18,7 +18,10 @@ This is a list of all the components, plugins, and hooks in this project.
   - [plugin-windicss](#plugin-windicss)
   - [plugin-cursor-effects](#plugin-cursor-effects)
 - [Remark Plugins](#remark-plugins)
+  - [remark-url-to-iframe](#remark-url-to-iframe)
   - [remark-transform-video](#remark-transform-video)
+  - [remark-transform-pdf](#remark-transform-pdf)
+  - [remark-transform-emoji](#remark-transform-emoji)
 
 ## Components
 
@@ -991,7 +994,7 @@ const config = {
 
 ## Remark Plugins
 
-### remark-transform-video
+### remark-url-to-iframe
 
 [⬆️ Back to top](#table-of-contents)
 
@@ -999,10 +1002,6 @@ This plugin is used to transform URL (**with patterns**) links (e.g.:
 `[hyperlink](some-url)`) or URL plain texts to `iframe` elements.
 
 Currently, the plugin only searches for `http` or `https` links in your files.
-
-After the transformation, the `iframe` element can be **registered to the global
-scope** to map to the component `VideoPlayer` so whenever the `iframe`
-element in `MDX` file, it will be rendered as `VideoPlayer` component.
 
 > **Note**: There is a known issue that the plugin will cause build error
 > because the plugin using "dynamic import"
@@ -1023,7 +1022,130 @@ element in `MDX` file, it will be rendered as `VideoPlayer` component.
 #### Dependencies
 
 ```bash
-pnpm add unist-util-visit
+pnpm add unist-util-visit joi
+```
+
+#### Demo
+
+Basic usage:
+
+```js
+// docusaurus.config.js
+const transformURL = require('./src/remark/transformURL');
+
+const config = {
+  presets: [
+    [
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          beforeDefaultRemarkPlugins: [
+            [
+              transformURL,
+              {
+                patterns: ['youtube.com'],
+                iframeAttrs: {
+                  // NOTE: Set data-type-iframe to 'pdf' to be able to differentiate
+                  // between pdf file and normal iframe
+                  'data-type-iframe': 'video',
+                  width: '100%',
+                  height: '100%',
+                  style: 'aspect-ratio: 16/9',
+                  title: 'Video player',
+                },
+              },
+            ],
+          ],
+        },
+      }),
+    ],
+  ],
+};
+
+module.exports = config;
+```
+
+Input:
+
+```md
+https://www.youtube.com/watch?v=IHNzOHi8sJs
+
+<!-- or -->
+
+[video](https://www.youtube.com/watch?v=IHNzOHi8sJs)
+```
+
+Output:
+
+```html
+<iframe
+  src="https://www.youtube.com/watch?v=IHNzOHi8sJs"
+  data-type-iframe="video"
+  width="100%"
+  height="100%"
+  style="aspect-ratio: 16/9"
+  title="Video player"
+></iframe>
+```
+
+#### Import
+
+```js
+// In .docusaurus.config.js
+const transformURL = require('./src/remark/transformURL');
+// or
+// In component
+import transformURL from '@site/src/remark/transformURL';
+```
+
+#### Configuration
+
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>patterns</td>
+    <td>string[] | RegExp[]</td>
+    <td></td>
+    <td>Patterns to match the URL, can be a string or a regular expression. These patterns will be used to create a new <code>RegExp</code> object.</td>
+  </tr>
+  <tr>
+    <td>iframeAttrs</td>
+    <td>Record&lt;string, string | number | boolean&gt;</td>
+    <td></td>
+    <td>Attributes to add to the <code>iframe</code> element. Boolean attributes with value <code>true</code> will be added as <code>attribute</code> instead of <code>attribute="true"</code>.</td>
+  </tr>
+</tbody>
+</table>
+
+### remark-transform-video
+
+[⬆️ Back to top](#table-of-contents)
+
+This plugin uses `remark-url-to-iframe` plugin to transform URL (**with
+patterns**) links (e.g.: `[hyperlink](some-url)`) or URL plain texts to `iframe`
+elements.
+
+This plugin passes some default options to `remark-url-to-iframe` plugin, you
+can override them with your own options.
+
+After the transformation, the `iframe` element can be **registered to the global
+scope** to map to the component `VideoPlayer` so whenever the `iframe`
+element has attribute `data-type-iframe=video` in `MDX` file, it will be
+rendered as `VideoPlayer` component.
+
+#### Dependencies
+
+```bash
+pnpm add unist-util-visit joi
 ```
 
 #### Demo
@@ -1051,6 +1173,29 @@ const config = {
 };
 
 module.exports = config;
+```
+
+Input:
+
+```md
+https://www.youtube.com/watch?v=IHNzOHi8sJs
+
+<!-- or -->
+
+[video](https://www.youtube.com/watch?v=IHNzOHi8sJs)
+```
+
+Output:
+
+```html
+<iframe
+  src="https://www.youtube.com/watch?v=IHNzOHi8sJs"
+  data-type-iframe="video"
+  width="100%"
+  height="100%"
+  style="aspect-ratio: 16/9"
+  title="Video player"
+></iframe>
 ```
 
 <details>
@@ -1256,8 +1401,256 @@ import transformVideo from '@site/src/remark/transformVideo';
   <tr>
     <td>patterns</td>
     <td>string[] | RegExp[]</td>
-    <td>[ '.mp4', '.webm', '.ogv', '.mp3', '.m3u8', '.mpd', '.mov', 'soundcloud.com', 'youtube.com', 'facebook.com', 'vimeo.com', 'twitter.tv', 'streamable.com', 'wistia.com', 'dailymotion.com', 'mixcloud.com', 'vidyard.com', 'kaltura.com', ]</td>
-    <td>Patterns to match the URL, can be a string or a regular expression.</td>
+    <td>
+
+```js
+[
+  '\\.mp4$',
+  '\\.webm$',
+  '\\.ogv$',
+  '\\.mp3$',
+  '\\.m3u8$',
+  '\\.mpd$',
+  '\\.mov$',
+  'soundcloud.com',
+  'youtube.com',
+  'facebook.com',
+  'vimeo.com',
+  'twitter.tv',
+  'streamable.com',
+  'wistia.com',
+  'dailymotion.com',
+  'mixcloud.com',
+  'vidyard.com',
+  'kaltura.com',
+];
+```
+
+</td>
+    <td>Patterns to match the URL, can be a string or a regular expression. These patterns will be used to create a new <code>RegExp</code> object.</td>
+  </tr>
+  <tr>
+    <td>iframeAttrs</td>
+    <td>Record&lt;string, string | number | boolean&gt;</td>
+    <td>
+
+```js
+{
+  'data-type-iframe': 'video',
+  width: '100%',
+  height: '100%',
+  style: 'aspect-ratio: 16/9;',
+  title: 'Video player',
+  frameborder: 0,
+  allow:
+  'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+  allowfullscreen: true,
+}
+```
+
+</td>
+   <td>Attributes to add to the <code>iframe</code> element. Boolean attributes with value <code>true</code> will be added as <code>attribute</code> instead of <code>attribute="true"</code>.</td>
   </tr>
 </tbody>
 </table>
+
+### remark-transform-pdf
+
+[⬆️ Back to top](#table-of-contents)
+
+This plugin uses `remark-url-to-iframe` plugin to transform URL (**with
+patterns**) links (e.g.: `[hyperlink](some-url)`) or URL plain texts to `iframe`
+elements.
+
+This plugin passes some default options to `remark-url-to-iframe` plugin, you
+can override them with your own options.
+
+After the transformation, the `iframe` element can be **registered to the global
+scope** to map to the component `PDFViewer` so whenever the `iframe` element has
+attribute `data-type-iframe=pdf` in `MDX` file, it will be rendered as
+`PDFViewer` component.
+
+#### Dependencies
+
+```bash
+pnpm add unist-util-visit joi
+```
+
+#### Demo
+
+Basic usage:
+
+```js
+// docusaurus.config.js
+const transformPDF = require('./src/remark/transformPDF');
+
+const config = {
+  presets: [
+    [
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          beforeDefaultRemarkPlugins: [[transformPDF, { patterns: ['.pdf'] }]],
+        },
+      }),
+    ],
+  ],
+};
+
+module.exports = config;
+```
+
+Input:
+
+```md
+https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf
+
+<!-- or -->
+
+[pdf](https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf)
+```
+
+Output:
+
+```html
+<iframe
+  src="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
+  data-type-iframe="pdf"
+  width="100%"
+  height="100%"
+  style="aspect-ratio: 1/1"
+  title="PDF file"
+></iframe>
+```
+
+#### Import
+
+```js
+// In .docusaurus.config.js
+const transformPDF = require('./src/remark/transformPDF');
+// or
+// In component
+import transformPDF from '@site/src/remark/transformPDF';
+```
+
+#### Configuration
+
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>patterns</td>
+    <td>string[] | RegExp[]</td>
+    <td>
+
+```js
+['\\.pdf$'];
+```
+
+</td>
+    <td>Patterns to match the URL, can be a string or a regular expression. These patterns will be used to create a new <code>RegExp</code> object.</td>
+  </tr>
+  <tr>
+    <td>iframeAttrs</td>
+    <td>Record&lt;string, string | number | boolean&gt;</td>
+    <td>
+
+```js
+{
+  'data-type-iframe': 'pdf',
+  width: '100%',
+  height: '100%',
+  style: 'aspect-ratio: 1/1',
+  title: 'PDF file',
+}
+```
+
+</td>
+   <td>Attributes to add to the <code>iframe</code> element. Boolean attributes with value <code>true</code> will be added as <code>attribute</code> instead of <code>attribute="true"</code>.</td>
+  </tr>
+</tbody>
+</table>
+
+### remark-transform-emoji
+
+[⬆️ Back to top](#table-of-contents)
+
+This is a wrapper for plugin
+[`remark-emoji`](https://github.com/rhysd/remark-emoji) to transform emoji codes
+to emoji because the package doesn't support CommonJS module.
+
+#### Dependencies
+
+```bash
+pnpm add remark-emoji
+```
+
+#### Demo
+
+```js
+// docusaurus.config.js
+const transformEmoji = require('./src/remark/transformEmoji');
+
+const config = {
+  presets: [
+    [
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          beforeDefaultRemarkPlugins: [[transformEmoji, { emoticon: true }]],
+        },
+      }),
+    ],
+  ],
+};
+
+module.exports = config;
+```
+
+#### Import
+
+```js
+// In .docusaurus.config.js
+const transformEmoji = require('./src/remark/transformEmoji');
+// or
+// In component
+import transformEmoji from '@site/src/remark/transformEmoji';
+```
+
+#### Configuration
+
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>padSpaceAfter</td>
+    <td>boolean</td>
+    <td>false</td>
+    <td>Setting to <code>true</code> means that an extra whitespace is added after emoji. This is useful when browser handle emojis with half character length and following character is hidden.</td>
+  </tr>
+  <tr>
+    <td>emoticon</td>
+    <td>boolean</td>
+    <td>false</td>
+   <td>Setting to <code>true</code> means that <a href="https://www.npmjs.com/package/emoticon">emoticon</a> shortcodes are supported (e.g. :-) will be replaced by 😃).</td>
+  </tr>
+</tbody>
+</table>
+
+See more at [remark-emoji](https://github.com/rhysd/remark-emoji).
