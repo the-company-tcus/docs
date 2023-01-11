@@ -329,10 +329,10 @@ Deployment](./docs//deployment/document-site.md).
 
 - Features:
 
-  - [ ] Remark plugin to transform PDF links to `PDFViewer` component.
+  - [x] Remark plugin to transform PDF links to `PDFViewer` component.
   - [x] Integrate [`remark-emoji`](https://github.com/rhysd/remark-emoji)
         plugin.
-  - [ ] Algolia search.
+  - ~~[ ] Algolia search.~~
 
 - Blogs:
 
@@ -341,6 +341,7 @@ Deployment](./docs//deployment/document-site.md).
   - [ ] Create your first remark plugin.
 
 - Docs:
+  - [ ] Git branching strategy.
   - [ ] Privacy Policy.
   - [ ] Terms of Service.
 
