@@ -54,6 +54,7 @@ function PDFViewer({
   detectFileName = false,
   fallback,
   container,
+  ...props
 }) {
   const [error, setError] = useState(null);
   const [containerComp, setContainerComp] = useState(null);
@@ -82,7 +83,7 @@ function PDFViewer({
     return () => {
       document.removeEventListener('adobe_dc_view_sdk.ready', handleLoad);
     };
-  }, []);
+  }, [clientId, url, title, container, embedMode, divId]);
 
   useEffect(() => {
     if (!container) {
@@ -100,7 +101,7 @@ function PDFViewer({
     } catch (err) {
       setError(new Error(err));
     }
-  }, [container, isReady]);
+  }, [container, clientId, url, title, embedMode, divId, isReady]);
 
   if (error) {
     if (fallback) {
@@ -109,9 +110,10 @@ function PDFViewer({
 
     return (
       <iframe
-        title={title}
         src={url}
         style={{ height: '100%', width: '100%', display: 'block' }}
+        title={title}
+        {...props}
       ></iframe>
     );
   }
@@ -123,7 +125,7 @@ function PDFViewer({
       </Head>
 
       {!container && (
-        <div id={divId} style={{ height: '100%', width: '100%' }} />
+        <div id={divId} style={{ height: '100%', width: '100%' }} {...props} />
       )}
 
       {containerComp}

@@ -22,7 +22,7 @@ const ViewRelease = () => {
       <Title order={1}>
         Repository:{' '}
         <Anchor href={`https://github.com/${owner}/${repo}`} target="_blank">
-          <Icon icon="octicon:mark-github-16" width={32} height={32} inline />{' '}
+          <Icon height={32} icon="octicon:mark-github-16" inline width={32} />{' '}
           {owner}/{repo}
         </Anchor>
       </Title>
@@ -32,11 +32,9 @@ const ViewRelease = () => {
         </Text>
         <Group spacing="xs">
           <Input
-            type="date"
             id="from"
-            name="from"
             max={toTime.isValid() ? toTime.format('YYYY-MM-DD') : ''}
-            value={fromTime.isValid() ? fromTime.format('YYYY-MM-DD') : ''}
+            name="from"
             onChange={(e) => {
               // e.target.value is a string in the format YYYY-MM-DD, empty
               // string if no date is selected
@@ -49,14 +47,14 @@ const ViewRelease = () => {
 
               history.push({ pathname, search: query.toString() });
             }}
+            type="date"
+            value={fromTime.isValid() ? fromTime.format('YYYY-MM-DD') : ''}
           />
           {'-'}
           <Input
-            type="date"
             id="to"
-            name="to"
             min={fromTime.isValid() ? fromTime.format('YYYY-MM-DD') : ''}
-            value={toTime.isValid() ? toTime.format('YYYY-MM-DD') : ''}
+            name="to"
             onChange={(e) => {
               const toDate =
                 e.target.value !== ''
@@ -67,10 +65,12 @@ const ViewRelease = () => {
 
               history.push({ pathname, search: query.toString() });
             }}
+            type="date"
+            value={toTime.isValid() ? toTime.format('YYYY-MM-DD') : ''}
           />
         </Group>
       </Group>
-      <ReleaseList owner={owner} repo={repo} from={fromTime} to={toTime} />
+      <ReleaseList from={fromTime} owner={owner} repo={repo} to={toTime} />
     </Container>
   );
 };

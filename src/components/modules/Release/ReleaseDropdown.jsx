@@ -10,6 +10,7 @@ const ReleaseDropdown = ({ owner, repo, from, to }) => {
 
   return (
     <Details
+      open
       summary={
         <summary>
           <Group position="apart">
@@ -23,11 +24,10 @@ const ReleaseDropdown = ({ owner, repo, from, to }) => {
           </Group>
         </summary>
       }
-      open
     >
       <Stack className="h-100 overflow-auto">
         <Container className="w-full">
-          <ReleaseList owner={owner} repo={repo} from={from} to={to} />
+          <ReleaseList from={from} owner={owner} repo={repo} to={to} />
         </Container>
       </Stack>
     </Details>

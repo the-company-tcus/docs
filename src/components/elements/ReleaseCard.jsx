@@ -21,6 +21,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import * as runtime from 'react/jsx-runtime';
 import rehypeRaw from 'rehype-raw';
+import remarkEmoji from 'remark-emoji';
 
 const ReleaseBody = ({ body }) => {
   const components = useMDXComponents();
@@ -31,7 +32,7 @@ const ReleaseBody = ({ body }) => {
     const evaluateBody = async () => {
       const { default: BodyContent } = await evaluate(body, {
         ...runtime,
-        remarkPlugins: [transformVideo],
+        remarkPlugins: [transformVideo, [remarkEmoji, { emoticon: true }]],
         // Ref: https://github.com/atomiks/rehype-pretty-code/issues/6#issuecomment-1006220771
         rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
         useMDXComponents: () => components,
@@ -41,7 +42,7 @@ const ReleaseBody = ({ body }) => {
     };
 
     evaluateBody();
-  }, [body]);
+  }, [body, components]);
 
   return parsed;
 };
@@ -49,38 +50,38 @@ const ReleaseBody = ({ body }) => {
 const ReleaseCard = ({ release, latest = false }) => {
   return (
     <Group
-      key={release.id}
       align="flex-start"
       className="mb-4 md:flex-row flex-col"
-      spacing="lg"
+      key={release.id}
       noWrap
+      spacing="lg"
     >
-      <Stack justify="flex-start" className="w-full md:w-1/6">
+      <Stack className="w-full md:w-1/6" justify="flex-start">
         <Tooltip.Floating label={moment(release.published_at).format('lll')}>
           <Text className="whitespace-nowrap">
             {moment(release.published_at).fromNow()}
           </Text>
         </Tooltip.Floating>
-        <Stack spacing="xs" className="flex-row md:flex-col">
+        <Stack className="flex-row md:flex-col" spacing="xs">
           <Group spacing="xs">
-            <Avatar src={release.author.avatar_url} size={20} />
+            <Avatar size={20} src={release.author.avatar_url} />
             <Anchor
+              color="dimmed"
               fz="sm"
               href={release.author.html_url}
-              color="dimmed"
               target="_blank"
             >
               {release.author.login}
             </Anchor>
           </Group>
           <Anchor
-            underline={false}
             color="dimmed"
             href={release.html_url.replace('releases/tag', 'tree')}
             target="_blank"
+            underline={false}
           >
             <Group spacing={14}>
-              <Icon icon="octicon:tag-16" width={16} height={16} />
+              <Icon height={16} icon="octicon:tag-16" width={16} />
               <Text>{release.tag_name}</Text>
             </Group>
           </Anchor>
@@ -93,20 +94,20 @@ const ReleaseCard = ({ release, latest = false }) => {
           </Anchor>
           {release.prerelease ? (
             <Badge
-              color="yellow"
-              variant="outline"
-              size="lg"
               className="min-w-max normal-case"
+              color="yellow"
+              size="lg"
+              variant="outline"
             >
               Pre-release
             </Badge>
           ) : (
             latest && (
               <Badge
-                color="green"
-                variant="outline"
-                size="lg"
                 className="min-w-max normal-case"
+                color="green"
+                size="lg"
+                variant="outline"
               >
                 Latest
               </Badge>
@@ -117,7 +118,7 @@ const ReleaseCard = ({ release, latest = false }) => {
         <ErrorBoundary
           fallback={({ error }) => (
             <>
-              <Admonition type="danger" title="Error">
+              <Admonition title="Error" type="danger">
                 <p>This component crashed because of error: {error.message}.</p>
               </Admonition>
               <pre className="whitespace-pre-wrap">
