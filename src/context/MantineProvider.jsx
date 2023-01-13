@@ -4,7 +4,7 @@ import {
   DEFAULT_THEME as mantineDefaultTheme,
 } from '@mantine/core';
 import React from 'react';
-import windiColors from 'windicss/colors';
+import windiDefaultColors from 'windicss/colors';
 import windiDefaultTheme from 'windicss/defaultTheme';
 
 const convertBreakpoint = (breakpoint) => {
@@ -16,9 +16,10 @@ const convertBreakpoint = (breakpoint) => {
   return convertedBreakpoint;
 };
 
-const convertColor = (colors) => {
+// Override Mantine colors
+const convertColor = (windiColors) => {
   const convertedColor = {};
-  Object.keys(colors).forEach((color) => {
+  Object.keys(windiColors).forEach((color) => {
     if (color === 'lightBlue') {
       color = 'sky';
     } else if (color === 'warmGray') {
@@ -33,8 +34,8 @@ const convertColor = (colors) => {
       color = 'zinc';
     }
 
-    if (colors[color] instanceof Object) {
-      convertedColor[color] = Object.values(colors[color]);
+    if (windiColors[color] instanceof Object) {
+      convertedColor[color] = Object.values(windiColors[color]);
     }
   });
   return convertedColor;
@@ -54,10 +55,10 @@ const theme = {
     ...mantineDefaultTheme.breakpoints,
     ...convertBreakpoint(windiDefaultTheme.screens), // WindiCSS
   },
-  colors: convertColor(windiColors),
+  colors: convertColor(windiDefaultColors),
   defaultRadius: 'md',
-  black: windiColors.black,
-  white: windiColors.white,
+  black: windiDefaultColors.black,
+  white: windiDefaultColors.white,
   primaryColor: 'blue',
   fontSizes: {
     ...mantineDefaultTheme.fontSizes,
