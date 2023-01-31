@@ -2,8 +2,9 @@ import { Icon } from '@iconify/react';
 import { Button } from '@mantine/core';
 import React from 'react';
 import { PDFViewer } from './PDFViewer';
+import type { PDFViewerProps } from './types';
 
-function PDFViewerButton(props) {
+function PDFViewerButton(props: Omit<PDFViewerProps, 'embedMode'>) {
   return (
     <PDFViewer
       container={({ divId, isReady, preview }) => {

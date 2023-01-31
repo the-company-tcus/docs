@@ -1,7 +1,11 @@
 import Head from '@docusaurus/Head';
 import React, { useEffect, useId, useState } from 'react';
+import type { PDFViewerProps } from './types';
 
-function detectFileNameFromURL(url) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const AdobeDC: any;
+
+function detectFileNameFromURL(url: string) {
   try {
     // url should be a component of the URL (query), not the entire URL
     const fileName = decodeURIComponent(url).split('/').pop();
@@ -11,7 +15,15 @@ function detectFileNameFromURL(url) {
   }
 }
 
-function previewFile(url, title, clientId, options) {
+function previewFile(
+  url: string,
+  title: string,
+  clientId: string,
+  options: {
+    embedMode: 'FULL_WINDOW' | 'SIZED_CONTAINER' | 'IN_LINE' | 'LIGHT_BOX';
+    divId?: string;
+  },
+) {
   const { embedMode, divId = 'adobe-dc-view' } = options;
   // eslint-disable-next-line no-undef
   const adobeDCView = new AdobeDC.View({
@@ -55,10 +67,10 @@ function PDFViewer({
   fallback,
   container,
   ...props
-}) {
-  const [error, setError] = useState(null);
-  const [containerComp, setContainerComp] = useState(null);
-  const [isReady, setIsReady] = useState(false);
+}: PDFViewerProps) {
+  const [error, setError] = useState<Error>(null);
+  const [containerComp, setContainerComp] = useState<React.ReactNode>(null);
+  const [isReady, setIsReady] = useState<boolean>(false);
   const divId = useId();
 
   if (detectFileName) {
@@ -69,6 +81,8 @@ function PDFViewer({
     const handleLoad = () => {
       setIsReady(true);
 
+      // If no container is provided, we will use the default div and preview
+      // the file immediately
       if (!container) {
         try {
           previewFile(url, title, clientId, { embedMode, divId });
@@ -90,6 +104,7 @@ function PDFViewer({
       return;
     }
     try {
+      // Set the container component to render with the provided props
       setContainerComp(
         container({
           divId,
@@ -104,8 +119,10 @@ function PDFViewer({
   }, [container, clientId, url, title, embedMode, divId, isReady]);
 
   if (error) {
+    // Render the fallback component if provided, with the error as a prop.
+    // Otherwise, render the iframe to display the PDF
     if (fallback) {
-      return fallback({ error });
+      return <>fallback({error})</>;
     }
 
     return (
