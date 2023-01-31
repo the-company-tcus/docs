@@ -1,0 +1,103 @@
+{
+  "projectName": "docs",
+  "projectOwner": "the-company-tcus",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "docs/intro.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "lntvan166",
+      "name": "Tu Van",
+      "avatar_url": "https://avatars.githubusercontent.com/u/70436051?v=4",
+      "profile": "https://www.instagram.com/tuvan_16/",
+      "contributions": [
+        "projectManagement",
+        {
+          "type": "code",
+          "url": "https://github.com/the-company-tcus/backend/commits?author=lntvan166"
+        },
+        {
+          "type": "review",
+          "url": "https://github.com/the-company-tcus/backend/pulls?q=is%3Apr+reviewed-by%3Alntvan166"
+        }
+      ]
+    },
+    {
+      "login": "DuckyMomo20012",
+      "name": "Dương Tiến Vinh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64480713?v=4",
+      "profile": "https://github.com/DuckyMomo20012",
+      "contributions": [
+        {
+          "type": "doc",
+          "url": "https://github.com/the-company-tcus/docs/commits?author=DuckyMomo20012"
+        },
+        {
+          "type": "code",
+          "url": "https://github.com/the-company-tcus/docs/commits?author=DuckyMomo20012"
+        },
+        "design"
+      ]
+    },
+    {
+      "login": "tristran2k1",
+      "name": "Trí Trần",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60394372?v=4",
+      "profile": "https://github.com/tristran2k1",
+      "contributions": [
+        {
+          "type": "code",
+          "url": "https://github.com/the-company-tcus/backend/commits?author=tristran2k1"
+        },
+        "design"
+      ]
+    },
+    {
+      "login": "thientoan0101",
+      "name": "Nguyen Tran Thien Toan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66426299?v=4",
+      "profile": "https://github.com/thientoan0101",
+      "contributions": [
+        {
+          "type": "code",
+          "url": "https://github.com/the-company-tcus/frontend/commits?author=thientoan0101"
+        }
+      ]
+    },
+    {
+      "login": "Catelt",
+      "name": "Hồ Văn Duy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54297602?v=4",
+      "profile": "https://github.com/Catelt",
+      "contributions": [
+        {
+          "type": "code",
+          "url": "https://github.com/the-company-tcus/frontend/commits?author=Catelt"
+        },
+        {
+          "type": "review",
+          "url": "https://github.com/the-company-tcus/frontend/pulls?q=is%3Apr+reviewed-by%3ACatelt"
+        }
+      ]
+    },
+    {
+      "login": "chopcolate",
+      "name": "Trần Nguyên Trung",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64058709?v=4",
+      "profile": "https://github.com/chopcolate",
+      "contributions": [
+        {
+          "type": "code",
+          "url": "https://github.com/the-company-tcus/backend/commits?author=chopcolate"
+        }
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": false
+}

@@ -436,6 +436,44 @@ function HomepageHeader() {
 // ...
 ```
 
+:::caution
+
+Since Mantine also provides some [default
+props](https://mantine.dev/styles/style-props/#supported-props) for all
+components, like: `p`, `px`, `py`, `m`, `mx`, `my`,... so if you use the
+attributify mode, you should add a prefix to the WindiCSS utilities to avoid
+conflicts. For example, you can setup prefix `w:` for WindiCSS utilities:
+
+```js title="windi.config.js"
+export default {
+  attributify: {
+    prefix: 'w:',
+  },
+};
+```
+
+Then you can use the WindiCSS utilities as HTML attributes:
+
+```jsx title="src/pages/index.jsx"
+// ...
+function HomepageHeader() {
+  return (
+    <button
+      w:bg="blue-400 hover:blue-500 dark:blue-500 dark:hover:blue-600"
+      w:text="sm white"
+      w:font="mono light"
+      w:p="y-2 x-4"
+      w:border="2 rounded blue-200"
+    >
+      Button
+    </button>
+  );
+}
+// ...
+```
+
+:::
+
 ### Colors
 
 Docusaurus configured primary colors from `src/css/custom.css`:
@@ -565,7 +603,7 @@ import {
   DEFAULT_THEME as mantineDefaultTheme,
 } from '@mantine/core';
 import React from 'react';
-import windiColors from 'windicss/colors';
+import windiDefaultColors from 'windicss/colors';
 import windiDefaultTheme from 'windicss/defaultTheme';
 
 const convertBreakpoint = (breakpoint) => {
@@ -577,9 +615,10 @@ const convertBreakpoint = (breakpoint) => {
   return convertedBreakpoint;
 };
 
-const convertColor = (colors) => {
+// Override Mantine colors
+const convertColor = (windiColors) => {
   const convertedColor = {};
-  Object.keys(colors).forEach((color) => {
+  Object.keys(windiColors).forEach((color) => {
     if (color === 'lightBlue') {
       color = 'sky';
     } else if (color === 'warmGray') {
@@ -594,8 +633,8 @@ const convertColor = (colors) => {
       color = 'zinc';
     }
 
-    if (colors[color] instanceof Object) {
-      convertedColor[color] = Object.values(colors[color]);
+    if (windiColors[color] instanceof Object) {
+      convertedColor[color] = Object.values(windiColors[color]);
     }
   });
   return convertedColor;
@@ -615,10 +654,10 @@ const theme = {
     ...mantineDefaultTheme.breakpoints,
     ...convertBreakpoint(windiDefaultTheme.screens), // WindiCSS
   },
-  colors: convertColor(windiColors),
+  colors: convertColor(windiDefaultColors),
   defaultRadius: 'md',
-  black: windiColors.black,
-  white: windiColors.white,
+  black: windiDefaultColors.black,
+  white: windiDefaultColors.white,
   primaryColor: 'blue',
   fontSizes: {
     ...mantineDefaultTheme.fontSizes,
@@ -929,11 +968,12 @@ For example:
 
 ```jsx title="src/context/MantineProvider.jsx"
 // ...
-import windiColors from 'windicss/colors';
+import windiDefaultColors from 'windicss/colors';
 
-const convertColor = (colors) => {
+/ Override Mantine colors
+const convertColor = (windiColors) => {
   const convertedColor = {};
-  Object.keys(colors).forEach((color) => {
+  Object.keys(windiColors).forEach((color) => {
     if (color === 'lightBlue') {
       color = 'sky';
     } else if (color === 'warmGray') {
@@ -948,17 +988,17 @@ const convertColor = (colors) => {
       color = 'zinc';
     }
 
-    if (colors[color] instanceof Object) {
-      convertedColor[color] = Object.values(colors[color]);
+    if (windiColors[color] instanceof Object) {
+      convertedColor[color] = Object.values(windiColors[color]);
     }
   });
   return convertedColor;
 };
 
 const theme = {
-  colors: convertColor(windiColors),
-  black: windiColors.black,
-  white: windiColors.white,
+  colors: convertColor(windiDefaultColors),
+  black: windiDefaultColors.black,
+  white: windiDefaultColors.white,
   primaryColor: 'blue',
 };
 // ...

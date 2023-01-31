@@ -1,8 +1,30 @@
+import { DEFAULT_THEME as mantineDefaultTheme } from '@mantine/core';
+import windiDefaultColors from 'windicss/colors';
+
+// Don't override WindiCSS colors
+const convertColor = (mantineColors, windiColors) => {
+  const newColorPalette = {};
+  Object.keys(mantineColors).forEach((colorName) => {
+    if (windiColors[colorName] instanceof Object === false) {
+      const newColor = {};
+      mantineColors[colorName].forEach((_colorHex, index) => {
+        newColor[`${index * 100}`] = mantineColors[colorName][index];
+      });
+      newColor['50'] = newColor['0'];
+      delete newColor['0'];
+    }
+  });
+
+  return newColorPalette;
+};
+
 export default {
   alias: {
     // ...
   },
-  attributify: true,
+  attributify: {
+    prefix: 'w:',
+  },
   darkMode: 'class',
   extract: {
     exclude: ['node_modules', '.git', '.next/**/*'],
@@ -36,6 +58,7 @@ export default {
           lighter: '#32d8b4',
           lightest: '#4fddbf',
         },
+        ...convertColor(mantineDefaultTheme.colors, windiDefaultColors),
       },
       fontFamily: {
         sans: 'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
