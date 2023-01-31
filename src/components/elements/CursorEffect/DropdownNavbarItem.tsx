@@ -1,4 +1,6 @@
+import type { NavbarItem } from '@docusaurus/theme-common';
 import { Icon } from '@iconify/react';
+import type { Props } from '@theme/NavbarItem/DropdownNavbarItem';
 import DropdownNavbarItem from '@theme/NavbarItem/DropdownNavbarItem';
 import {
   bubbleCursor,
@@ -15,6 +17,7 @@ import {
 } from 'cursor-effects';
 import React, { useEffect, useState } from 'react';
 import { CursorEffectContext } from './cursorContext';
+import type { CursorConfig } from './types';
 
 const cursorEffects = {
   bubbleCursor,
@@ -30,8 +33,17 @@ const cursorEffects = {
   trailingCursor,
 };
 
-const CursorEffectDropdownNavbarItem = (props) => {
-  const [cursor, setCursor] = useState(props.items[0]);
+const CursorEffectDropdownNavbarItem = (
+  props: NavbarItem & {
+    items: CursorConfig[];
+  } & Props,
+) => {
+  const [cursor, setCursor] = useState<
+    Pick<CursorConfig, 'cursorType' | 'options'>
+  >({
+    cursorType: props.items[0].cursorType,
+    options: props.items[0].options,
+  });
   const { cursorType, options } = cursor;
 
   // eslint-disable-next-line consistent-return
