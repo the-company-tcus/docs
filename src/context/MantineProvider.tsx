@@ -1,24 +1,29 @@
 import {
   MantineProvider as BaseMantineProvider,
   Global,
+  MantineTheme,
   DEFAULT_THEME as mantineDefaultTheme,
 } from '@mantine/core';
+import type { MantineSizes } from '@mantine/core';
 import React from 'react';
 import windiDefaultColors from 'windicss/colors';
 import windiDefaultTheme from 'windicss/defaultTheme';
+import type { DefaultColors } from 'windicss/types/config/colors';
+import type { DefaultFontSize, ThemeType } from 'windicss/types/interfaces';
+import type { MantineThemeColors } from '@site/src/types/MantineThemeColors';
 
-const convertBreakpoint = (breakpoint) => {
-  const convertedBreakpoint = {};
+const convertBreakpoint = (breakpoint: ThemeType): MantineSizes => {
+  const convertedBreakpoint = {} as MantineSizes;
   Object.keys(breakpoint).forEach((size) => {
     // NOTE: Have to remove 'px' from breakpoint and convert to number
-    convertedBreakpoint[size] = breakpoint[size].replace('px', '') * 1;
+    convertedBreakpoint[size] = +breakpoint[size].replace('px', '');
   });
   return convertedBreakpoint;
 };
 
 // Override Mantine colors
-const convertColor = (windiColors) => {
-  const convertedColor = {};
+const convertColor = (windiColors: DefaultColors) => {
+  const convertedColor = {} as MantineThemeColors;
   Object.keys(windiColors).forEach((color) => {
     if (color === 'lightBlue') {
       color = 'sky';
@@ -38,11 +43,16 @@ const convertColor = (windiColors) => {
       convertedColor[color] = Object.values(windiColors[color]);
     }
   });
+  // NOTE: WindiCSS dark color is too dark
+  convertedColor.dark = convertedColor.zinc;
+
   return convertedColor;
 };
 
-const convertFontSize = (fontSize) => {
-  const convertedFontSize = {};
+const convertFontSize = (fontSize: {
+  [key: string]: DefaultFontSize;
+}): MantineSizes => {
+  const convertedFontSize = {} as MantineSizes;
   Object.keys(fontSize).forEach((size) => {
     // NOTE: Don't have to convert 'rem' to 'px'
     convertedFontSize[size] = fontSize[size][0];
@@ -50,15 +60,19 @@ const convertFontSize = (fontSize) => {
   return convertedFontSize;
 };
 
-const theme = {
+const theme: MantineTheme = {
+  ...mantineDefaultTheme,
   breakpoints: {
     ...mantineDefaultTheme.breakpoints,
     ...convertBreakpoint(windiDefaultTheme.screens), // WindiCSS
   },
-  colors: convertColor(windiDefaultColors),
+  colors: {
+    ...mantineDefaultTheme.colors,
+    ...convertColor(windiDefaultColors),
+  },
   defaultRadius: 'md',
-  black: windiDefaultColors.black,
-  white: windiDefaultColors.white,
+  black: windiDefaultColors.black as string,
+  white: windiDefaultColors.white as string,
   primaryColor: 'blue',
   fontSizes: {
     ...mantineDefaultTheme.fontSizes,
@@ -74,6 +88,7 @@ const theme = {
   fontFamilyMonospace:
     'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
   headings: {
+    ...mantineDefaultTheme.headings,
     fontFamily:
       'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
   },
@@ -99,7 +114,16 @@ const MyGlobalStyles = () => {
   );
 };
 
-const MantineProvider = ({ children, theme: themeProps, ...props }) => {
+type MantineProps = {
+  children: React.ReactNode;
+  theme?: Partial<MantineTheme>;
+};
+
+const MantineProvider = ({
+  children,
+  theme: themeProps,
+  ...props
+}: MantineProps) => {
   return (
     <BaseMantineProvider theme={{ ...theme, ...themeProps }} {...props}>
       <MyGlobalStyles />
