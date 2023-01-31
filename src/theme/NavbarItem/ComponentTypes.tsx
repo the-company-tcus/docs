@@ -1,8 +1,8 @@
+import ComponentTypes from '@theme-original/NavbarItem/ComponentTypes';
 import {
   CursorEffectDropdownNavbarItem,
   CursorEffectNavbarItem,
 } from '@site/src/components/elements/CursorEffect';
-import ComponentTypes from '@theme-original/NavbarItem/ComponentTypes';
 
 export default {
   ...ComponentTypes,
