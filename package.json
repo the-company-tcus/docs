@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "tsc && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -39,6 +39,7 @@
     "react-router-dom": "5.3.4",
     "rehype-raw": "6.1.1",
     "remark-emoji": "3.0.2",
+    "type-fest": "3.5.4",
     "unist-util-visit": "4.1.1"
   },
   "devDependencies": {
