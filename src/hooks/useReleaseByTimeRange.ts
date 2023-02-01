@@ -1,9 +1,21 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import moment from 'moment';
+import type { Moment } from 'moment';
+import type { Octokit } from 'octokit';
 
 const fetchReleases = async (
-  octokit,
-  { owner, repo, page = 1, perPage = 100 },
+  octokit: Octokit,
+  {
+    owner,
+    repo,
+    page = 1,
+    perPage = 100,
+  }: {
+    owner: string;
+    repo: string;
+    page?: number;
+    perPage?: number;
+  },
 ) => {
   const data = await octokit.request('GET /repos/{owner}/{repo}/releases', {
     owner,
@@ -16,10 +28,20 @@ const fetchReleases = async (
 };
 
 const useReleaseByTimeRange = (
-  octokit,
-  { owner, repo, page, perPage },
-  from,
-  to,
+  octokit: Octokit,
+  {
+    owner,
+    repo,
+    page,
+    perPage,
+  }: {
+    owner: string;
+    repo: string;
+    page?: number;
+    perPage?: number;
+  },
+  from: Moment,
+  to: Moment,
 ) => {
   const fromTime = moment(from, 'MM-DD-YYYY');
   const toTime = moment(to, 'MM-DD-YYYY');
@@ -46,12 +68,11 @@ const useReleaseByTimeRange = (
       getNextPageParam: (lastPage) => {
         const { url, data: lastPageData } = lastPage;
 
-        // Ref: https://stackoverflow.com/a/901144/12512981
-        const params = new Proxy(new URLSearchParams(new URL(url).search), {
-          get: (searchParams, prop) => searchParams.get(prop),
-        });
+        const prevPage = new URLSearchParams(new URL(url).search).get('page');
 
-        const prevPage = params.page;
+        if (!prevPage) {
+          return undefined;
+        }
 
         if (lastPageData.length === 0) {
           return undefined;

@@ -1,9 +1,9 @@
-import { ReleasePage } from '@site/src/pages/_releases/index';
-import { ViewRelease } from '@site/src/pages/_releases/view';
 import Layout from '@theme/Layout';
 import NotFound from '@theme/NotFound';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { ReleasePage } from '@site/src/pages/_releases/index';
+import { ViewRelease } from '@site/src/pages/_releases/view';
 
 function ReleaseLayout() {
   const match = useRouteMatch();

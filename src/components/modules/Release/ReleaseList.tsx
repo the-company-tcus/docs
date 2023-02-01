@@ -1,12 +1,22 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Button, Center, Group, Loader, Space, Title } from '@mantine/core';
-import { ReleaseCard } from '@site/src/components/elements/ReleaseCard';
-import { useReleaseByTimeRange } from '@site/src/hooks/useReleaseByTimeRange';
 import { useQuery } from '@tanstack/react-query';
 import { Octokit } from 'octokit';
 import React from 'react';
+import type { ReleaseProps } from './types';
+import { ReleaseCard } from '@site/src/components/elements/ReleaseCard';
+import { useReleaseByTimeRange } from '@site/src/hooks/useReleaseByTimeRange';
 
-const fetchLatestRelease = async (octokit, { owner, repo }) => {
+const fetchLatestRelease = async (
+  octokit: Octokit,
+  {
+    owner,
+    repo,
+  }: {
+    owner: string;
+    repo: string;
+  },
+) => {
   const data = await octokit.request(
     'GET /repos/{owner}/{repo}/releases/latest',
     {
@@ -18,7 +28,7 @@ const fetchLatestRelease = async (octokit, { owner, repo }) => {
   return data;
 };
 
-const ReleaseList = ({ owner, repo, from, to }) => {
+const ReleaseList = ({ owner, repo, from, to }: ReleaseProps) => {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
