@@ -1,9 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useColorMode } from '@docusaurus/theme-common';
+import type { ColorMode } from '@docusaurus/theme-common';
 import { ColorSchemeProvider } from '@mantine/core';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
-import { MantineProvider } from '../../../context/MantineProvider';
+import { MantineProvider } from '@site/src/context/MantineProvider';
 
 const CustomProvider = ({ children }: { children?: React.ReactNode }) => {
   const { colorMode, setColorMode } = useColorMode();
@@ -16,8 +17,8 @@ const CustomProvider = ({ children }: { children?: React.ReactNode }) => {
     }
   }, [colorMode]);
 
-  const toggleColorScheme = (value) =>
-    setColorMode(value || (colorMode === 'dark' ? 'light' : 'dark'));
+  const toggleColorScheme = (colorScheme?: ColorMode) =>
+    setColorMode(colorScheme || (colorMode === 'dark' ? 'light' : 'dark'));
 
   return (
     <ColorSchemeProvider
