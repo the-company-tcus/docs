@@ -5,7 +5,7 @@ import React from 'react';
 import { ReleaseList } from './ReleaseList';
 import type { ReleaseProps } from './types';
 
-const ReleaseDropdown = ({ owner, repo, from, to }: ReleaseProps) => {
+const ReleaseDropdown = ({ owner, repo, from = '', to = '' }: ReleaseProps) => {
   const fromTime = moment(from, 'MM-DD-YYYY');
   const toTime = moment(to, 'MM-DD-YYYY');
 

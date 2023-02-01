@@ -40,9 +40,11 @@ const useReleaseByTimeRange = (
     page?: number;
     perPage?: number;
   },
-  from: string | Moment,
-  to: string | Moment,
+  from: string | Moment = '',
+  to: string | Moment = '',
 ) => {
+  // NOTE: Empty string is parsed as invalid date, but we don't have to check it
+  // valid because all expressions will be false
   const fromTime = moment(from, 'MM-DD-YYYY');
   const toTime = moment(to, 'MM-DD-YYYY');
 
@@ -74,6 +76,7 @@ const useReleaseByTimeRange = (
           return undefined;
         }
 
+        // Fetched all data
         if (lastPageData.length === 0) {
           return undefined;
         }

@@ -28,7 +28,7 @@ const fetchLatestRelease = async (
   return data;
 };
 
-const ReleaseList = ({ owner, repo, from, to }: ReleaseProps) => {
+const ReleaseList = ({ owner, repo, from = '', to = '' }: ReleaseProps) => {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
