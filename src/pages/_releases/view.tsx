@@ -1,9 +1,9 @@
 import { Icon } from '@iconify/react';
 import { Anchor, Container, Group, Input, Text, Title } from '@mantine/core';
-import { ReleaseList } from '@site/src/components/modules/Release/ReleaseList';
 import moment from 'moment';
 import React, { useMemo } from 'react';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { ReleaseList } from '@site/src/components/modules/Release/ReleaseList';
 
 const ViewRelease = () => {
   const history = useHistory();

@@ -1,12 +1,12 @@
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { Center } from '@mantine/core';
+import React, { useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   PDFViewer,
   PDFViewerButton,
 } from '@site/src/components/elements/PDFViewer';
-import React, { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const PDFViewerPage = () => {
   const {
@@ -28,7 +28,7 @@ const PDFViewerPage = () => {
           LIGHT_BOX: (
             <Center className="h-screen">
               <PDFViewerButton
-                clientId={customFields.clientId}
+                clientId={customFields.clientId as string}
                 title={title}
                 url={url}
               />
@@ -37,7 +37,7 @@ const PDFViewerPage = () => {
           FULL_WINDOW: (
             <div className="h-screen">
               <PDFViewer
-                clientId={customFields.clientId}
+                clientId={customFields.clientId as string}
                 embedMode="FULL_WINDOW"
                 title={title}
                 url={url}
@@ -47,7 +47,7 @@ const PDFViewerPage = () => {
           SIZED_CONTAINER: (
             <div className="h-screen">
               <PDFViewer
-                clientId={customFields.clientId}
+                clientId={customFields.clientId as string}
                 embedMode="SIZED_CONTAINER"
                 title={title}
                 url={url}
@@ -56,7 +56,7 @@ const PDFViewerPage = () => {
           ),
           IN_LINE: (
             <PDFViewer
-              clientId={customFields.clientId}
+              clientId={customFields.clientId as string}
               embedMode="IN_LINE"
               title={title}
               url={url}
