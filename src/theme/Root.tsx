@@ -6,6 +6,6 @@ import 'windi-components.css';
 import 'windi-utilities.css';
 
 // Default implementation, that you can customize
-export default function Root({ children }) {
+export default function Root({ children }: { children?: React.ReactNode }) {
   return <QueryProvider>{children}</QueryProvider>;
 }

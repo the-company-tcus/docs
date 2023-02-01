@@ -14,7 +14,6 @@ import {
 } from '@mantine/core';
 import { evaluate, nodeTypes } from '@mdx-js/mdx';
 import { useMDXComponents } from '@mdx-js/react';
-import transformVideo from '@site/src/remark/transformVideo';
 import Admonition from '@theme/Admonition';
 import MDXContent from '@theme/MDXContent';
 import moment from 'moment';
@@ -22,11 +21,12 @@ import React, { useEffect, useState } from 'react';
 import * as runtime from 'react/jsx-runtime';
 import rehypeRaw from 'rehype-raw';
 import remarkEmoji from 'remark-emoji';
+import transformVideo from '@site/src/remark/transformVideo';
 
 const ReleaseBody = ({ body }) => {
   const components = useMDXComponents();
 
-  const [parsed, setParsed] = useState();
+  const [parsed, setParsed] = useState<React.ReactNode>();
 
   useEffect(() => {
     const evaluateBody = async () => {
@@ -36,7 +36,8 @@ const ReleaseBody = ({ body }) => {
         // Ref: https://github.com/atomiks/rehype-pretty-code/issues/6#issuecomment-1006220771
         rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
         useMDXComponents: () => components,
-      });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any);
 
       setParsed(<BodyContent />);
     };
@@ -44,10 +45,17 @@ const ReleaseBody = ({ body }) => {
     evaluateBody();
   }, [body, components]);
 
-  return parsed;
+  return <>{parsed}</>;
 };
 
-const ReleaseCard = ({ release, latest = false }) => {
+const ReleaseCard = ({
+  release,
+  latest = false,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  release: any;
+  latest?: boolean;
+}) => {
   return (
     <Group
       align="flex-start"

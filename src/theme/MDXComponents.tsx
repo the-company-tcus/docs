@@ -1,16 +1,24 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { PDFViewer } from '@site/src/components/elements/PDFViewer';
-import { VideoPlayer } from '@site/src/components/elements/VideoPlayer';
 // Import the original mapper
 import MDXComponents from '@theme-original/MDXComponents';
 import React from 'react';
+import { PDFViewer } from '@site/src/components/elements/PDFViewer';
+import { VideoPlayer } from '@site/src/components/elements/VideoPlayer';
 
-const PDFViewerWrapper = ({ src, ...props }) => {
+const PDFViewerWrapper = ({ src, ...props }: { src: string }) => {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext();
 
-  return <PDFViewer clientId={customFields.clientId} url={src} {...props} />;
+  return (
+    <PDFViewer
+      clientId={customFields.clientId as string}
+      url={src}
+      {...props}
+      container={null}
+      fallback={null}
+    />
+  );
 };
 
 export default {

@@ -1,22 +1,29 @@
+import type { Props } from '@theme/NavbarItem/DefaultNavbarItem';
 import clsx from 'clsx';
-import React, { useContext } from 'react';
+import React, { ComponentProps, useContext } from 'react';
 import { CursorEffectContext } from './cursorContext';
+import type { CursorConfig } from './types';
+
+type CursorEffectNavbarItemProps = Omit<Props, keyof ComponentProps<'a'>> &
+  ComponentProps<'div'>;
 
 const DefaultCursorEffectNavbarItem = ({
   label,
   className,
   isDropdownItem = false,
   activeClassName,
-  isActive,
+  isLinkActive,
   mobile,
   ...props
-}) => {
+}: {
+  isLinkActive: boolean;
+} & CursorEffectNavbarItemProps) => {
   const element = (
     <div
       className={clsx(
         isDropdownItem && (mobile ? 'menu__link' : 'dropdown__link'),
         className,
-        isActive && activeClassName,
+        isLinkActive && activeClassName,
       )}
       {...props}
     >
@@ -31,7 +38,12 @@ const DefaultCursorEffectNavbarItem = ({
   return element;
 };
 
-const CursorEffectNavbarItem = ({ cursorType, options, mobile, ...props }) => {
+const CursorEffectNavbarItem = ({
+  cursorType,
+  options,
+  mobile,
+  ...props
+}: CursorConfig & CursorEffectNavbarItemProps) => {
   const { cursor: activeCursor, setCursor } = useContext(CursorEffectContext);
 
   const handleClick = () => {
@@ -45,7 +57,7 @@ const CursorEffectNavbarItem = ({ cursorType, options, mobile, ...props }) => {
         props.activeClassName ??
         (mobile ? 'menu__link--active' : 'dropdown__link--active')
       }
-      isActive={activeCursor.cursorType === cursorType}
+      isLinkActive={activeCursor.cursorType === cursorType}
       mobile={mobile}
       onClick={handleClick}
     />

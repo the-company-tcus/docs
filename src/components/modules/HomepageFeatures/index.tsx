@@ -37,7 +37,14 @@ const FeatureList = [
   },
 ];
 
-function Feature({ Svg, title, description }) {
+type FeatureProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Svg: any;
+  title: string;
+  description: React.ReactNode;
+};
+
+function Feature({ Svg, title, description }: FeatureProps) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">

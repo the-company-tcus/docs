@@ -5,7 +5,7 @@ import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
 import { MantineProvider } from '../../../context/MantineProvider';
 
-const CustomProvider = ({ children }) => {
+const CustomProvider = ({ children }: { children?: React.ReactNode }) => {
   const { colorMode, setColorMode } = useColorMode();
 
   useEffect(() => {
@@ -31,7 +31,12 @@ const CustomProvider = ({ children }) => {
   );
 };
 
-export default function ProviderWrapper({ children, ...props }) {
+export default function ProviderWrapper({
+  children,
+  ...props
+}: {
+  children?: React.ReactNode;
+}) {
   return (
     <Provider {...props}>
       <CustomProvider>{children}</CustomProvider>
