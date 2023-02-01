@@ -126,8 +126,8 @@ ReleaseList component for displaying a list of GitHub releases. Releases can be
 filtered by date range, with the `from` and `to` props; If not provided, the
 component will fetch all releases.
 
-**Warning**: `from` props must be before `to` props. If `from` is after `to`,
-the component will throw an error.
+**Warning**: `from` time props must be before `to` time props. If `from` is
+after `to`, the component will throw an error.
 
 #### Demo
 
@@ -203,7 +203,8 @@ import { ReleaseList } from '@site/src/components/modules/Release';
 
 ReleaseDropdown component for displaying a list of GitHub releases in a
 dropdown. This is a wrapper around the `ReleaseList` component, using Docusaurus
-`Details` component.
+[`Details`](https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-common/src/components/Details/index.tsx)
+component.
 
 #### Demo
 
@@ -274,13 +275,13 @@ import { ReleaseDropdown } from '@site/src/components/modules/Release';
 
 [⬆️ Back to top](#table-of-contents)
 
-This component is a wrapper around the `react-player` component. It is used to
-play videos from YouTube, Vimeo, Twitch, SoundCloud, Streamable, Wistia,
-Facebook, and DailyMotion.
+This component is a wrapper around the `ReactPlayer` component from
+`react-player` package. This component is used to play videos from YouTube,
+Vimeo, Twitch, SoundCloud, Streamable, Wistia, Facebook, and DailyMotion.
 
-This component is created for remark plugin, to map the `iframe` element to this
-component. So if you want to embed video in your markdown (`.mdx`) or component,
-you can use directly the `ReactPlayer` component instead.
+This component is created for `remark` plugin, to map the `iframe` element to
+this component. So if you want to embed video in your markdown (`.mdx`) or
+component, you should use directly the `ReactPlayer` component instead.
 
 #### Demo
 
@@ -407,13 +408,13 @@ export default function Demo() {
 > `index.d.ts`:
 >
 > ```ts
-> // index.d.ts
+> // src/index.d.ts
 > declare module '*.pdf';
 > ```
 
 With `container` and `fallback` props:
 
-```jsx
+```tsx
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import ErrorPageContent from '@theme/ErrorPageContent';
 
@@ -460,10 +461,39 @@ export default function Demo() {
 }
 ```
 
-> **Warning**: Errors can only be caught in the `container` and `fallback`
-> function, so if your returned component (e.g., the component `Handler` or
-> `ErrorPageContent` in this demo) throw an error, it will crash the whole page
-> (internally caught by `ErrorPageContent`).
+> **Warning**: The `fallback` function can only caught errors in the `container`
+> function, so if your returned component (e.g., the component `Handler` in this
+> demo) throws an error, it will crash the whole page (internally caught by
+> Docusaurus and render the `ErrorPageContent` component).
+>
+> E.g:
+>
+> - Caught error in the `container` function:
+>
+> ```tsx
+> export default function Demo() {
+>   const {
+>     siteConfig: { customFields },
+>   } = useDocusaurusContext();
+>   return (
+>     <PDFViewer
+>       container={(props) => {
+>         throw new Error('Error in container'); // Can be caught by fallback function
+>         return <Handler {...props} />;
+>       }}
+>     />
+>   );
+> }
+> ```
+>
+> - Caught error in the returned component:
+>
+> ```tsx
+> const Handler = (props) => {
+>   throw new Error('Error in Handler'); // Caught by Docusaurus
+>   // ...
+> };
+> ```
 
 #### Import
 
@@ -1264,8 +1294,8 @@ module.exports = config;
 - Map the `iframe` element to the component `VideoPlayer` by "swizzling" the
   `MDXComponents` file:
 
-```jsx
-// src/theme/MDXComponents.jsx
+```tsx
+// src/theme/MDXComponents.tsx
 import { VideoPlayer } from '@site/src/components/elements/VideoPlayer';
 // Import the original mapper
 import MDXComponents from '@theme-original/MDXComponents';
@@ -1296,7 +1326,8 @@ export default {
 
     > **Note**: Currently, Docusaurus v2 is [currently
     > working](https://github.com/facebook/docusaurus/pull/8288) on migrating
-    > to`@mdx-js/react v2`.
+    > to`@mdx-js/react v2`. Before that, we need to install
+    > `@mdx-js/react@1.6.22` to make it works.
 
   - `@mdx-js/mdx` is a unified pipeline — wrapped so that most folks don’t need
     to know about unified:
@@ -1341,7 +1372,8 @@ export default {
     need to wrap the `ReleaseBody` component with `ErrorBoundary` component to
     be able to catch the error and display the error message.
 
-```jsx
+```tsx
+// src/components/elements/ReleaseCard.tsx
 import { evaluate, nodeTypes } from '@mdx-js/mdx';
 import { useMDXComponents } from '@mdx-js/react';
 import transformVideo from '@site/src/remark/transformVideo';
@@ -1354,7 +1386,7 @@ import rehypeRaw from 'rehype-raw';
 const ReleaseBody = ({ body }) => {
   const components = useMDXComponents();
 
-  const [parsed, setParsed] = useState();
+  const [parsed, setParsed] = useState<React.ReactNode>();
 
   useEffect(() => {
     const evaluateBody = async () => {
@@ -1364,15 +1396,16 @@ const ReleaseBody = ({ body }) => {
         // Ref: https://github.com/atomiks/rehype-pretty-code/issues/6#issuecomment-1006220771
         rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
         useMDXComponents: () => components,
-      });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any);
 
       setParsed(<BodyContent />);
     };
 
     evaluateBody();
-  }, [body]);
+  }, [body, components]);
 
-  return parsed;
+  return <>{parsed}</>;
 };
 
 const ReleaseCard = ({ release, latest = false }) => {
