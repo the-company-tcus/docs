@@ -44,7 +44,7 @@ const convertColor = (windiColors: DefaultColors) => {
     }
   });
   // NOTE: WindiCSS dark color is too dark
-  convertedColor.dark = convertedColor.zinc;
+  convertedColor.dark = mantineDefaultTheme.colors.dark;
 
   return convertedColor;
 };
@@ -74,6 +74,7 @@ const theme: MantineTheme = {
   black: windiDefaultColors.black as string,
   white: windiDefaultColors.white as string,
   primaryColor: 'blue',
+  primaryShade: 7,
   fontSizes: {
     ...mantineDefaultTheme.fontSizes,
     ...convertFontSize(windiDefaultTheme.fontSize),

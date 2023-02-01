@@ -40,8 +40,8 @@ const useReleaseByTimeRange = (
     page?: number;
     perPage?: number;
   },
-  from: Moment,
-  to: Moment,
+  from: string | Moment,
+  to: string | Moment,
 ) => {
   const fromTime = moment(from, 'MM-DD-YYYY');
   const toTime = moment(to, 'MM-DD-YYYY');

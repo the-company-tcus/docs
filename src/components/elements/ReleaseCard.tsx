@@ -23,7 +23,8 @@ import rehypeRaw from 'rehype-raw';
 import remarkEmoji from 'remark-emoji';
 import transformVideo from '@site/src/remark/transformVideo';
 
-const ReleaseBody = ({ body }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ReleaseBody = ({ body }: { body: any }) => {
   const components = useMDXComponents();
 
   const [parsed, setParsed] = useState<React.ReactNode>();
