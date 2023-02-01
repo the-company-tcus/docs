@@ -186,13 +186,13 @@ import { ReleaseList } from '@site/src/components/modules/Release';
   <tr>
     <td><code>from</code></td>
     <td><code>string | Moment</code></td>
-    <td><b>Required</b></td>
+    <td><code>''</code></td>
     <td>Start date of the time range. Format: <code>MM-DD-YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
   </tr>
   <tr>
     <td><code>to</code></td>
     <td><code>string | Moment</code></td>
-    <td><b>Required</b></td>
+    <td><code>''</code></td>
     <td>End date of the time range. Format: <code>MM-DD-YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
   </tr>
 </tbody>
@@ -263,13 +263,13 @@ import { ReleaseDropdown } from '@site/src/components/modules/Release';
   <tr>
     <td><code>from</code></td>
     <td><code>string | Moment</code></td>
-    <td><b>Required</b></td>
+    <td><code>''</code></td>
     <td>Start date of the time range. Format: <code>MM-DD-YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
   </tr>
   <tr>
     <td><code>to</code></td>
     <td><code>string | Moment</code></td>
-    <td><b>Required</b></td>
+    <td><code>''</code></td>
     <td>End date of the time range. Format: <code>MM-DD-YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
   </tr>
 </tbody>
@@ -778,10 +778,12 @@ const { releases, isFetching, refetch } = useReleaseByTimeRange(
 **Options**
 
 - `octokit: Octokit`:
+
   - **Required**.
   - The Octokit instance to request GitHub API.
   - See more at
     [octokit/core.js](https://github.com/octokit/core.js#options).
+
 - `query: { owner: string; repo: string; page: number; perPage: number; }`:
 
   - **Required**.
@@ -798,14 +800,16 @@ const { releases, isFetching, refetch } = useReleaseByTimeRange(
 
 - `from: string | Moment`:
 
-  - optional.
+  - Optional.
+  - Default to `''`.
   - The start date of the time range. It can be a **string** or a **Moment** object.
     Format: `MM-DD-YYYY`.
   - `from` time MUST be before `to` time.
 
 - `to: string | Moment`:
 
-  - optional.
+  - Optional.
+  - Default to `''`.
   - The end date of the time range. It can be a **string** or a **Moment** object.
     Format: `MM-DD-YYYY`.
   - `to` time MUST be after `from` time.
