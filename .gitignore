@@ -56,4 +56,5 @@ testem.log
 
 # Docusaurus
 .docusaurus
+.cache-loader
 build
