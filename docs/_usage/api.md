@@ -11,6 +11,7 @@ This is a list of all the components, plugins, and hooks in this project.
   - [VideoPlayer](#videoplayer)
   - [PDFViewer](#pdfviewer)
   - [PDFViewerButton](#pdfviewerbutton)
+  - [CursorEffects](#cursoreffects)
 - [Hooks](#hooks)
   - [useReleaseByTimeRange](#usereleasebytimerange)
 - [Plugins](#plugins)
@@ -22,6 +23,9 @@ This is a list of all the components, plugins, and hooks in this project.
   - [remark-transform-video](#remark-transform-video)
   - [remark-transform-pdf](#remark-transform-pdf)
   - [remark-transform-emoji](#remark-transform-emoji)
+- [Custom Navbar Items](#custom-navbar-items)
+  - [CursorEffects Navbar dropdown](#cursoreffects-navbar-dropdown)
+  - [CursorEffects Navbar item](#cursoreffects-navbar-item)
 
 ## Components
 
@@ -101,15 +105,15 @@ import { ReleaseCard } from '@site/src/components/elements/ReleaseCard';
 </thead>
 <tbody>
   <tr>
-    <td>release</td>
-    <td>any (<a href="https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-a-release">Schema</a>)</td>
-    <td></td>
+    <td><code>release</code></td>
+    <td><code>any</code> (<a href="https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-a-release">Schema</a>)</td>
+    <td><b>Required</b></td>
     <td>The GitHub release data.</td>
   </tr>
   <tr>
-    <td>latest (optional)</td>
-    <td>boolean</td>
-    <td>false</td>
+    <td><code>latest</code></td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
     <td>If <code>true</code>, display this release as <code>latest</code> by adding a "Latest" badge. If the release is <code>pre-release</code>, the card will add a "Pre-release" badge, ignore the <code>latest</code> prop. This should be set by comparing with the <a href="https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-the-latest-release">latest release data</a>.</td>
   </tr>
 </tbody>
@@ -126,8 +130,8 @@ ReleaseList component for displaying a list of GitHub releases. Releases can be
 filtered by date range, with the `from` and `to` props; If not provided, the
 component will fetch all releases.
 
-**Warning**: `from` props must be before `to` props. If `from` is after `to`,
-the component will throw an error.
+**Warning**: `from` time props must be before `to` time props. If `from` is
+after `to`, the component will throw an error.
 
 #### Demo
 
@@ -168,27 +172,27 @@ import { ReleaseList } from '@site/src/components/modules/Release';
 </thead>
 <tbody>
   <tr>
-    <td>owner</td>
-    <td>string</td>
-    <td></td>
+    <td><code>owner</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>The account owner of the repository. The name is not case sensitive.</td>
   </tr>
   <tr>
-    <td>repo</td>
-    <td>string</td>
-    <td></td>
+    <td><code>repo</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>The name of the repository. The name is not case sensitive.</td>
   </tr>
   <tr>
-    <td>from</td>
-    <td>string | Moment</td>
-    <td></td>
+    <td><code>from</code></td>
+    <td><code>string | Moment</code></td>
+    <td><code>''</code></td>
     <td>Start date of the time range. Format: <code>MM-DD-YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
   </tr>
   <tr>
-    <td>to</td>
-    <td>string | Moment</td>
-    <td></td>
+    <td><code>to</code></td>
+    <td><code>string | Moment</code></td>
+    <td><code>''</code></td>
     <td>End date of the time range. Format: <code>MM-DD-YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
   </tr>
 </tbody>
@@ -203,7 +207,8 @@ import { ReleaseList } from '@site/src/components/modules/Release';
 
 ReleaseDropdown component for displaying a list of GitHub releases in a
 dropdown. This is a wrapper around the `ReleaseList` component, using Docusaurus
-`Details` component.
+[`Details`](https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-common/src/components/Details/index.tsx)
+component.
 
 #### Demo
 
@@ -244,27 +249,27 @@ import { ReleaseDropdown } from '@site/src/components/modules/Release';
 </thead>
 <tbody>
   <tr>
-    <td>owner</td>
-    <td>string</td>
-    <td></td>
+    <td><code>owner</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>The account owner of the repository. The name is not case sensitive.</td>
   </tr>
   <tr>
-    <td>repo</td>
-    <td>string</td>
-    <td></td>
+    <td><code>repo</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>The name of the repository. The name is not case sensitive.</td>
   </tr>
   <tr>
-    <td>from</td>
-    <td>string | Moment</td>
-    <td></td>
+    <td><code>from</code></td>
+    <td><code>string | Moment</code></td>
+    <td><code>''</code></td>
     <td>Start date of the time range. Format: <code>MM-DD-YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
   </tr>
   <tr>
-    <td>to</td>
-    <td>string | Moment</td>
-    <td></td>
+    <td><code>to</code></td>
+    <td><code>string | Moment</code></td>
+    <td><code>''</code></td>
     <td>End date of the time range. Format: <code>MM-DD-YYYY</code>. This will be <a href="https://momentjs.com/docs/#/parsing/">parsed</a> into Moment Object.</td>
   </tr>
 </tbody>
@@ -274,13 +279,13 @@ import { ReleaseDropdown } from '@site/src/components/modules/Release';
 
 [⬆️ Back to top](#table-of-contents)
 
-This component is a wrapper around the `react-player` component. It is used to
-play videos from YouTube, Vimeo, Twitch, SoundCloud, Streamable, Wistia,
-Facebook, and DailyMotion.
+This component is a wrapper around the `ReactPlayer` component from
+`react-player` package. This component is used to play videos from YouTube,
+Vimeo, Twitch, SoundCloud, Streamable, Wistia, Facebook, and DailyMotion.
 
-This component is created for remark plugin, to map the `iframe` element to this
-component. So if you want to embed video in your markdown (`.mdx`) or component,
-you can use directly the `ReactPlayer` component instead.
+This component is created for `remark` plugin, to map the `iframe` element to
+this component. So if you want to embed video in your markdown (`.mdx`) or
+component, you should use directly the `ReactPlayer` component instead.
 
 #### Demo
 
@@ -312,9 +317,9 @@ import { VideoPlayer } from '@site/src/components/elements/VideoPlayer';
 </thead>
 <tbody>
   <tr>
-    <td>src</td>
-    <td>string</td>
-    <td></td>
+    <td><code>src</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>The url of a video or song to play. Can be an <a href="https://github.com/CookPete/react-player#multiple-sources-and-tracks">array</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStream">MediaStream</a> object.</td>
   </tr>
 </tbody>
@@ -407,13 +412,13 @@ export default function Demo() {
 > `index.d.ts`:
 >
 > ```ts
-> // index.d.ts
+> // src/index.d.ts
 > declare module '*.pdf';
 > ```
 
 With `container` and `fallback` props:
 
-```jsx
+```tsx
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import ErrorPageContent from '@theme/ErrorPageContent';
 
@@ -460,10 +465,39 @@ export default function Demo() {
 }
 ```
 
-> **Warning**: Errors can only be caught in the `container` and `fallback`
-> function, so if your returned component (e.g., the component `Handler` or
-> `ErrorPageContent` in this demo) throw an error, it will crash the whole page
-> (internally caught by `ErrorPageContent`).
+> **Warning**: The `fallback` function can only caught errors in the `container`
+> function, so if your returned component (e.g., the component `Handler` in this
+> demo) throws an error, it will crash the whole page (internally caught by
+> Docusaurus and render the `ErrorPageContent` component).
+>
+> E.g:
+>
+> - Caught error in the `container` function:
+>
+> ```tsx
+> export default function Demo() {
+>   const {
+>     siteConfig: { customFields },
+>   } = useDocusaurusContext();
+>   return (
+>     <PDFViewer
+>       container={(props) => {
+>         throw new Error('Error in container'); // Can be caught by fallback function
+>         return <Handler {...props} />;
+>       }}
+>     />
+>   );
+> }
+> ```
+>
+> - Caught error in the returned component:
+>
+> ```tsx
+> const Handler = (props) => {
+>   throw new Error('Error in Handler'); // Caught by Docusaurus
+>   // ...
+> };
+> ```
 
 #### Import
 
@@ -486,54 +520,45 @@ import { PDFViewer } from '@site/src/components/elements/PDFViewer/PDFViewer';
 </thead>
 <tbody>
   <tr>
-    <td>url</td>
-    <td>string</td>
-    <td></td>
+    <td><code>url</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>The URL of the PDF file. This can be an external URL, static URL (string or via imported).</td>
   </tr>
   <tr>
-    <td>title (optional)</td>
-    <td>string</td>
-    <td></td>
+    <td><code>title</code></td>
+    <td><code>string</code></td>
+    <td><code>'Untitled'</code></td>
     <td>The title of the PDF file.</td>
   </tr>
   <tr>
-    <td>clientId</td>
-    <td>string</td>
-    <td></td>
+    <td><code>clientId</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>Client ID to use Adobe Embed API with your domain. Checkout the <a href="https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/">document</a> or <a href="https://documentservices.adobe.com/dc-integration-creation-app-cdn/main.html?api=pdf-embed-api">generate new one</a>.</td>
   </tr>
   <tr>
-    <td>embedMode (optional)</td>
-    <td>"FULL_WINDOW" | "SIZED_CONTAINER" | "IN_LINE" | "LIGHT_BOX"</td>
-    <td>"FULL_WINDOW"</td>
+    <td><code>embedMode</code></td>
+    <td><code>'FULL_WINDOW' | 'SIZED_CONTAINER' | 'IN_LINE' | 'LIGHT_BOX'</code></td>
+    <td><code>'FULL_WINDOW'</code></td>
     <td>Supported embed modes of PDF Embed API.</td>
   </tr>
   <tr>
-    <td>detectFileName (optional)</td>
-    <td>boolean</td>
-    <td>false</td>
+    <td><code>detectFileName</code></td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
     <td>If <code>true</code>, the title of the PDF file is extracted from the URL (usually at the end).</td>
   </tr>
   <tr>
-    <td>fallback (optional)</td>
-    <td>
-
-( props: { error: Error } ) => React.ReactNode
-
-</td>
-    <td></td>
-    <td><strong>Function</strong> to render fallback component when error occurred or not supported</td>
+    <td><code>fallback</code></td>
+    <td><code>( props: { error: Error } ) => React.ReactNode</code></td>
+  <td>Optional</td>
+  <td><strong>Function</strong> to render fallback component when error occurred or not supported</td>
   </tr>
   <tr>
-    <td>container (optional)</td>
-    <td>
-
-( props: { divId: string; isReady: boolean; preview: () => void; } ) =>
-React.ReactNode
-
-</td>
-    <td></td>
+    <td><code>container</code></td>
+    <td><code>( props: { divId: string; isReady: boolean; preview: () => void; } ) => React.ReactNode</code></td>
+    <td>Optional</td>
     <td><strong>Function</strong> to render the viewer to.
       <ul>
         <li><code>container</code>: The container MUST set <code>id</code> to <code>divId</code>.
@@ -626,48 +651,39 @@ import { PDFViewerButton } from '@site/src/components/elements/PDFViewer/PDFView
 </thead>
 <tbody>
   <tr>
-    <td>url</td>
-    <td>string</td>
-    <td></td>
+    <td><code>url</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>The URL of the PDF file. This can be an external URL, static URL (string or via imported).</td>
   </tr>
   <tr>
-    <td>title (optional)</td>
-    <td>string</td>
-    <td></td>
+    <td><code>title</code></td>
+    <td><code>string</code></td>
+    <td><code>'Untitled'</code></td>
     <td>The title of the PDF file.</td>
   </tr>
   <tr>
-    <td>clientId</td>
-    <td>string</td>
-    <td></td>
+    <td><code>clientId</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
     <td>Client ID to use Adobe Embed API with your domain. Checkout the <a href="https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/">document</a> or <a href="https://documentservices.adobe.com/dc-integration-creation-app-cdn/main.html?api=pdf-embed-api">generate new one</a>.</td>
   </tr>
   <tr>
-    <td>detectFileName (optional)</td>
-    <td>boolean</td>
-    <td>false</td>
+    <td><code>detectFileName</code></td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
     <td>If <code>true</code>, the title of the PDF file is extracted from the URL (usually at the end).</td>
   </tr>
   <tr>
-    <td>fallback (optional)</td>
-    <td>
-
-( props: { error: Error } ) => React.ReactNode
-
-</td>
-    <td></td>
-    <td><strong>Function</strong> to render fallback component when error occurred or not supported</td>
+    <td><code>fallback</code></td>
+    <td><code>( props: { error: Error } ) => React.ReactNode</code></td>
+  <td>Optional</td>
+  <td><strong>Function</strong> to render fallback component when error occurred or not supported</td>
   </tr>
   <tr>
-    <td>container (optional)</td>
-    <td>
-
-( props: { divId: string; isReady: boolean; preview: () => void; } ) =>
-React.ReactNode
-
-</td>
-    <td></td>
+    <td><code>container</code></td>
+    <td><code>( props: { divId: string; isReady: boolean; preview: () => void; } ) => React.ReactNode</code></td>
+    <td>Optional</td>
     <td><strong>Function</strong> to render the viewer to.
       <ul>
         <li><code>container</code>: The container MUST set <code>id</code> to <code>divId</code>.
@@ -680,6 +696,18 @@ React.ReactNode
   </tr>
 </tbody>
 </table>
+
+### CursorEffects
+
+[⬆️ Back to top](#table-of-contents)
+
+These components are used to register on the navigation bar to display the
+cursor effects dropdown.
+
+Please refer to sections:
+
+- [CursorEffects Navbar dropdown](#cursoreffects-navbar-dropdown).
+- [CursorEffects Navbar item](#cursoreffects-navbar-item).
 
 ## Hooks
 
@@ -750,10 +778,12 @@ const { releases, isFetching, refetch } = useReleaseByTimeRange(
 **Options**
 
 - `octokit: Octokit`:
+
   - **Required**.
   - The Octokit instance to request GitHub API.
   - See more at
     [octokit/core.js](https://github.com/octokit/core.js#options).
+
 - `query: { owner: string; repo: string; page: number; perPage: number; }`:
 
   - **Required**.
@@ -770,14 +800,16 @@ const { releases, isFetching, refetch } = useReleaseByTimeRange(
 
 - `from: string | Moment`:
 
-  - optional.
+  - Optional.
+  - Default to `''`.
   - The start date of the time range. It can be a **string** or a **Moment** object.
     Format: `MM-DD-YYYY`.
   - `from` time MUST be before `to` time.
 
 - `to: string | Moment`:
 
-  - optional.
+  - Optional.
+  - Default to `''`.
   - The end date of the time range. It can be a **string** or a **Moment** object.
     Format: `MM-DD-YYYY`.
   - `to` time MUST be after `from` time.
@@ -922,9 +954,9 @@ export default ReleaseLayout;
 </thead>
 <tbody>
   <tr>
-    <td>routes</td>
-    <td><a href="https://docusaurus.io/docs/api/plugin-methods/lifecycle-apis#addRoute">RouteConfig[]</a></td>
-    <td></td>
+    <td><code>routes</code></td>
+    <td><code><a href="https://docusaurus.io/docs/api/plugin-methods/lifecycle-apis#addRoute">RouteConfig[]</a></code></td>
+    <td>Optional</td>
     <td>List of routes to add to the website.</td>
   </tr>
 </tbody>
@@ -1004,22 +1036,16 @@ const config = {
 </thead>
 <tbody>
   <tr>
-    <td>cursorType</td>
-    <td>
-    "bubbleCursor" | "clockCursor" | <br />
-    "emojiCursor" | "fairyDustCursor" | <br />
-    "followingDotCursor" | "ghostCursor" | <br />
-    "rainbowCursor" | "snowflakeCursor" | <br />
-    "springyEmojiCursor" | "textFlag" | <br />
-    "trailingCursor"</td>
-    <td>"rainbowCursor"</td>
+    <td><code>cursorType</code></td>
+    <td><code>'bubbleCursor' | 'clockCursor' | 'emojiCursor' | 'fairyDustCursor' | 'followingDotCursor' | 'ghostCursor' | 'rainbowCursor' | 'snowflakeCursor' | 'springyEmojiCursor' | 'textFlag' | 'trailingCursor'</code></td>
+    <td><code>'rainbowCursor'</code></td>
     <td>Cursor effect type.</td>
   </tr>
   <tr>
-    <td>opts</td>
-    <td>object</td>
-    <td></td>
-    <td>Options to pass to cursor constructor. See the <a href="https://github.com/tholman/cursor-effects#specific-customization">documentation</a></td>
+    <td><code>opts</code></td>
+    <td><code>object</code></td>
+    <td>Optional</td>
+    <td>Options to pass to cursor constructor. See the <a href="https://github.com/tholman/cursor-effects#specific-customization">documentation</a>.</td>
   </tr>
 </tbody>
 </table>
@@ -1144,15 +1170,15 @@ import transformURL from '@site/src/remark/transformURL';
 </thead>
 <tbody>
   <tr>
-    <td>patterns</td>
-    <td>string[] | RegExp[]</td>
-    <td></td>
+    <td><code>patterns</code></td>
+    <td><code>string[] | RegExp[]</code></td>
+    <td>Optional</td>
     <td>Patterns to match the URL, can be a string or a regular expression. These patterns will be used to create a new <code>RegExp</code> object.</td>
   </tr>
   <tr>
-    <td>iframeAttrs</td>
-    <td>Record&lt;string, string | number | boolean&gt;</td>
-    <td></td>
+    <td><code>iframeAttrs</code></td>
+    <td><code>Record&lt;string, string | number | boolean&gt;</code></td>
+    <td>Optional</td>
     <td>Attributes to add to the <code>iframe</code> element. Boolean attributes with value <code>true</code> will be added as <code>attribute</code> instead of <code>attribute="true"</code>.</td>
   </tr>
 </tbody>
@@ -1264,8 +1290,8 @@ module.exports = config;
 - Map the `iframe` element to the component `VideoPlayer` by "swizzling" the
   `MDXComponents` file:
 
-```jsx
-// src/theme/MDXComponents.jsx
+```tsx
+// src/theme/MDXComponents.tsx
 import { VideoPlayer } from '@site/src/components/elements/VideoPlayer';
 // Import the original mapper
 import MDXComponents from '@theme-original/MDXComponents';
@@ -1296,7 +1322,8 @@ export default {
 
     > **Note**: Currently, Docusaurus v2 is [currently
     > working](https://github.com/facebook/docusaurus/pull/8288) on migrating
-    > to`@mdx-js/react v2`.
+    > to`@mdx-js/react v2`. Before that, we need to install
+    > `@mdx-js/react@1.6.22` to make it works.
 
   - `@mdx-js/mdx` is a unified pipeline — wrapped so that most folks don’t need
     to know about unified:
@@ -1341,7 +1368,8 @@ export default {
     need to wrap the `ReleaseBody` component with `ErrorBoundary` component to
     be able to catch the error and display the error message.
 
-```jsx
+```tsx
+// src/components/elements/ReleaseCard.tsx
 import { evaluate, nodeTypes } from '@mdx-js/mdx';
 import { useMDXComponents } from '@mdx-js/react';
 import transformVideo from '@site/src/remark/transformVideo';
@@ -1354,7 +1382,7 @@ import rehypeRaw from 'rehype-raw';
 const ReleaseBody = ({ body }) => {
   const components = useMDXComponents();
 
-  const [parsed, setParsed] = useState();
+  const [parsed, setParsed] = useState<React.ReactNode>();
 
   useEffect(() => {
     const evaluateBody = async () => {
@@ -1364,15 +1392,16 @@ const ReleaseBody = ({ body }) => {
         // Ref: https://github.com/atomiks/rehype-pretty-code/issues/6#issuecomment-1006220771
         rehypePlugins: [[rehypeRaw, { passThrough: nodeTypes }]],
         useMDXComponents: () => components,
-      });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } as any);
 
       setParsed(<BodyContent />);
     };
 
     evaluateBody();
-  }, [body]);
+  }, [body, components]);
 
-  return parsed;
+  return <>{parsed}</>;
 };
 
 const ReleaseCard = ({ release, latest = false }) => {
@@ -1431,8 +1460,8 @@ import transformVideo from '@site/src/remark/transformVideo';
 </thead>
 <tbody>
   <tr>
-    <td>patterns</td>
-    <td>string[] | RegExp[]</td>
+    <td><code>patterns</code></td>
+    <td><code>string[] | RegExp[]</code></td>
     <td>
 
 ```js
@@ -1462,8 +1491,8 @@ import transformVideo from '@site/src/remark/transformVideo';
     <td>Patterns to match the URL, can be a string or a regular expression. These patterns will be used to create a new <code>RegExp</code> object.</td>
   </tr>
   <tr>
-    <td>iframeAttrs</td>
-    <td>Record&lt;string, string | number | boolean&gt;</td>
+    <td><code>iframeAttrs</code></td>
+    <td><code>Record&lt;string, string | number | boolean&gt;</code></td>
     <td>
 
 ```js
@@ -1579,8 +1608,8 @@ import transformPDF from '@site/src/remark/transformPDF';
 </thead>
 <tbody>
   <tr>
-    <td>patterns</td>
-    <td>string[] | RegExp[]</td>
+    <td><code>patterns</code></td>
+    <td><code>string[] | RegExp[]</code></td>
     <td>
 
 ```js
@@ -1591,8 +1620,8 @@ import transformPDF from '@site/src/remark/transformPDF';
     <td>Patterns to match the URL, can be a string or a regular expression. These patterns will be used to create a new <code>RegExp</code> object.</td>
   </tr>
   <tr>
-    <td>iframeAttrs</td>
-    <td>Record&lt;string, string | number | boolean&gt;</td>
+    <td><code>iframeAttrs</code></td>
+    <td><code>Record&lt;string, string | number | boolean&gt;</code></td>
     <td>
 
 ```js
@@ -1671,18 +1700,209 @@ import transformEmoji from '@site/src/remark/transformEmoji';
 </thead>
 <tbody>
   <tr>
-    <td>padSpaceAfter</td>
-    <td>boolean</td>
-    <td>false</td>
+    <td><code>padSpaceAfter</code></td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
     <td>Setting to <code>true</code> means that an extra whitespace is added after emoji. This is useful when browser handle emojis with half character length and following character is hidden.</td>
   </tr>
   <tr>
-    <td>emoticon</td>
-    <td>boolean</td>
-    <td>false</td>
+    <td><code>emoticon</code></td>
+    <td><code>boolean</code></td>
+    <td><code>false</code></td>
    <td>Setting to <code>true</code> means that <a href="https://www.npmjs.com/package/emoticon">emoticon</a> shortcodes are supported (e.g. :-) will be replaced by 😃).</td>
   </tr>
 </tbody>
 </table>
 
 See more at [remark-emoji](https://github.com/rhysd/remark-emoji).
+
+## Custom Navbar Items
+
+### CursorEffects Navbar dropdown
+
+[⬆️ Back to top](#table-of-contents)
+
+This component is used to register on the navigation bar to display the cursor
+effects dropdown.
+
+This implemented a
+[suggested](https://github.com/facebook/docusaurus/issues/7227) workaround to
+the issue that the custom navbar items are not supported yet in Docusaurus.
+
+Navbar items of the type `custom-cursor-effect-dropdown-navbar-item` has the
+additional items field, an inner array of navbar items.
+
+Navbar CursorEffects dropdown only accept the following types of items:
+
+- [CursorEffects Navbar item](#cursoreffects-navbar-item):
+  `custom-cursor-effect-navbar-item`.
+
+#### Demo
+
+Basic usage:
+
+- Register new navbar item type by "swizzling" the `NavbarItem/ComponentTypes`
+  component.
+
+```tsx
+// src/theme/NavbarItem/ComponentTypes.tsx
+import ComponentTypes from '@theme-original/NavbarItem/ComponentTypes';
+import {
+  CursorEffectDropdownNavbarItem,
+  CursorEffectNavbarItem,
+} from '@site/src/components/elements/CursorEffect';
+
+export default {
+  ...ComponentTypes,
+  'custom-cursor-effect-dropdown-navbar-item': CursorEffectDropdownNavbarItem,
+  'custom-cursor-effect-navbar-item': CursorEffectNavbarItem,
+};
+```
+
+- Then use it to configure the navbar in the file `docusaurus.config.js`:
+
+```js
+// docusaurus.config.js
+const config = {
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        items: [
+          {
+            type: 'custom-cursor-effect-dropdown-navbar-item',
+            position: 'right',
+            label: '',
+            // For more info about options, see:
+            // https://github.com/tholman/cursor-effects
+            items: [
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🗿 Default',
+                cursorType: 'defaultCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🌈 Rainbow',
+                cursorType: 'rainbowCursor',
+                options: {
+                  length: 3,
+                  colors: ['red', 'blue'],
+                  size: 4,
+                },
+              },
+            ],
+          },
+        ],
+      },
+    }),
+};
+```
+
+#### Import
+
+```tsx
+import { CursorEffectDropdownNavbarItem } from '@site/src/components/elements/CursorEffect';
+// or
+import { CursorEffectDropdownNavbarItem } from '@site/src/components/elements/CursorEffect/DropdownNavbarItem';
+```
+
+#### Accepted fields
+
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>type</code></td>
+    <td><code>custom-cursor-effect-dropdown-navbar-item</code></td>
+    <td>Optional</td>
+    <td>Sets the type of this item to a cursor effects dropdown.</td>
+  </tr>
+  <tr>
+    <td><code>label</code></td>
+    <td><code>string</code></td>
+    <td>Optional</td>
+   <td>The name to be shown for this item.</td>
+  </tr>
+  <tr>
+    <td><code>items</code></td>
+    <td><code>CursorConfig[]</code></td>
+    <td><b>Required</b></td>
+   <td>The items to be contained in the dropdown. The <b>first</b> item will be used as default cursor effect.
+     <blockquote><b>Note</b>: It's recommended to use <code>defaultCursor</code> type as the first item, so it won't effect user's experiences.</blockquote>
+   </td>
+  </tr>
+  <tr>
+    <td><code>position</code></td>
+    <td><code>'left' | 'right'</code></td>
+    <td><code>'left'</code></td>
+   <td>The side of the navbar this item should appear on.</td>
+  </tr>
+</tbody>
+</table>
+
+### CursorEffects Navbar item
+
+[⬆️ Back to top](#table-of-contents)
+
+This component is used to display a cursor effects type in the CursorEffects
+Navbar dropdown.
+
+#### Demo
+
+Please see the demo of the [CursorEffects Navbar
+dropdown](#cursoreffects-navbar-dropdown).
+
+#### Import
+
+```tsx
+import { CursorEffectNavbarItem } from '@site/src/components/elements/CursorEffect';
+// or
+import { CursorEffectNavbarItem } from '@site/src/components/elements/CursorEffect/NavbarItem';
+```
+
+#### Accepted fields
+
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>type</code></td>
+    <td><code>custom-cursor-effect-navbar-item</code></td>
+    <td>Optional</td>
+    <td>Sets the type of this item to a cursor effects item.</td>
+  </tr>
+  <tr>
+    <td><code>label</code></td>
+    <td><code>string</code></td>
+    <td><b>Required</b></td>
+   <td>The name to be shown for this item.</td>
+  </tr>
+  <tr>
+    <td><code>cursorType</code></td>
+    <td><code>'bubbleCursor' | 'clockCursor' | 'emojiCursor' | 'fairyDustCursor' | 'followingDotCursor' | 'ghostCursor' | 'rainbowCursor' | 'snowflakeCursor' | 'springyEmojiCursor' | 'textFlag' | 'trailingCursor' | 'defaultCursor'</code></td>
+    <td></td>
+   <td>Cursor effect type.</td>
+  </tr>
+  <tr>
+    <td><code>options</code></td>
+    <td><code>Record&lt;string, unknown&gt;</code></td>
+    <td>Optional</td>
+   <td>Options for cursor effect type. See the <a href="https://github.com/tholman/cursor-effects#specific-customization">documentation</a>.</td>
+  </tr>
+</tbody>
+</table>

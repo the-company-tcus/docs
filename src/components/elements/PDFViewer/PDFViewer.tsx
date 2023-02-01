@@ -122,7 +122,7 @@ function PDFViewer({
     // Render the fallback component if provided, with the error as a prop.
     // Otherwise, render the iframe to display the PDF
     if (fallback) {
-      return <>fallback({error})</>;
+      return <>{fallback({ error })}</>;
     }
 
     return (

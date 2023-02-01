@@ -1,2 +1,2 @@
-export * from './ReleaseList.jsx';
-export * from './ReleaseDropdown.jsx';
+export * from './ReleaseList';
+export * from './ReleaseDropdown';
