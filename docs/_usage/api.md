@@ -11,6 +11,7 @@ This is a list of all the components, plugins, and hooks in this project.
   - [VideoPlayer](#videoplayer)
   - [PDFViewer](#pdfviewer)
   - [PDFViewerButton](#pdfviewerbutton)
+  - [CursorEffects](#cursoreffects)
 - [Hooks](#hooks)
   - [useReleaseByTimeRange](#usereleasebytimerange)
 - [Plugins](#plugins)
@@ -22,6 +23,9 @@ This is a list of all the components, plugins, and hooks in this project.
   - [remark-transform-video](#remark-transform-video)
   - [remark-transform-pdf](#remark-transform-pdf)
   - [remark-transform-emoji](#remark-transform-emoji)
+- [Custom Navbar Items](#custom-navbar-items)
+  - [CursorEffects Navbar dropdown](#cursoreffects-navbar-dropdown)
+  - [CursorEffects Navbar item](#cursoreffects-navbar-item)
 
 ## Components
 
@@ -711,6 +715,18 @@ React.ReactNode
 </tbody>
 </table>
 
+### CursorEffects
+
+[⬆️ Back to top](#table-of-contents)
+
+These components are used to register on the navigation bar to display the
+cursor effects dropdown.
+
+Please refer section:
+
+- [CursorEffects Navbar dropdown](#cursoreffects-navbar-dropdown).
+- [CursorEffects Navbar item](#cursoreffects-navbar-item).
+
 ## Hooks
 
 ### useReleaseByTimeRange
@@ -1049,7 +1065,7 @@ const config = {
     <td>opts</td>
     <td>object</td>
     <td></td>
-    <td>Options to pass to cursor constructor. See the <a href="https://github.com/tholman/cursor-effects#specific-customization">documentation</a></td>
+    <td>Options to pass to cursor constructor. See the <a href="https://github.com/tholman/cursor-effects#specific-customization">documentation</a>.</td>
   </tr>
 </tbody>
 </table>
@@ -1719,3 +1735,200 @@ import transformEmoji from '@site/src/remark/transformEmoji';
 </table>
 
 See more at [remark-emoji](https://github.com/rhysd/remark-emoji).
+
+## Custom Navbar Items
+
+### CursorEffects Navbar dropdown
+
+[⬆️ Back to top](#table-of-contents)
+
+This component is used to register on the navigation bar to display the cursor
+effects dropdown.
+
+This implemented a
+[suggested](https://github.com/facebook/docusaurus/issues/7227) workaround to
+the issue that the custom navbar items are not supported yet in Docusaurus.
+
+Navbar items of the type `custom-cursor-effect-dropdown-navbar-item` has the
+additional items field, an inner array of navbar items.
+
+Navbar CursorEffects dropdown only accept the following types of items:
+
+- [CursorEffects Navbar item](#cursoreffects-navbar-item):
+  `custom-cursor-effect-navbar-item`.
+
+#### Demo
+
+Basic usage:
+
+- Register new navbar item type by "swizzling" the `NavbarItem/ComponentTypes`
+  component.
+
+```tsx
+// src/theme/NavbarItem/ComponentTypes.tsx
+import ComponentTypes from '@theme-original/NavbarItem/ComponentTypes';
+import {
+  CursorEffectDropdownNavbarItem,
+  CursorEffectNavbarItem,
+} from '@site/src/components/elements/CursorEffect';
+
+export default {
+  ...ComponentTypes,
+  'custom-cursor-effect-dropdown-navbar-item': CursorEffectDropdownNavbarItem,
+  'custom-cursor-effect-navbar-item': CursorEffectNavbarItem,
+};
+```
+
+- Then use it to configure the navbar in the file `docusaurus.config.js`:
+
+```js
+// docusaurus.config.js
+const config = {
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        items: [
+          {
+            type: 'custom-cursor-effect-dropdown-navbar-item',
+            position: 'right',
+            label: '',
+            // For more info about options, see:
+            // https://github.com/tholman/cursor-effects
+            items: [
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🗿 Default',
+                cursorType: 'defaultCursor',
+              },
+              {
+                type: 'custom-cursor-effect-navbar-item',
+                label: '🌈 Rainbow',
+                cursorType: 'rainbowCursor',
+                options: {
+                  length: 3,
+                  colors: ['red', 'blue'],
+                  size: 4,
+                },
+              },
+            ],
+          },
+        ],
+      },
+    }),
+};
+```
+
+#### Import
+
+```tsx
+import { CursorEffectDropdownNavbarItem } from '@site/src/components/elements/CursorEffect';
+// or
+import { CursorEffectDropdownNavbarItem } from '@site/src/components/elements/CursorEffect/DropdownNavbarItem';
+```
+
+#### Accepted fields
+
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>type</td>
+    <td>custom-cursor-effect-dropdown-navbar-item</td>
+    <td></td>
+    <td>Sets the type of this item to a cursor effects dropdown.</td>
+  </tr>
+  <tr>
+    <td>label (optional)</td>
+    <td>string</td>
+    <td></td>
+   <td>The name to be shown for this item.</td>
+  </tr>
+  <tr>
+    <td>items</td>
+    <td>CursorConfig[]</td>
+    <td></td>
+   <td>The items to be contained in the dropdown. The <b>first</b> item will be used as default cursor effect.
+     <blockquote><b>Note</b>: It's recommended to use <code>defaultCursor</code> type as the first item, so it won't effect user's experiences.</blockquote>
+   </td>
+  </tr>
+  <tr>
+    <td>position</td>
+    <td>"left" | "right"</td>
+    <td>"left"</td>
+   <td>The side of the navbar this item should appear on.</td>
+  </tr>
+</tbody>
+</table>
+
+### CursorEffects Navbar item
+
+[⬆️ Back to top](#table-of-contents)
+
+This component is used to display a cursor effects type in the CursorEffects
+Navbar dropdown.
+
+#### Demo
+
+Please see the demo of the [CursorEffects Navbar
+dropdown](#cursoreffects-navbar-dropdown).
+
+#### Import
+
+```tsx
+import { CursorEffectNavbarItem } from '@site/src/components/elements/CursorEffect';
+// or
+import { CursorEffectNavbarItem } from '@site/src/components/elements/CursorEffect/NavbarItem';
+```
+
+#### Accepted fields
+
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>type</td>
+    <td>custom-cursor-effect-navbar-item</td>
+    <td></td>
+    <td>Sets the type of this item to a cursor effects item.</td>
+  </tr>
+  <tr>
+    <td>label</td>
+    <td>string</td>
+    <td></td>
+   <td>The name to be shown for this item.</td>
+  </tr>
+  <tr>
+    <td>cursorType</td>
+    <td>
+    "bubbleCursor" | "clockCursor" | <br />
+    "emojiCursor" | "fairyDustCursor" | <br />
+    "followingDotCursor" | "ghostCursor" | <br />
+    "rainbowCursor" | "snowflakeCursor" | <br />
+    "springyEmojiCursor" | "textFlag" | <br />
+    "trailingCursor" | "defaultCursor"</td>
+    <td></td>
+   <td>Cursor effect type.</td>
+  </tr>
+  <tr>
+    <td>options</td>
+    <td>Record&lt;string, unknown&gt;</td>
+    <td></td>
+   <td>Options for cursor effect type. See the <a href="https://github.com/tholman/cursor-effects#specific-customization">documentation</a>.</td>
+  </tr>
+</tbody>
+</table>
