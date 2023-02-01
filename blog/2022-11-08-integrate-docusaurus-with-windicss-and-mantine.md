@@ -91,7 +91,7 @@ pnpm add -D windicss windicss-webpack-plugin
 Following the [official guide](https://windicss.org/integrations/webpack.html)
 from WindiCSS, we have to configure Webpack to use the windicss-webpack-plugin.
 
-Because the file `webpack.config.js` somehow is not loaded by Docusaurus, we
+Because the file `webpack.config.ts` somehow is not loaded by Docusaurus, we
 have to configure Webpack manually in the file `docusaurus.config.js` by
 [creating a custom Docusaurus
 plugin](https://docusaurus.io/docs/advanced/plugins#creating-plugins):
@@ -123,9 +123,9 @@ module.exports = config;
 It's recommended to include the WindiCSS virtual module within an entry point
 file or something only loaded once.
 
-However, Docusaurus does not have an entry file like `index.js`, so we have to
-["swizzle"](https://docusaurus.io/docs/swizzling) the `Root` component by
-creating a **wrapper** around it to import the module.
+However, Docusaurus does not have an entry file like `index.js` or `index.ts`,
+so we have to ["swizzle"](https://docusaurus.io/docs/swizzling) the `Root`
+component by creating a **wrapper** around it to import the module.
 
 > The `<Root>` component is rendered at the very top of the React tree, above
 > the theme `<Layout>`, and never unmounts. It is the perfect place to add
@@ -141,27 +141,27 @@ You should aware that the `Root` component is not mentioned whether it is
 
 Import all three layers:
 
-```jsx title="src/theme/Root.jsx"
+```tsx title="src/theme/Root.tsx"
 import React from 'react';
 import 'windi.css';
 
 // Default implementation, that you can customize
-export default function Root({ children }) {
-  return <Root>{children}</Root>;
+export default function Root({ children }: { children?: React.ReactNode }) {
+  return <>{children}</>;
 }
 ```
 
 Because the file `windi-base.css` **overrides the default styles of
 Docusaurus**, so I recommend not importing it:
 
-```diff title="src/theme/Root.jsx"
+```diff title="src/theme/Root.tsx"
 import React from 'react';
 -import 'windi.css';
 +import 'windi-components.css';
 +import 'windi-utilities.css';
 
 // Default implementation, that you can customize
-export default function Root({ children }) {
+export default function Root({ children }: { children?: React.ReactNode }) {
   return <>{children}</>;
 }
 ```
@@ -169,9 +169,9 @@ export default function Root({ children }) {
 ### Test Locally
 
 Now, we can test the result by writing some classes in `HomepageHeader`
-the component in the file `src/pages/index.js`:
+the component in the file `src/pages/index.tsx`:
 
-```jsx title="src/pages/index.jsx"
+```tsx title="src/pages/index.tsx"
 // ...
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -202,7 +202,7 @@ And we can see the result:
 
 ## Configure WindiCSS
 
-You can configure WindiCSS by creating a file `windi.config.js` in the root
+You can configure WindiCSS by creating a file `windi.config.ts` in the root
 directory.
 
 ### Dark Mode
@@ -219,7 +219,7 @@ directory.
 
 Enable dark mode using class mode:
 
-```js title="windi.config.js"
+```ts title="windi.config.ts"
 export default {
   darkMode: 'class',
 };
@@ -230,12 +230,15 @@ the `Layout/Provider` wrapper:
 
 - Add or remove the class `dark` based on the color scheme.
 
-```jsx title="src/theme/Layout/Provider/index.jsx"
+```tsx title="src/theme/Layout/Provider/index.tsx"
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { useColorMode } from '@docusaurus/theme-common';
+import { ColorSchemeProvider } from '@mantine/core';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
+import { MantineProvider } from '../../../context/MantineProvider';
 
-const CustomProvider = ({ children }) => {
+const CustomProvider = ({ children }: { children?: React.ReactNode }) => {
   const { colorMode, setColorMode } = useColorMode();
 
   useEffect(() => {
@@ -249,7 +252,12 @@ const CustomProvider = ({ children }) => {
   return <>{children}</>;
 };
 
-export default function ProviderWrapper({ children, ...props }) {
+export default function ProviderWrapper({
+  children,
+  ...props
+}: {
+  children?: React.ReactNode;
+}) {
   return (
     <Provider {...props}>
       <CustomProvider>{children}</CustomProvider>
@@ -274,11 +282,12 @@ is already passed to the `ColorModeToggle` component.
 
 The `ColorModeToggle` component is **Safe** to swizzle:
 
-```jsx title="src/theme/ColorModeToggle.jsx"
+```tsx title="src/theme/ColorModeToggle.tsx"
 import ColorModeToggle from '@theme-original/ColorModeToggle';
+import type { Props } from '@theme/ColorModeToggle';
 import React, { useEffect } from 'react';
 
-export default function ColorModeToggleWrapper(props) {
+export default function ColorModeToggleWrapper(props: Props) {
   const { value: colorMode } = props;
 
   useEffect(() => {
@@ -334,7 +343,7 @@ public-hoist-pattern[]=@docusaurus/theme-common*
 
 WindiCSS font family utilities (`font-sans`, `font-serif`, `font-mono`)
 configured fonts are quite different from the ones configured in Docusaurus. So
-we can configure the fonts in `windi.config.js` to match with Docusaurus
+we can configure the fonts in `windi.config.ts` to match with Docusaurus
 configurations:
 
 - Font family base from variable `--ifm-font-family-base`.
@@ -342,7 +351,7 @@ configurations:
 - Font family serif is not present in Docusaurus, so we can use the default
   value.
 
-```js title="windi.config.js"
+```ts title="windi.config.ts"
 export default {
   theme: {
     extend: {
@@ -375,9 +384,9 @@ Install the plugin:
 pnpm add -D @windicss/plugin-animations
 ```
 
-Add the plugin to `windi.config.js`:
+Add the plugin to `windi.config.ts`:
 
-```js title="windi.config.js"
+```ts title="windi.config.ts"
 import pluginAnimations from '@windicss/plugin-animations';
 
 export default {
@@ -394,7 +403,7 @@ export default {
 
 Then you can use the animation utilities:
 
-```jsx title="src/pages/index.jsx"
+```tsx title="src/pages/index.tsx"
 // ...
 function HomepageHeader() {
   return (
@@ -408,9 +417,9 @@ function HomepageHeader() {
 
 ### Attributify Mode
 
-To configure the attributify mode, we can configure it in `windi.config.js`:
+To configure the attributify mode, we can configure it in `windi.config.ts`:
 
-```js title="windi.config.js"
+```ts title="windi.config.ts"
 export default {
   attributify: true,
 };
@@ -418,7 +427,7 @@ export default {
 
 Then you can use the WindiCSS utilities as HTML attributes:
 
-```jsx title="src/pages/index.jsx"
+```tsx title="src/pages/index.tsx"
 // ...
 function HomepageHeader() {
   return (
@@ -444,7 +453,7 @@ components, like: `p`, `px`, `py`, `m`, `mx`, `my`,... so if you use the
 attributify mode, you should add a prefix to the WindiCSS utilities to avoid
 conflicts. For example, you can setup prefix `w:` for WindiCSS utilities:
 
-```js title="windi.config.js"
+```ts title="windi.config.ts"
 export default {
   attributify: {
     prefix: 'w:',
@@ -454,7 +463,7 @@ export default {
 
 Then you can use the WindiCSS utilities as HTML attributes:
 
-```jsx title="src/pages/index.jsx"
+```tsx title="src/pages/index.tsx"
 // ...
 function HomepageHeader() {
   return (
@@ -506,7 +515,7 @@ Docusaurus configured primary colors from `src/css/custom.css`:
 
 We can configure WindiCSS to use these in class as well:
 
-```js title="windi.config.js"
+```ts title="windi.config.ts"
 export default {
   theme: {
     extend: {
@@ -537,7 +546,7 @@ export default {
 
 Then you can use Docusaurus primary colors in class:
 
-```jsx title="src/pages/index.jsx"
+```tsx title="src/pages/index.tsx"
 // ...
 function HomepageHeader() {
   return (
@@ -562,7 +571,7 @@ pnpm add @mantine/core @mantine/hooks @emotion/react
 In this step, we will add Mantine Provider to the `<Root>` to
 ensure that all Mantine components are using the same theme.
 
-```diff title="src/theme/Root.jsx"
+```diff title="src/theme/Root.tsx"
 +import { MantineProvider } from '@mantine/core';
 import React from 'react';
 import { QueryProvider } from '../context/QueryProvider';
@@ -572,7 +581,7 @@ import 'windi-components.css';
 import 'windi-utilities.css';
 
 // Default implementation, that you can customize
-export default function Root({ children }) {
+export default function Root({ children }: { children?: React.ReactNode }) {
   return (
     <QueryProvider>
 -     <>{children}</>
@@ -596,28 +605,33 @@ In this file, we will configure the Mantine Provider to use the WindiCSS theme
 we can ensure the consistency between the Docusaurus site, Mantine components,
 and WindiCSS utilities.
 
-```jsx title="src/context/MantineProvider.jsx"
+```tsx title="src/context/MantineProvider.tsx"
 import {
   MantineProvider as BaseMantineProvider,
   Global,
+  MantineTheme,
   DEFAULT_THEME as mantineDefaultTheme,
 } from '@mantine/core';
+import type { MantineSizes } from '@mantine/core';
 import React from 'react';
 import windiDefaultColors from 'windicss/colors';
 import windiDefaultTheme from 'windicss/defaultTheme';
+import type { DefaultColors } from 'windicss/types/config/colors';
+import type { DefaultFontSize, ThemeType } from 'windicss/types/interfaces';
+import type { MantineThemeColors } from '@site/src/types/MantineThemeColors';
 
-const convertBreakpoint = (breakpoint) => {
-  const convertedBreakpoint = {};
+const convertBreakpoint = (breakpoint: ThemeType): MantineSizes => {
+  const convertedBreakpoint = {} as MantineSizes;
   Object.keys(breakpoint).forEach((size) => {
     // NOTE: Have to remove 'px' from breakpoint and convert to number
-    convertedBreakpoint[size] = breakpoint[size].replace('px', '') * 1;
+    convertedBreakpoint[size] = +breakpoint[size].replace('px', '');
   });
   return convertedBreakpoint;
 };
 
 // Override Mantine colors
-const convertColor = (windiColors) => {
-  const convertedColor = {};
+const convertColor = (windiColors: DefaultColors) => {
+  const convertedColor = {} as MantineThemeColors;
   Object.keys(windiColors).forEach((color) => {
     if (color === 'lightBlue') {
       color = 'sky';
@@ -637,11 +651,16 @@ const convertColor = (windiColors) => {
       convertedColor[color] = Object.values(windiColors[color]);
     }
   });
+  // NOTE: WindiCSS dark color is too dark
+  convertedColor.dark = convertedColor.zinc;
+
   return convertedColor;
 };
 
-const convertFontSize = (fontSize) => {
-  const convertedFontSize = {};
+const convertFontSize = (fontSize: {
+  [key: string]: DefaultFontSize;
+}): MantineSizes => {
+  const convertedFontSize = {} as MantineSizes;
   Object.keys(fontSize).forEach((size) => {
     // NOTE: Don't have to convert 'rem' to 'px'
     convertedFontSize[size] = fontSize[size][0];
@@ -649,15 +668,19 @@ const convertFontSize = (fontSize) => {
   return convertedFontSize;
 };
 
-const theme = {
+const theme: MantineTheme = {
+  ...mantineDefaultTheme,
   breakpoints: {
     ...mantineDefaultTheme.breakpoints,
     ...convertBreakpoint(windiDefaultTheme.screens), // WindiCSS
   },
-  colors: convertColor(windiDefaultColors),
+  colors: {
+    ...mantineDefaultTheme.colors,
+    ...convertColor(windiDefaultColors),
+  },
   defaultRadius: 'md',
-  black: windiDefaultColors.black,
-  white: windiDefaultColors.white,
+  black: windiDefaultColors.black as string,
+  white: windiDefaultColors.white as string,
   primaryColor: 'blue',
   fontSizes: {
     ...mantineDefaultTheme.fontSizes,
@@ -673,6 +696,7 @@ const theme = {
   fontFamilyMonospace:
     'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
   headings: {
+    ...mantineDefaultTheme.headings,
     fontFamily:
       'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
   },
@@ -698,7 +722,16 @@ const MyGlobalStyles = () => {
   );
 };
 
-const MantineProvider = ({ children, theme: themeProps, ...props }) => {
+type MantineProps = {
+  children: React.ReactNode;
+  theme?: Partial<MantineTheme>;
+};
+
+const MantineProvider = ({
+  children,
+  theme: themeProps,
+  ...props
+}: MantineProps) => {
   return (
     <BaseMantineProvider theme={{ ...theme, ...themeProps }} {...props}>
       <MyGlobalStyles />
@@ -710,9 +743,9 @@ const MantineProvider = ({ children, theme: themeProps, ...props }) => {
 export { MantineProvider };
 ```
 
-Use our custom `<MantineProvider>` in `src/theme/Layout/Provider/index.jsx`:
+Use our custom `<MantineProvider>` in `src/theme/Layout/Provider/index.tsx`:
 
-```diff title="src/theme/Layout/Provider/index.jsx"
+```diff title="src/theme/Layout/Provider/index.tsx"
 import { useColorMode } from '@docusaurus/theme-common';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
@@ -753,7 +786,7 @@ export default function ProviderWrapper({ children, ...props }) {
 We will pass the color mode to Mantine using the `ColorSchemeProvider` component
 and `theme.colorScheme` props:
 
-```diff title="src/theme/Layout/Provider/index.jsx"
+```diff title="src/theme/Layout/Provider/index.tsx"
 import { useColorMode } from '@docusaurus/theme-common';
 +import { ColorSchemeProvider } from '@mantine/core';
 import Provider from '@theme-original/Layout/Provider';
@@ -803,7 +836,7 @@ export default function ProviderWrapper({ children, ...props }) {
 So now we can use the `useMantineColorScheme` (or `useColorMode` from
 Docusaurus) hook to get the color mode:
 
-```jsx title="src/pages/index.jsx"
+```tsx title="src/pages/index.tsx"
 // ...
 import { Button, useMantineColorScheme } from '@mantine/core';
 
@@ -880,23 +913,30 @@ For example:
 </tr>
 </table>
 
-```jsx title="src/context/MantineProvider.jsx"
+```tsx title="src/context/MantineProvider.tsx"
 // ...
+import {
+  MantineTheme,
+  DEFAULT_THEME as mantineDefaultTheme,
+} from '@mantine/core';
+import type { MantineSizes } from '@mantine/core';
 import { DEFAULT_THEME as mantineDefaultTheme } from '@mantine/core';
 import windiDefaultTheme from 'windicss/defaultTheme';
+import type { DefaultFontSize } from 'windicss/types/interfaces';
 
-const convertFontSize = (fontSize) => {
-  console.log('fontSize', fontSize);
-  const convertedFontSize = {};
+const convertFontSize = (fontSize: {
+  [key: string]: DefaultFontSize;
+}): MantineSizes => {
+  const convertedFontSize = {} as MantineSizes;
   Object.keys(fontSize).forEach((size) => {
     // NOTE: Don't have to convert 'rem' to 'px'
     convertedFontSize[size] = fontSize[size][0];
   });
-  console.log('convertedFontSize', convertedFontSize);
   return convertedFontSize;
 };
 
-const theme = {
+const theme: MantineTheme = {
+  ...mantineDefaultTheme,
   fontSizes: {
     ...mantineDefaultTheme.fontSizes,
     ...convertFontSize(windiDefaultTheme.fontSize),
@@ -906,6 +946,7 @@ const theme = {
   fontFamilyMonospace:
     'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
   headings: {
+    ...mantineDefaultTheme.headings,
     fontFamily:
       'system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
   },
@@ -918,6 +959,13 @@ const theme = {
 
 At this step, we have to convert the WindiCSS color types to Mantine color types
 and remove unused colors.
+
+:::note
+
+We will use default Mantine `dark` color, instead of WindiCSS `dark` color for
+better contrast. Moreover, we will set `primaryShade` to `7`.
+
+:::
 
 For example:
 
@@ -966,13 +1014,19 @@ For example:
 </tr>
 </table>
 
-```jsx title="src/context/MantineProvider.jsx"
+```tsx title="src/context/MantineProvider.tsx"
 // ...
+import {
+  MantineTheme,
+  DEFAULT_THEME as mantineDefaultTheme,
+} from '@mantine/core';
 import windiDefaultColors from 'windicss/colors';
+import type { DefaultColors } from 'windicss/types/config/colors';
+import type { MantineThemeColors } from '@site/src/types/MantineThemeColors';
 
-/ Override Mantine colors
-const convertColor = (windiColors) => {
-  const convertedColor = {};
+// Override Mantine colors
+const convertColor = (windiColors: DefaultColors) => {
+  const convertedColor = {} as MantineThemeColors;
   Object.keys(windiColors).forEach((color) => {
     if (color === 'lightBlue') {
       color = 'sky';
@@ -992,14 +1046,22 @@ const convertColor = (windiColors) => {
       convertedColor[color] = Object.values(windiColors[color]);
     }
   });
+  // NOTE: WindiCSS dark color is too dark
+  convertedColor.dark = mantineDefaultTheme.colors.dark;
+
   return convertedColor;
 };
 
-const theme = {
-  colors: convertColor(windiDefaultColors),
-  black: windiDefaultColors.black,
-  white: windiDefaultColors.white,
+const theme: MantineTheme = {
+  ...mantineDefaultTheme,
+  colors: {
+    ...mantineDefaultTheme.colors,
+    ...convertColor(windiDefaultColors),
+  },
+  black: windiDefaultColors.black as string,
+  white: windiDefaultColors.white as string,
   primaryColor: 'blue',
+  primaryShade: 7,
 };
 // ...
 ```
