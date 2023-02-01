@@ -36,13 +36,22 @@ ReleaseCard component for displaying a GitHub release.
 > **Note**: Please replace `<YOUR_GITHUB_TOKEN>` with your GitHub token. It's
 > recommended that the token has the `repo.public_repo` scope.
 
-```jsx
-import { ReleaseCard } from '@site/src/components/elements/ReleaseCard';
+```tsx
 import { Octokit } from 'octokit';
 import React, { useEffect, useState } from 'react';
+import { ReleaseCard } from '@site/src/components/elements/ReleaseCard';
 
-const fetchLatestRelease = async (octokit, { owner, repo }) => {
-  const { data } = await octokit.request(
+const fetchLatestRelease = async (
+  octokit: Octokit,
+  {
+    owner,
+    repo,
+  }: {
+    owner: string;
+    repo: string;
+  },
+) => {
+  const data = await octokit.request(
     'GET /repos/{owner}/{repo}/releases/latest',
     {
       owner,
@@ -93,12 +102,12 @@ import { ReleaseCard } from '@site/src/components/elements/ReleaseCard';
 <tbody>
   <tr>
     <td>release</td>
-    <td>object (<a href="https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-a-release">Schema</a>)</td>
+    <td>any (<a href="https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-a-release">Schema</a>)</td>
     <td></td>
     <td>The GitHub release data.</td>
   </tr>
   <tr>
-    <td>latest</td>
+    <td>latest (optional)</td>
     <td>boolean</td>
     <td>false</td>
     <td>If <code>true</code>, display this release as <code>latest</code> by adding a "Latest" badge. If the release is <code>pre-release</code>, the card will add a "Pre-release" badge, ignore the <code>latest</code> prop. This should be set by comparing with the <a href="https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#get-the-latest-release">latest release data</a>.</td>
@@ -358,12 +367,12 @@ with different embed modes:
 
 Basic usage:
 
-```jsx
+```tsx
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import React from 'react';
 import { PDFViewer } from '@site/src/components/elements/PDFViewer';
 // Import sample PDF from static/pdf folder
 import sample from '@site/static/pdf/sample.pdf';
-import React from 'react';
 
 export default function Demo() {
   const {
@@ -373,42 +382,58 @@ export default function Demo() {
     <div style={{ height: '100vh' }}>
       {/* From URL */}
       <PDFViewer
-        url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
+        clientId={customFields.clientId as string}
         title="Bodea Brochure"
-        clientId={customFields.clientId}
+        url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
       />
       {/* From import */}
       <PDFViewer
-        url={sample}
+        clientId={customFields.clientId as string}
         title="Sample PDF"
-        clientId={customFields.clientId}
+        url={sample}
       />
       {/* From static URL */}
       <PDFViewer
-        url="/pdf/sample.pdf"
+        clientId={customFields.clientId as string}
         title="Sample PDF"
-        clientId={customFields.clientId}
+        url="/pdf/sample.pdf"
       />
     </div>
   );
 }
 ```
 
+> **Note**: To remove `ts` error when importing `.pdf` file, add a file
+> `index.d.ts`:
+>
+> ```ts
+> // index.d.ts
+> declare module '*.pdf';
+> ```
+
 With `container` and `fallback` props:
 
 ```jsx
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { PDFViewer } from '@site/src/components/elements/PDFViewer';
 import ErrorPageContent from '@theme/ErrorPageContent';
 
 import React, { useEffect } from 'react';
+import { PDFViewer } from '@site/src/components/elements/PDFViewer';
 
-const Handler = ({ divId, isReady, preview }) => {
+const Handler = ({
+  divId,
+  isReady,
+  preview,
+}: {
+  divId: string;
+  isReady: boolean;
+  preview: () => void;
+}) => {
   useEffect(() => {
     if (isReady) {
       preview();
     }
-  }, [isReady]);
+  }, [isReady, preview]);
 
   return <div id={divId} style={{ height: '100vh' }}></div>;
 };
@@ -419,10 +444,17 @@ export default function Demo() {
   } = useDocusaurusContext();
   return (
     <PDFViewer
-      url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
+      clientId={customFields.clientId as string}
       container={(props) => <Handler {...props} />}
-      clientId={customFields.clientId}
-      fallback={({ error }) => <ErrorPageContent error={error} />}
+      fallback={({ error }) => (
+        <ErrorPageContent
+          error={error}
+          tryAgain={() => {
+            window.location.reload();
+          }}
+        />
+      )}
+      url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
     />
   );
 }
@@ -460,7 +492,7 @@ import { PDFViewer } from '@site/src/components/elements/PDFViewer/PDFViewer';
     <td>The URL of the PDF file. This can be an external URL, static URL (string or via imported).</td>
   </tr>
   <tr>
-    <td>title</td>
+    <td>title (optional)</td>
     <td>string</td>
     <td></td>
     <td>The title of the PDF file.</td>
@@ -472,13 +504,13 @@ import { PDFViewer } from '@site/src/components/elements/PDFViewer/PDFViewer';
     <td>Client ID to use Adobe Embed API with your domain. Checkout the <a href="https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/">document</a> or <a href="https://documentservices.adobe.com/dc-integration-creation-app-cdn/main.html?api=pdf-embed-api">generate new one</a>.</td>
   </tr>
   <tr>
-    <td>embedMode</td>
+    <td>embedMode (optional)</td>
     <td>"FULL_WINDOW" | "SIZED_CONTAINER" | "IN_LINE" | "LIGHT_BOX"</td>
     <td>"FULL_WINDOW"</td>
     <td>Supported embed modes of PDF Embed API.</td>
   </tr>
   <tr>
-    <td>detectFileName</td>
+    <td>detectFileName (optional)</td>
     <td>boolean</td>
     <td>false</td>
     <td>If <code>true</code>, the title of the PDF file is extracted from the URL (usually at the end).</td>
@@ -520,7 +552,7 @@ React.ReactNode
 When no `fallback` prop is provided, the component will render a simple `iframe`
 element to display the PDF file. For example:
 
-```jsx
+```tsx
 <iframe
   title={title}
   src={url}
@@ -531,7 +563,7 @@ element to display the PDF file. For example:
 The same for `container` prop. If no `container` prop is provided, the viewer
 will be rendered to a `div` element:
 
-```jsx
+```tsx
 <div id={divId} style={{ height: '100%', width: '100%' }} />
 ```
 
@@ -545,10 +577,10 @@ if the PDF file is not fully loaded.
 
 #### Demo
 
-```jsx
+```tsx
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { PDFViewerButton } from '@site/src/components/elements/PDFViewer';
 import React from 'react';
+import { PDFViewerButton } from '@site/src/components/elements/PDFViewer';
 
 export default function Demo() {
   const {
@@ -564,9 +596,9 @@ export default function Demo() {
       }}
     >
       <PDFViewerButton
-        clientId={customFields.clientId}
-        url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
+        clientId={customFields.clientId as string}
         title="Bodea Brochure"
+        url="https://documentservices.adobe.com/view-sdk-demo/PDFs/Bodea%20Brochure.pdf"
       />
     </div>
   );
@@ -600,7 +632,7 @@ import { PDFViewerButton } from '@site/src/components/elements/PDFViewer/PDFView
     <td>The URL of the PDF file. This can be an external URL, static URL (string or via imported).</td>
   </tr>
   <tr>
-    <td>title</td>
+    <td>title (optional)</td>
     <td>string</td>
     <td></td>
     <td>The title of the PDF file.</td>
@@ -612,7 +644,7 @@ import { PDFViewerButton } from '@site/src/components/elements/PDFViewer/PDFView
     <td>Client ID to use Adobe Embed API with your domain. Checkout the <a href="https://developer.adobe.com/document-services/docs/overview/pdf-embed-api/">document</a> or <a href="https://documentservices.adobe.com/dc-integration-creation-app-cdn/main.html?api=pdf-embed-api">generate new one</a>.</td>
   </tr>
   <tr>
-    <td>detectFileName</td>
+    <td>detectFileName (optional)</td>
     <td>boolean</td>
     <td>false</td>
     <td>If <code>true</code>, the title of the PDF file is extracted from the URL (usually at the end).</td>
@@ -665,7 +697,7 @@ pnpm add octokit @tanstack/react-query moment
 
 #### Demo
 
-```jsx
+```tsx
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useReleaseByTimeRange } from '@site/src/hooks/useReleaseByTimeRange';
 import { Octokit } from 'octokit';
@@ -841,27 +873,27 @@ const config = {
 module.exports = config;
 ```
 
-```jsx
-// src/components/layouts/ReleaseLayout/index.jsx
-import { ReleasePage } from '@site/src/pages/_releases/index';
-import { ViewRelease } from '@site/src/pages/_releases/view';
+```tsx
+// src/components/layouts/ReleaseLayout/index.tsx
 import Layout from '@theme/Layout';
 import NotFound from '@theme/NotFound';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { ReleasePage } from '@site/src/pages/_releases/index';
+import { ViewRelease } from '@site/src/pages/_releases/view';
 
 function ReleaseLayout() {
   const match = useRouteMatch();
 
   return (
     <Switch>
-      <Route path={`${match.path}/view/:owner/:repo`} exact>
+      <Route exact path={`${match.path}/view/:owner/:repo`}>
         <Layout title="Releases">
           <ViewRelease />
         </Layout>
       </Route>
 
-      <Route path={match.path} exact>
+      <Route exact path={match.path}>
         <Layout title="Releases">
           <ReleasePage />
         </Layout>

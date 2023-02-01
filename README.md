@@ -161,12 +161,12 @@ Demo: https://the-company-tcus.netlify.app/pdf-viewer?url=https://documentservic
 | primary lightest                    | ![#4FDDBF](https://placehold.jp/4FDDBF/4FDDBF/10x10.png) #4FDDBF         | --ifm-color-primary-lightest             | dark-primary-lightest       |
 | docusaurus-highlighted-code-line-bg | ![#0000004D](https://placehold.jp/0000004D/0000004D/10x10.png) #0000004D | --docusaurus-highlighted-code-line-bg    | Not set                     |
 
-\*: These are not default WindiCSS utilities. It is defined in `windi.config.js`.
+**\***: These are not default WindiCSS utilities. It is defined in `windi.config.ts`.
 See example configuration below.
 
-\*\*: These variables applies to selector `[data-theme='dark']` only.
+**\*\***: These variables applies to selector `[data-theme='dark']` only.
 
-- WindiCSS colors:
+- **WindiCSS colors**:
 
 You can style your components with WindiCSS colors. See color reference at
 [WindiCSS color utility](https://windicss.org/utilities/general/colors.html).
@@ -176,8 +176,8 @@ You can style your components with WindiCSS colors. See color reference at
 <details>
 <summary>Configure WindiCSS colors</summary>
 
-```js
-// windi.config.js
+```ts
+// windi.config.ts
 export default {
   theme: {
     extend: {
@@ -327,20 +327,19 @@ Deployment](./docs//deployment/document-site.md).
 
 ## :compass: Roadmap
 
-- Features:
+- **Features**:
 
   - [x] Remark plugin to transform PDF links to `PDFViewer` component.
   - [x] Integrate [`remark-emoji`](https://github.com/rhysd/remark-emoji)
         plugin.
-  - ~~[ ] Algolia search.~~
 
-- Blogs:
+- **Blogs**:
 
   - [ ] Add custom dynamic routes to Docusaurus.
   - [ ] Add your custom navbar to Docusaurus.
   - [ ] Create your first remark plugin.
 
-- Docs:
+- **Docs**:
   - [ ] Git branching strategy.
   - [ ] Privacy Policy.
   - [ ] Terms of Service.
