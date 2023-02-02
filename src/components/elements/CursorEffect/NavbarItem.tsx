@@ -39,6 +39,7 @@ const DefaultCursorEffectNavbarItem = ({
 };
 
 const CursorEffectNavbarItem = ({
+  label,
   cursorType,
   options,
   mobile,
@@ -47,7 +48,7 @@ const CursorEffectNavbarItem = ({
   const { cursor: activeCursor, setCursor } = useContext(CursorEffectContext);
 
   const handleClick = () => {
-    setCursor({ cursorType, options });
+    setCursor({ label, cursorType, options });
   };
 
   return (
@@ -58,6 +59,7 @@ const CursorEffectNavbarItem = ({
         (mobile ? 'menu__link--active' : 'dropdown__link--active')
       }
       isLinkActive={activeCursor.cursorType === cursorType}
+      label={label}
       mobile={mobile}
       onClick={handleClick}
     />

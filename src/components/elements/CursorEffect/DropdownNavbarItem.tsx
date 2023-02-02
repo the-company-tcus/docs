@@ -32,18 +32,20 @@ const cursorEffects = {
   trailingCursor,
 };
 
-const CursorEffectDropdownNavbarItem = (
-  props: {
-    items: CursorConfig[];
-  } & Props,
-) => {
+const CursorEffectDropdownNavbarItem = ({
+  mobile = false,
+  ...props
+}: {
+  items: CursorConfig[];
+} & Props) => {
   const [cursor, setCursor] = useState<
-    Pick<CursorConfig, 'cursorType' | 'options'>
+    Pick<CursorConfig, 'label' | 'cursorType' | 'options'>
   >({
+    label: props.items[0].label,
     cursorType: props.items[0].cursorType,
     options: props.items[0].options,
   });
-  const { cursorType, options } = cursor;
+  const { label, cursorType, options } = cursor;
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -64,13 +66,13 @@ const CursorEffectDropdownNavbarItem = (
         icon="mdi:cursor-default-gesture-outline"
         width={24}
       />
-      {props.label}
+      {mobile ? props.label : label}
     </>
   );
 
   return (
     <CursorEffectContext.Provider value={{ cursor, setCursor }}>
-      <DropdownNavbarItem {...props} label={navbarLabel} />
+      <DropdownNavbarItem mobile={mobile} {...props} label={navbarLabel} />
     </CursorEffectContext.Provider>
   );
 };
