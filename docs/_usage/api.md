@@ -1855,6 +1855,10 @@ import { CursorEffectDropdownNavbarItem } from '@site/src/components/elements/Cu
 This component is used to display a cursor effects type in the CursorEffects
 Navbar dropdown.
 
+> **Warning**: This type of navbar item MUST be used inside a CursorEffects
+> dropdown type of navbar item, otherwise it will not work due to missing
+> required props.
+
 #### Demo
 
 Please see the demo of the [CursorEffects Navbar
