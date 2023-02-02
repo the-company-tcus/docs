@@ -1,4 +1,3 @@
-import type { NavbarItem } from '@docusaurus/theme-common';
 import { Icon } from '@iconify/react';
 import type { Props } from '@theme/NavbarItem/DropdownNavbarItem';
 import DropdownNavbarItem from '@theme/NavbarItem/DropdownNavbarItem';
@@ -34,7 +33,7 @@ const cursorEffects = {
 };
 
 const CursorEffectDropdownNavbarItem = (
-  props: NavbarItem & {
+  props: {
     items: CursorConfig[];
   } & Props,
 ) => {
