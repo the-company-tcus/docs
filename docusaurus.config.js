@@ -130,7 +130,7 @@ const config = {
           {
             type: 'custom-cursorEffectDropdown',
             position: 'right',
-            label: '',
+            label: 'Cursor',
             // For more info about options, see:
             // https://github.com/tholman/cursor-effects
             items: [
