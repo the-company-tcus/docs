@@ -1729,13 +1729,13 @@ This implemented a
 [suggested](https://github.com/facebook/docusaurus/issues/7227) workaround to
 the issue that the custom navbar items are not supported yet in Docusaurus.
 
-Navbar items of the type `custom-cursor-effect-dropdown-navbar-item` has the
+Navbar items of the type `custom-cursorEffectDropdown` has the
 additional items field, an inner array of navbar items.
 
 Navbar CursorEffects dropdown only accept the following types of items:
 
 - [CursorEffects Navbar item](#cursoreffects-navbar-item):
-  `custom-cursor-effect-navbar-item`.
+  `custom-cursorEffect`.
 
 #### Demo
 
@@ -1754,8 +1754,8 @@ import {
 
 export default {
   ...ComponentTypes,
-  'custom-cursor-effect-dropdown-navbar-item': CursorEffectDropdownNavbarItem,
-  'custom-cursor-effect-navbar-item': CursorEffectNavbarItem,
+  'custom-cursorEffectDropdown': CursorEffectDropdownNavbarItem,
+  'custom-cursorEffect': CursorEffectNavbarItem,
 };
 ```
 
@@ -1770,19 +1770,19 @@ const config = {
       navbar: {
         items: [
           {
-            type: 'custom-cursor-effect-dropdown-navbar-item',
+            type: 'custom-cursorEffectDropdown',
             position: 'right',
             label: '',
             // For more info about options, see:
             // https://github.com/tholman/cursor-effects
             items: [
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '🗿 Default',
                 cursorType: 'defaultCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '🌈 Rainbow',
                 cursorType: 'rainbowCursor',
                 options: {
@@ -1821,14 +1821,14 @@ import { CursorEffectDropdownNavbarItem } from '@site/src/components/elements/Cu
 <tbody>
   <tr>
     <td><code>type</code></td>
-    <td><code>custom-cursor-effect-dropdown-navbar-item</code></td>
+    <td><code>custom-cursorEffectDropdown</code></td>
     <td>Optional</td>
     <td>Sets the type of this item to a cursor effects dropdown.</td>
   </tr>
   <tr>
     <td><code>label</code></td>
     <td><code>string</code></td>
-    <td>Optional</td>
+    <td><b>Required</b></td>
    <td>The name to be shown for this item.</td>
   </tr>
   <tr>
@@ -1847,6 +1847,30 @@ import { CursorEffectDropdownNavbarItem } from '@site/src/components/elements/Cu
   </tr>
 </tbody>
 </table>
+
+**Types**:
+
+```ts
+export type CursorConfig = {
+  type?: string;
+  label?: string;
+  cursorType?:
+    | 'bubbleCursor'
+    | 'clockCursor'
+    | 'emojiCursor'
+    | 'fairyDustCursor'
+    | 'followingDotCursor'
+    | 'ghostCursor'
+    | 'rainbowCursor'
+    | 'snowflakeCursor'
+    | 'springyEmojiCursor'
+    | 'textFlag'
+    | 'trailingCursor'
+    | 'defaultCursor';
+  options?: Record<string, unknown>;
+  position?: 'left' | 'right';
+};
+```
 
 ### CursorEffects Navbar item
 
@@ -1886,7 +1910,7 @@ import { CursorEffectNavbarItem } from '@site/src/components/elements/CursorEffe
 <tbody>
   <tr>
     <td><code>type</code></td>
-    <td><code>custom-cursor-effect-navbar-item</code></td>
+    <td><code>custom-cursorEffect</code></td>
     <td>Optional</td>
     <td>Sets the type of this item to a cursor effects item.</td>
   </tr>
@@ -1899,7 +1923,7 @@ import { CursorEffectNavbarItem } from '@site/src/components/elements/CursorEffe
   <tr>
     <td><code>cursorType</code></td>
     <td><code>'bubbleCursor' | 'clockCursor' | 'emojiCursor' | 'fairyDustCursor' | 'followingDotCursor' | 'ghostCursor' | 'rainbowCursor' | 'snowflakeCursor' | 'springyEmojiCursor' | 'textFlag' | 'trailingCursor' | 'defaultCursor'</code></td>
-    <td></td>
+    <td>Optional</td>
    <td>Cursor effect type.</td>
   </tr>
   <tr>
