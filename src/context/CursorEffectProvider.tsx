@@ -40,7 +40,11 @@ const CursorEffectProvider = ({ children }: { children?: React.ReactNode }) => {
     return item.type === 'custom-cursorEffectDropdown';
   }).items[0];
 
-  const [cursor, setCursor] = useState<CursorConfig>(defaultCursor);
+  const [cursor, setCursor] = useState<Omit<CursorConfig, 'type'>>({
+    label: defaultCursor.label,
+    cursorType: defaultCursor.cursorType,
+    options: defaultCursor.options,
+  });
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {

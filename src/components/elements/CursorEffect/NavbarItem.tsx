@@ -44,7 +44,7 @@ const CursorEffectNavbarItem = ({
   options,
   mobile,
   ...props
-}: CursorConfig & CursorEffectNavbarItemProps) => {
+}: Omit<CursorConfig, 'type'> & CursorEffectNavbarItemProps) => {
   const context = useContext(CursorEffectContext);
 
   const handleClick = () => {
