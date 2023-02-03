@@ -6,6 +6,6 @@ import {
 
 export default {
   ...ComponentTypes,
-  'custom-cursor-effect-dropdown-navbar-item': CursorEffectDropdownNavbarItem,
-  'custom-cursor-effect-navbar-item': CursorEffectNavbarItem,
+  'custom-cursorEffectDropdown': CursorEffectDropdownNavbarItem,
+  'custom-cursorEffect': CursorEffectNavbarItem,
 };
