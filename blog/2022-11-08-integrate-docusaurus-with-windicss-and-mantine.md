@@ -236,7 +236,7 @@ import { useColorMode } from '@docusaurus/theme-common';
 import { ColorSchemeProvider } from '@mantine/core';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
-import { MantineProvider } from '../../../context/MantineProvider';
+import { MantineProvider } from '@site/src/context/MantineProvider';
 
 const CustomProvider = ({ children }: { children?: React.ReactNode }) => {
   const { colorMode, setColorMode } = useColorMode();
@@ -574,7 +574,6 @@ ensure that all Mantine components are using the same theme.
 ```diff title="src/theme/Root.tsx"
 +import { MantineProvider } from '@mantine/core';
 import React from 'react';
-import { QueryProvider } from '../context/QueryProvider';
 // eslint-disable-next-line import/no-unresolved
 import 'windi-components.css';
 // eslint-disable-next-line import/no-unresolved
@@ -583,10 +582,8 @@ import 'windi-utilities.css';
 // Default implementation, that you can customize
 export default function Root({ children }: { children?: React.ReactNode }) {
   return (
-    <QueryProvider>
 -     <>{children}</>
 +     <MantineProvider>{children}</MantineProvider>
-    </QueryProvider>
   );
 }
 ```
@@ -749,7 +746,7 @@ Use our custom `<MantineProvider>` in `src/theme/Layout/Provider/index.tsx`:
 import { useColorMode } from '@docusaurus/theme-common';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
-+import { MantineProvider } from '../../../context/MantineProvider';
++import { MantineProvider } from '@site/src/context/MantineProvider';
 
 const CustomProvider = ({ children }) => {
   const { colorMode, setColorMode } = useColorMode();
@@ -791,7 +788,7 @@ import { useColorMode } from '@docusaurus/theme-common';
 +import { ColorSchemeProvider } from '@mantine/core';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
-+import { MantineProvider } from '../../../context/MantineProvider';
++import { MantineProvider } from '@site/src/context/MantineProvider';
 
 const CustomProvider = ({ children }) => {
   const { colorMode, setColorMode } = useColorMode();
