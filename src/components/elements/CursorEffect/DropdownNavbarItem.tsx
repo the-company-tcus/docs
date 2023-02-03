@@ -1,36 +1,9 @@
 import { Icon } from '@iconify/react';
 import type { Props } from '@theme/NavbarItem/DropdownNavbarItem';
 import DropdownNavbarItem from '@theme/NavbarItem/DropdownNavbarItem';
-import {
-  bubbleCursor,
-  clockCursor,
-  emojiCursor,
-  fairyDustCursor,
-  followingDotCursor,
-  ghostCursor,
-  rainbowCursor,
-  snowflakeCursor,
-  springyEmojiCursor,
-  textFlag,
-  trailingCursor,
-} from 'cursor-effects';
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { CursorEffectContext } from './cursorContext';
 import type { CursorConfig } from './types';
-
-const cursorEffects = {
-  bubbleCursor,
-  clockCursor,
-  emojiCursor,
-  fairyDustCursor,
-  followingDotCursor,
-  ghostCursor,
-  rainbowCursor,
-  snowflakeCursor,
-  springyEmojiCursor,
-  textFlag,
-  trailingCursor,
-};
 
 const CursorEffectDropdownNavbarItem = ({
   mobile = false,
@@ -38,25 +11,7 @@ const CursorEffectDropdownNavbarItem = ({
 }: {
   items: CursorConfig[];
 } & Props) => {
-  const [cursor, setCursor] = useState<
-    Pick<CursorConfig, 'label' | 'cursorType' | 'options'>
-  >({
-    label: props.items[0].label,
-    cursorType: props.items[0].cursorType,
-    options: props.items[0].options,
-  });
-  const { label, cursorType, options } = cursor;
-
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    if (cursorType !== 'defaultCursor') {
-      const { destroy } = new cursorEffects[cursorType](options);
-
-      return () => {
-        destroy();
-      };
-    }
-  }, [cursorType, options]);
+  const context = useContext(CursorEffectContext);
 
   // Ref: https://github.com/facebook/docusaurus/blob/main/packages/docusaurus-theme-classic/src/theme/NavbarItem/LocaleDropdownNavbarItem/styles.module.css
   const navbarLabel = (
@@ -66,15 +21,11 @@ const CursorEffectDropdownNavbarItem = ({
         icon="mdi:cursor-default-gesture-outline"
         width={24}
       />
-      {mobile ? props.label : label}
+      {mobile ? props.label : context?.cursor?.label}
     </>
   );
 
-  return (
-    <CursorEffectContext.Provider value={{ cursor, setCursor }}>
-      <DropdownNavbarItem mobile={mobile} {...props} label={navbarLabel} />
-    </CursorEffectContext.Provider>
-  );
+  return <DropdownNavbarItem mobile={mobile} {...props} label={navbarLabel} />;
 };
 
 export { CursorEffectDropdownNavbarItem };
