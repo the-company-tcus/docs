@@ -1,15 +1,15 @@
 ---
 slug: create-remark-plugin
-title: Create remark plugin for Docusaurus
+title: Create a remark plugin for Docusaurus
 authors:
   - duckymomo20012
 tags:
   - guide
 ---
 
-# Create remark plugin for Docusaurus
+# Create a remark plugin for Docusaurus
 
-Writing markdown is fun, and it's even better with
+Writing markdowns is fun, and it's even better with
 [Docusaurus](https://docusaurus.io/) because it's easy to use and has a lot of
 features that make your markdown more beautiful. But as a power user, you can
 extend the markdown syntax to make it more powerful with remark plugins.
@@ -17,8 +17,8 @@ extend the markdown syntax to make it more powerful with remark plugins.
 ## Getting Started
 
 In this guide, we will show you how to create a remark plugin for Docusaurus
-that converts a markdown url link to transform URL (**with patterns**) links
-(e.g.: `[hyperlink](some-url)`) or URL plain texts to `iframe` elements.
+that transform Markdown URL (**with patterns**) links (e.g.:
+`[hyperlink](some-url)`) or URL plain texts to `iframe` elements.
 
 ## Quick introduction to remark
 
@@ -38,11 +38,13 @@ that converts a markdown url link to transform URL (**with patterns**) links
 > View the project on [GitHub](https://github.com/remarkjs/remark) or inspect
 > the syntax tree on [AST
 > Explorer](https://astexplorer.net/#/gist/0a92bbf654aca4fdfb3f139254cf0bad/ffe102014c188434c027e43661dbe6ec30042ee2).
+>
+> -- <cite>[remark.js.org](https://remark.js.org/)</cite>
 
 Or you can read the [Transforming Markdown with Remark &
 Rehype](https://www.ryanfiller.com/blog/remark-and-rehype-plugins) blog to learn
-more about both remark and rehype. Most of content in this guide is inspired by
-it.
+more about both remark and rehype. Most of the content in this guide is inspired
+by it.
 
 Moreover, you can use community plugins to extend the markdown syntax. For more
 information, see:
@@ -57,7 +59,7 @@ information, see:
 ## Plugin concept
 
 [Plugins](https://github.com/unifiedjs/unified#plugin) configure the processors
-they are applied on in the following ways:
+they are applied in the following ways:
 
 - they change the processor, such as the
   [parser](https://github.com/unifiedjs/unified#processorparser), the
@@ -69,12 +71,12 @@ they are applied on in the following ways:
 Plugins are a concept. They materialize as
 [`Attachers`](https://github.com/unifiedjs/unified#function-attacheroptions).
 
-> `Attachers` are functions that take options and return a
-> [`Transformer`](https://github.com/unifiedjs/unified#function-transformertree-file-next).
-> Inside a `Transformer`, we can use the
-> [`unist-util-visit`](https://github.com/syntax-tree/unist-util-visit) to visit
-> each node in the tree and transform it (change the node type, add attributes, or
-> modify the node value).
+`Attachers` are functions that take options and return a
+[`Transformer`](https://github.com/unifiedjs/unified#function-transformertree-file-next).
+Inside a `Transformer`, we can use the
+[`unist-util-visit`](https://github.com/syntax-tree/unist-util-visit) to visit
+each node in the tree and transform it (change the node type, add attributes, or
+modify the node value).
 
 ## Install dependencies
 
@@ -85,7 +87,7 @@ pnpm add unist-util-visit joi
 ```
 
 > [Joi](https://joi.dev/api/?v=17.7.0) is for validating the options of the
-> plugin, may remove it later.
+> plugin, you can parse the options manually but Joi is more convenient.
 
 ## Define options schema
 
@@ -105,15 +107,17 @@ const optionSchema = Joi.object({
 Our plugin will have two options:
 
 - `patterns`: an array of string or regex patterns to match the URL. If the URL
-  matches one of the patterns, it will be transformed to an `<iframe>` element.
+  matches one of the patterns, it will be transformed into an `<iframe>`
+  element.
 - `iframeAttrs`: an object of attributes to add to the `<iframe>` element.
   The value can be a `number`, `string`, or `boolean`. `boolean` with `true`
-  value will be converted to the attribute name without value, e.g.:
+  the value will be converted to the attribute name without value, e.g.:
   `crossorigin: true` will be converted to `crossorigin` attribute.
 
   :::note
 
-  **`iframeAttrs` is not camelCase**, as `allowfullscreen: true` will be passed as `allowfullscreen`.
+  **`iframeAttrs` object keys are not camelCase**, as `allowfullscreen: true`
+  will be passed as `allowfullscreen`.
 
   :::
 
@@ -287,13 +291,34 @@ function plugin(options = {}) {
 
 :::info
 
-Hm, why we use `import` to import `unist-util-visit`? `unist-util-visit` is a
-[ESM
+Hm, why do we use `dynamic import` to import `unist-util-visit`?
+`unist-util-visit` is a [ESM
 only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
-package, so we can't use `require` to import it. Because we going import the
-plugin into the `docusaurus.config.js` file, and it's a `CJS` (CommonJS) module
-([not support `ESM` yet](https://github.com/facebook/docusaurus/issues/6520)),
-so we can't mix `ESM` (ES Module) and `CJS` in the same file.
+package, so we can't use `require` to import it. Then just use `import`?
+Because we going to import the plugin into the `docusaurus.config.js` file, and
+it's a `CJS` (CommonJS) module ([not support `ESM`
+yet](https://github.com/facebook/docusaurus/issues/6520)), so we can't mix `ESM`
+(ES Module) and `CJS` are in the same file.
+
+:::
+
+:::caution
+
+There is a known issue that the plugin will cause build error because the plugin
+uses "dynamic import"
+([`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import))
+to import the ES module `unist-util-visit` in the CJS module.
+
+To fix this issue, you need to add `sourceType: 'unambiguous',` in the
+`babel.config.js` file ([Ref](https://stackoverflow.com/a/56283408/12512981)):
+
+```js
+// babel.config.js
+module.exports = {
+  // ...
+  sourceType: 'unambiguous',
+};
+```
 
 :::
 
@@ -309,11 +334,6 @@ so we can't mix `ESM` (ES Module) and `CJS` in the same file.
     ([`Test`](https://github.com/syntax-tree/unist-util-visit-parents#test),
     optional): A [Test](https://github.com/syntax-tree/unist-util-is#test) to
     check if a node should be visited.
-    - This usually is a `string` (e.g.: `'link'`), a array (e.g.:
-      `['link','text']`) a `object` (e.g.: `{ type: 'link'}`), or a `function`
-      that will be [called with a
-      node](https://github.com/syntax-tree/unist-util-is#testfunctionanything) and
-      should return `true` if the node should be visited.
   - a `visitor`
     ([`Visitor`](https://github.com/syntax-tree/unist-util-visit-parents#visitor)):
     A function to handle each node that is visited.
@@ -327,11 +347,17 @@ a `async` function.
 
 ### 4. About the `test` function
 
-In this example `test` is function that check if the node is a `link` or
+In this example, `test` is a function that checks if the node is a `link` or
 `text` node, and based on that we will check for the `value` or `url` property
 that has the `http` or `https` protocol.
 
-For the sake of simplicity, you can pass an array `['link', 'text']` to the the
+This usually is a `string` (e.g.: `'link'`), an array (e.g.:
+`['link', 'text']`) an `object` (e.g.: `{ type: 'link'}`), or a `function`
+that will be [called with a
+node](https://github.com/syntax-tree/unist-util-is#testfunctionanything) and
+should return `true` if the node should be visited.
+
+For the sake of simplicity, you can pass an array `['link', 'text']` to the
 `visit` and then check later.
 
 We put the `test` function inside the `transformer` function because we want to
@@ -355,8 +381,8 @@ function checkPatterns(url, patterns) {
 :::tip
 
 [AST Explorer](https://astexplorer.net/) is a great tool to help you understand
-about AST and how to use `unist-util-visit` function. You can try it out to
-modify the AST and see how it works.
+AST and how to use `unist-util-visit` function. You can try it out to modify the
+AST and see how it works.
 
 :::
 
@@ -453,7 +479,7 @@ option.
 
 #### Construct the new `html` node
 
-- A function that convert the object properties to HTML attributes:
+- A function that converts the object properties to HTML attributes:
 
   ```js
   function convertObjectToHTMLAttributes(obj) {
@@ -469,7 +495,9 @@ option.
   ```
 
   Kinda messy, but it works. The `boolean` value with `true` will be converted to
-  a key without value, e.g.: `crossorigin` instead of `crossorigin="true"`.
+  a key without value, e.g.: `crossorigin` instead of `crossorigin="true"`. Read
+  more about [HTML boolean
+  attributes](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes).
 
 - Construct the new `<iframe>` HTML node:
 
@@ -758,8 +786,8 @@ mapping. Note that we only map the `<iframe>` HTML with the attribute
 
 ### Manually parse Markdown string with `@mdx-js/mdx`
 
-We can also manually parse Markdown string (from server) with `@mdx-js/mdx` and
-then transform the URL to `react-player` component.
+We can also manually parse the Markdown string (from the server) with
+`@mdx-js/mdx` and then transform the URL to the `react-player` component.
 
 Manually parsed Markdown content with
 [`evaluate`](https://mdxjs.com/packages/mdx/#evaluatefile-options) function:
@@ -878,6 +906,41 @@ const ReleaseCard = ({ release, latest = false }) => {
 
 export { ReleaseCard };
 ```
+
+## Troubleshooting
+
+### How to use remark plugins that are ES modules?
+
+Most of the remark plugins rely on the `unist-util-visit` package to traverse
+the tree. However, `unist-util-visit` has migrated to the ES module in version
+[`3.0.0`](https://github.com/syntax-tree/unist-util-visit/releases/tag/3.0.0)
+and most of the built-in and community plugins have migrated too. Of course, you
+can use the old version of `unist-util-visit` but it's not recommended.
+
+Here is a workaround to use ES module `remark-emoji` plugins:
+
+```js title="src/remark/transformEmoji.js"
+function plugin(options) {
+  async function load() {
+    const { default: emojiPlugin } = await import('remark-emoji');
+
+    return emojiPlugin(options);
+  }
+
+  return async (tree) => {
+    const transformer = await load();
+    transformer(tree);
+  };
+}
+
+module.exports = plugin;
+```
+
+- First, we need to import the plugin dynamically using the `import()` function.
+  Then execute the plugin with the `options` we passed to the plugin, this will
+  return a `transformer` function.
+- Then you MUST return an `async` function that accepts the `tree` and execute
+  the `transformer` function with the `tree` as the argument.
 
 ## Related Articles
 
