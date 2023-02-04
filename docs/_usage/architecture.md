@@ -53,18 +53,19 @@ This project uses this component architecture:
 
 ### `blog` Folder
 
-This is a DocuSaurus feature, contains blog posts for the document website. Any
-markdown file in this folder will be automatically added to the blog section
+This is a DocuSaurus feature that contains blog posts for the document website.
+Any markdown file in this folder will be automatically added to the blog section
 (`/blog` path) of the website.
 
 Read more about the blog feature: [Blog](https://docusaurus.io/docs/blog)
 
 ### `docs` Folder
 
-This is a DocuSaurus feature, contains documentation for the document website.
+This is a DocuSaurus feature that contains documentation for the document
+website.
 
 However, this can also be used to store any documentation related to the
-project, by adding an underscore (`_`) to the beginning of the file name to
+the project, by adding an underscore (`_`) to the beginning of the file name to
 ignore the file from the website.
 
 Read more about the docs feature:
@@ -72,21 +73,21 @@ Read more about the docs feature:
 
 ### `static` Folder
 
-This is a DocuSaurus feature, contains static assets (images, pdf files) for the
-document website.
+This is a DocuSaurus feature that contains static assets (images, pdf files) for
+the document website.
 
 Read more about the static assets feature:
 [Static Assets](https://docusaurus.io/docs/static-assets)
 
 ### `src` Folder
 
-> **Note**: Every files in this folder should be written in TypeScript.
+> **Note**: Every file in this folder should be written in TypeScript.
 
 This folder contains the source code for the project.
 
 ### `components` Folder
 
-> **Note**: Every files in this folder should be written in TypeScript.
+> **Note**: Every file in this folder should be written in TypeScript.
 
 - `elements`: the smallest components that can be reused and shared. They
   should be as generic as possible.
@@ -98,24 +99,24 @@ Read more about the components architecture: [Components](./components.md)
 
 ### `context` Folder
 
-> **Note**: Every files in this folder should be written in TypeScript.
+> **Note**: Every file in this folder should be written in TypeScript.
 
 This folder contains the global React Contexts for the project. These contexts
 should be imported and wrap the `Root` component in the `theme/Routes.jsx` file.
 
 ### `hooks` Folder
 
-> **Note**: Every files in this folder should be written in TypeScript.
+> **Note**: Every file in this folder should be written in TypeScript.
 
 This folder contains the custom React Hooks for the project. The file name
 should be prefixed with `use` to indicate that it is a custom hook.
 
 ### `pages` Folder
 
-> **Note**: Every files in this folder should be written in TypeScript.
+> **Note**: Every file in this folder should be written in TypeScript.
 
-This is a DocuSaurus feature, contains the pages for the document website. You
-can also ignore the file from the website (e.g. **add a dynamic route**) by
+This is a DocuSaurus feature that contains the pages for the document website.
+You can also ignore the file from the website (e.g. **add a dynamic route**) by
 adding an underscore (`_`) to the beginning of the file name.
 
 Read more about the pages feature:
@@ -140,7 +141,7 @@ Read more about the remark plugins feature:
 
 ### `theme` Folder
 
-> **Note**: Every files in this folder should be written in TypeScript.
+> **Note**: Every file in this folder should be written in TypeScript.
 
 This folder contains the theme for the project. The theme is used to customize
 or wrap the default Docusaurus theme. Usually, these files can be created using

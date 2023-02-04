@@ -1,17 +1,17 @@
 ---
 slug: create-custom-navbar-item-for-docusaurus
-title: Create custom navbar item for Docusaurus
+title: Create a custom navbar item for Docusaurus
 authors:
   - duckymomo20012
 tags:
   - guide
 ---
 
-# Create custom navbar item for Docusaurus
+# Create a custom navbar item for Docusaurus
 
 [Docusaurus](https://docusaurus.io/) allows you to add many types of [navbar
 items](https://docusaurus.io/docs/api/themes/configuration#navbar-items) to the
-navbar. But if you want to add a custom navbar item, you have to register new
+navbar. But if you want to add a custom navbar item, you have to register a new
 type for your component. This guide will show you how to create a custom navbar
 item for Docusaurus.
 
@@ -19,7 +19,7 @@ item for Docusaurus.
 
 :::info
 
-This is a implementation of a temporary workaround to support custom navbar item
+This is an implementation of a temporary workaround to support custom navbar item
 types, from [#7231](https://github.com/facebook/docusaurus/pull/7231) and
 [#7227](https://github.com/facebook/docusaurus/issues/7227) issues.
 
@@ -29,7 +29,7 @@ We will create a dropdown navbar item that contains a list of colors. When we
 select a color, the background color of the website will change to the selected
 one.
 
-There are two type of navbar items we have to register:
+There are two types of navbar items we have to register:
 
 - `custom-colorPickerDropdown`: This is the dropdown navbar item that contains a list
   of colors.
@@ -42,7 +42,7 @@ The `custom-` prefix is required for custom navbar item types.
 
 :::
 
-These types will be register by extending the Docusaurus default
+These types will be registered by extending the Docusaurus default
 `NavbarItem/ComponentTypes` exported object.
 
 Our final result will look like this:
@@ -64,7 +64,7 @@ export type ColorConfig = {
 };
 ```
 
-If item is not provided with a `label` property, it will render an empty
+If an item is not provided with a `label` property, it will render an empty
 `<div>` element, which kind of looks weird.
 
 ## Create a provider to share the color state
@@ -203,7 +203,7 @@ a provider to share the color state between the navbar and the sidebar (mobile).
 
   :::
 
-## Create dropdown navbar item component
+## Create a dropdown navbar item component
 
 Create a wrapper component for the default `DropdownNavbarItem` component:
 
@@ -248,14 +248,14 @@ export { ColorPickerDropdownNavbarItem };
   property of the `custom-colorPickerDropdown` navbar item, defined in the
   `docusaurus.config.js` file.
 
-- We can create custom label with icon, like the `LocaleDropdownNavbarItem`
-  component. We use the `context` to get the selected color label. On desktop,
-  it displays the selected color label. On mobile, it displays the `label` prop
-  of the `custom-colorPickerDropdown` navbar item.
+- We can create a custom label with icon, like the `LocaleDropdownNavbarItem`
+  component. We use the `context` to get the selected color label. On the
+  desktop, it displays the selected color label. On mobile, it displays the
+  `label` prop of the `custom-colorPickerDropdown` navbar item.
 
-## Create navbar item component
+## Create a navbar item component
 
-Create `ColorPickerNavbarItem` component:
+Create the `ColorPickerNavbarItem` component:
 
 ```tsx title="src/components/elements/BgColorPicker/NavbarItem.tsx"
 import type { Props } from '@theme/NavbarItem/DefaultNavbarItem';
@@ -336,8 +336,8 @@ export { ColorPickerNavbarItem };
   :::note
 
   Although the type `ColorPickerNavbarItemProps` still has the `RRNavLinkProps`,
-  which is react-router-dom's props and others, those are not used in the
-  component, we don't have care much about it.
+  which is react-router-dom's props and others, that are not used in the
+  component, we don't care much about it.
 
   :::
 

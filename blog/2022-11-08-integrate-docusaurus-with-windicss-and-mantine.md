@@ -326,7 +326,7 @@ rendered.
 
 Error: "Hook useColorMode is called outside the `<ColorModeProvider>`"
 
-If you have this error and you are using `pnpm`, then you may having hoisting
+If you have this error and you are using `pnpm`, then you may have hoisting
 package issue
 ([#7880](https://github.com/facebook/docusaurus/issues/7880#issuecomment-1201994009)
 and
@@ -451,7 +451,7 @@ Since Mantine also provides some [default
 props](https://mantine.dev/styles/style-props/#supported-props) for all
 components, like: `p`, `px`, `py`, `m`, `mx`, `my`,... so if you use the
 attributify mode, you should add a prefix to the WindiCSS utilities to avoid
-conflicts. For example, you can setup prefix `w:` for WindiCSS utilities:
+conflicts. For example, you can setup the prefix `w:` for WindiCSS utilities:
 
 ```ts title="windi.config.ts"
 export default {
@@ -959,8 +959,8 @@ and remove unused colors.
 
 :::note
 
-We will use default Mantine `dark` color, instead of WindiCSS `dark` color for
-better contrast. Moreover, we will set `primaryShade` to `7`.
+We will use the default Mantine `dark` color, instead of WindiCSS `dark` color
+for better contrast. Moreover, we will set `primaryShade` to `7`.
 
 :::
 

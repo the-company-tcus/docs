@@ -15,16 +15,16 @@ routes. This guide will show you how to add dynamic routes to Docusaurus.
 
 What is a dynamic route? The most common example is a blog. You have a list of
 blogs and you want to render a page for each blog. You can't do this with static
-routes. Then you can contruct a dynamic route like `/blog/:blogId` and render a
+routes. Then you can construct a dynamic route like `/blog/:blogId` and render a
 page, with `blogId` as a parameter.
 
 ## Getting Started
 
 :::danger
 
-There is a know issue that in production build, the generated routes are not
-render immediately. Instead, it will render Not Found page first, then it render
-the correct page. This issue is not found in development build.
+There is a known issue that in the production build, the generated routes are
+not rendered immediately. Instead, it will render the Not Found page first, then
+it render the correct page. This issue is not found in the development build.
 
 :::
 
@@ -42,7 +42,7 @@ With these steps, we will build a dynamic route to view books. The route will be
 
 By default, Docusaurus
 [exports](https://github.com/facebook/docusaurus/blob/main/packages/docusaurus/src/client/exports/router.ts)
-only `useHistory`, `useLocation`, `Redirect` and `matchPath` from
+only `useHistory`, `useLocation`, `Redirect`, and `matchPath` from
 `react-router-dom`. To use `Route` and `Switch`, you need to install
 `react-router-dom` manually:
 
@@ -59,7 +59,7 @@ So, please use `react-router-dom v5` instead.
 
 ## Create a Docusaurus Plugin
 
-Docusaurus has a action
+Docusaurus has an action
 [`addRoute`](https://docusaurus.io/docs/api/plugin-methods/lifecycle-apis#addRoute)
 from
 [`contentLoaded`](https://docusaurus.io/docs/api/plugin-methods/lifecycle-apis#contentLoaded)
@@ -102,7 +102,7 @@ const config = {
 };
 ```
 
-We will create `BookLayout` component in the next step.
+We will create the `BookLayout` component in the next step.
 
 ## Render Book page
 
@@ -111,12 +111,12 @@ We will create `BookLayout` component in the next step.
 Because this is a custom route and we don't want Docusaurus to render it, we
 have to add an underscore (`_`) to the beginning of the file name. This is a
 convention in Docusaurus to tell Docusaurus to
-[ignore this file and not create a route for
+[ignore this file and do not create a route for
 it](https://docusaurus.io/docs/creating-pages#routing).
 
 :::
 
-First we will create an index page to list all books:
+First, we will create an index page to list all books:
 
 ```tsx title="src/pages/_books/index.tsx"
 import React from 'react';
@@ -148,7 +148,7 @@ one place.
 
 :::
 
-Then create a page for individual book:
+Then create a page for the individual book:
 
 ```tsx title="src/pages/_books/[bookId].tsx"
 import React from 'react';
@@ -178,11 +178,11 @@ folder too.
 
 Finally, create a layout component to handle the routing for `book` pages:
 
-- Wrap the content with `Layout` component from Docusaurus.
+- Wrap the content with the `Layout` component from Docusaurus.
 - Use `Switch` and `Route` from `react-router-dom` to render the correct page
   based on the route.
-- Use `NotFound` component from Docusaurus to render 404 page if the route is
-  not found.
+- Use the `NotFound` component from Docusaurus to render a 404 page if the route
+  is not found.
 
 ```tsx title="src/components/layouts/BookLayout/index.tsx"
 import Layout from '@theme/Layout';
@@ -221,7 +221,7 @@ export default BookLayout;
 
 ## Result
 
-- `/books`: Render list of books
+- `/books`: Render a list of books
 
   ![books](https://user-images.githubusercontent.com/64480713/216235183-0c9ec367-b0d0-44b8-92b6-910ef09bfc54.png)
 

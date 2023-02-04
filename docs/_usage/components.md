@@ -9,15 +9,15 @@ unit of code that can be reused and shared. Since Docusaurus is built with
 React, you can use custom components to extend the functionality of the default
 theme.
 
-**Every components should be written in `TypeScript`**.
+**Every component should be written in `TypeScript`**.
 
 ## Types
 
 For small components, you can create a file `types.ts` in the same folder as the
-component, to define the types for the props.
+component, to define the types of props.
 
 If your types are shared between multiple components, you can create a file in a
-folder called `types` in the root of the `src` folder.
+a folder called `types` in the root of the `src` folder.
 
 ## Built-in Components
 
