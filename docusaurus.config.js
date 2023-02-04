@@ -128,64 +128,64 @@ const config = {
             position: 'right',
           },
           {
-            type: 'custom-cursor-effect-dropdown-navbar-item',
+            type: 'custom-cursorEffectDropdown',
             position: 'right',
-            label: '',
+            label: 'Cursor',
             // For more info about options, see:
             // https://github.com/tholman/cursor-effects
             items: [
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '🗿 Default',
                 cursorType: 'defaultCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '🌈 Rainbow',
                 cursorType: 'rainbowCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '💧 Bubble',
                 cursorType: 'bubbleCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '⏰ Clock',
                 cursorType: 'clockCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '🦄 Emoji',
                 cursorType: 'emojiCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '🧚 Fairy Dust',
                 cursorType: 'fairyDustCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '⚫️ Dot',
                 cursorType: 'followingDotCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '👻 Ghost',
                 cursorType: 'ghostCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '❄️ Snowflake',
                 cursorType: 'snowflakeCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '🪗 Springy Emoji',
                 cursorType: 'springyEmojiCursor',
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '🚩 Text Flag',
                 cursorType: 'textFlag',
                 options: {
@@ -193,7 +193,7 @@ const config = {
                 },
               },
               {
-                type: 'custom-cursor-effect-navbar-item',
+                type: 'custom-cursorEffect',
                 label: '👣 Trailing',
                 cursorType: 'trailingCursor',
               },

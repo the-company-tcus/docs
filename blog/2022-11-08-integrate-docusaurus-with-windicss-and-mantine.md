@@ -236,7 +236,7 @@ import { useColorMode } from '@docusaurus/theme-common';
 import { ColorSchemeProvider } from '@mantine/core';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
-import { MantineProvider } from '../../../context/MantineProvider';
+import { MantineProvider } from '@site/src/context/MantineProvider';
 
 const CustomProvider = ({ children }: { children?: React.ReactNode }) => {
   const { colorMode, setColorMode } = useColorMode();
@@ -326,7 +326,7 @@ rendered.
 
 Error: "Hook useColorMode is called outside the `<ColorModeProvider>`"
 
-If you have this error and you are using `pnpm`, then you may having hoisting
+If you have this error and you are using `pnpm`, then you may have hoisting
 package issue
 ([#7880](https://github.com/facebook/docusaurus/issues/7880#issuecomment-1201994009)
 and
@@ -451,7 +451,7 @@ Since Mantine also provides some [default
 props](https://mantine.dev/styles/style-props/#supported-props) for all
 components, like: `p`, `px`, `py`, `m`, `mx`, `my`,... so if you use the
 attributify mode, you should add a prefix to the WindiCSS utilities to avoid
-conflicts. For example, you can setup prefix `w:` for WindiCSS utilities:
+conflicts. For example, you can setup the prefix `w:` for WindiCSS utilities:
 
 ```ts title="windi.config.ts"
 export default {
@@ -574,7 +574,6 @@ ensure that all Mantine components are using the same theme.
 ```diff title="src/theme/Root.tsx"
 +import { MantineProvider } from '@mantine/core';
 import React from 'react';
-import { QueryProvider } from '../context/QueryProvider';
 // eslint-disable-next-line import/no-unresolved
 import 'windi-components.css';
 // eslint-disable-next-line import/no-unresolved
@@ -583,10 +582,8 @@ import 'windi-utilities.css';
 // Default implementation, that you can customize
 export default function Root({ children }: { children?: React.ReactNode }) {
   return (
-    <QueryProvider>
 -     <>{children}</>
 +     <MantineProvider>{children}</MantineProvider>
-    </QueryProvider>
   );
 }
 ```
@@ -749,7 +746,7 @@ Use our custom `<MantineProvider>` in `src/theme/Layout/Provider/index.tsx`:
 import { useColorMode } from '@docusaurus/theme-common';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
-+import { MantineProvider } from '../../../context/MantineProvider';
++import { MantineProvider } from '@site/src/context/MantineProvider';
 
 const CustomProvider = ({ children }) => {
   const { colorMode, setColorMode } = useColorMode();
@@ -791,7 +788,7 @@ import { useColorMode } from '@docusaurus/theme-common';
 +import { ColorSchemeProvider } from '@mantine/core';
 import Provider from '@theme-original/Layout/Provider';
 import React, { useEffect } from 'react';
-+import { MantineProvider } from '../../../context/MantineProvider';
++import { MantineProvider } from '@site/src/context/MantineProvider';
 
 const CustomProvider = ({ children }) => {
   const { colorMode, setColorMode } = useColorMode();
@@ -962,8 +959,8 @@ and remove unused colors.
 
 :::note
 
-We will use default Mantine `dark` color, instead of WindiCSS `dark` color for
-better contrast. Moreover, we will set `primaryShade` to `7`.
+We will use the default Mantine `dark` color, instead of WindiCSS `dark` color
+for better contrast. Moreover, we will set `primaryShade` to `7`.
 
 :::
 

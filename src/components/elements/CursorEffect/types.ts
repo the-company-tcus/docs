@@ -1,7 +1,7 @@
 export type CursorConfig = {
-  type: string;
-  label: string;
-  cursorType:
+  type?: string;
+  label?: string;
+  cursorType?:
     | 'bubbleCursor'
     | 'clockCursor'
     | 'emojiCursor'
@@ -15,4 +15,5 @@ export type CursorConfig = {
     | 'trailingCursor'
     | 'defaultCursor';
   options?: Record<string, unknown>;
+  position?: 'left' | 'right';
 };

@@ -335,9 +335,9 @@ Deployment](./docs//deployment/document-site.md).
 
 - **Blogs**:
 
-  - [ ] Add custom dynamic routes to Docusaurus.
-  - [ ] Add your custom navbar to Docusaurus.
-  - [ ] Create your first remark plugin.
+  - [x] Add custom dynamic routes to Docusaurus.
+  - [x] Add your custom navbar to Docusaurus.
+  - [x] Create your first remark plugin.
 
 - **Docs**:
   - [ ] Git branching strategy.
