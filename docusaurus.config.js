@@ -123,6 +123,10 @@ const config = {
             label: 'Release',
           },
           {
+            to: 'contact',
+            label: 'Contact',
+          },
+          {
             href: 'https://github.com/the-company-tcus/',
             label: 'GitHub',
             position: 'right',
