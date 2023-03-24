@@ -1,0 +1,8 @@
+{
+  "label": "Production Setup",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "This section describes how to set up the infrastructure for a production environment."
+  }
+}
