@@ -13,7 +13,8 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "prepare": "husky install",
-    "cm": "cz"
+    "test:docs": "alex",
+    "test:docs:mdx": "alex --mdx"
   },
   "dependencies": {
     "@docusaurus/core": "2.4.0",
@@ -53,6 +54,7 @@
     "@types/react-dom": "18.0.11",
     "@typescript-eslint/eslint-plugin": "5.56.0",
     "@typescript-eslint/parser": "5.56.0",
+    "alexjs": "1.0.0",
     "all-contributors-cli": "6.24.0",
     "commitizen": "4.3.0",
     "eslint": "8.36.0",
