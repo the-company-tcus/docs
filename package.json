@@ -14,8 +14,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "prepare": "husky install",
     "test:docs": "alex",
-    "test:docs:mdx": "alex --mdx",
-    "cm": "cz"
+    "test:docs:mdx": "alex --mdx"
   },
   "dependencies": {
     "@docusaurus/core": "2.4.0",
