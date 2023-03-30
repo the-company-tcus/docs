@@ -219,8 +219,8 @@ const config = {
                 to: 'docs/intro',
               },
               {
-                label: 'Deployment Guide',
-                to: '/docs/category/deployment',
+                label: 'Production Setup',
+                to: '/docs/category/production-setup',
               },
             ],
           },
