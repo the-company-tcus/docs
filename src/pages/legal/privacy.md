@@ -1,6 +1,6 @@
 # PRIVACY NOTICE
 
-**Last updated February 06, 2023**
+**Last updated March 31, 2023**
 
 This privacy notice for The Company ("**Company**," "**we**," "**us**," or "**our**"), describes how and why we might collect, store, use, and/or share ("**process**") your information when you use our services ("**Services**"), such as when you:
 
@@ -8,27 +8,27 @@ This privacy notice for The Company ("**Company**," "**we**," "**us**," or "**ou
 
 - Engage with us in other related ways, including any sales, marketing, or events
 
-**Questions or concerns?** Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at tienvinh.duong4@gmail.com.
+**Questions or concerns?** Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at contact@ethi-team.tech.
 
 ## SUMMARY OF KEY POINTS
 
-**_This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click_** [**_here_**](#table-of-contents) **_to go directly to our table of contents._**
+**_This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our [table of contents](#table-of-contents) below to find the section you are looking for._**
 
-**What personal information do we process?** When you visit, use, or navigate our Services, we may process personal information depending on how you interact with The Company and the Services, the choices you make, and the products and features you use. Click [here](#personal-information-you-disclose-to-us) to learn more.
+**What personal information do we process?** When you visit, use, or navigate our Services, we may process personal information depending on how you interact with The Company and the Services, the choices you make, and the products and features you use. Learn more about [personal information you disclose to us](#personal-information-you-disclose-to-us).
 
 **Do we process any sensitive personal information?** We do not process sensitive personal information.
 
 **Do we receive any information from third parties?** We do not receive any information from third parties.
 
-**How do we process your information?** We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Click [here](#2-how-do-we-process-your-information) to learn more.
+**How do we process your information?** We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Learn more about [how we process your information](#2-how-do-we-process-your-information).
 
-**In what situations and with which parties do we share personal information?** We may share information in specific situations and with specific third parties. Click [here](#3-when-and-with-whom-do-we-share-your-personal-information) to learn more.
+**In what situations and with which parties do we share personal information?** We may share information in specific situations and with specific third parties. Learn more about [when and with whom we share your personal information](#3-when-and-with-whom-do-we-share-your-personal-information).
 
-**What are your rights?** Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Click [here](#6-what-are-your-privacy-rights) to learn more.
+**What are your rights?** Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Learn more about [your privacy rights](#6-what-are-your-privacy-rights).
 
-**How do you exercise your rights?** The easiest way to exercise your rights is by filling out our data subject request form available here: \_\_\_\_\_\_\_\_\_\_, or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.
+**How do you exercise your rights?** The easiest way to exercise your rights is by visiting support@ethi-team.tech, or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.
 
-Want to learn more about what The Company does with any information we collect? Click [here](#table-of-contents) to review the notice in full.
+Want to learn more about what The Company does with any information we collect? [Review the privacy notice in full](#table-of-contents).
 
 ## TABLE OF CONTENTS
 
@@ -65,8 +65,6 @@ We collect personal information that you voluntarily provide to us when you regi
 **Personal Information Provided by You.** The personal information that we collect depends on the context of your interactions with us and the Services, the choices you make, and the products and features you use. The personal information we collect may include the following:
 
 - names
-
-- phone numbers
 
 - email addresses
 
@@ -126,9 +124,9 @@ When we have no ongoing legitimate business need to process your personal inform
 
 **_In Short:_**  *You may review, change, or terminate your account at any time.*
 
-If you are located in the EEA or UK and you believe we are unlawfully processing your personal information, you also have the right to complain to your local data protection supervisory authority. You can find their contact details here: [https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm](https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm).
+If you are located in the EEA or UK and you believe we are unlawfully processing your personal information, you also have the right to complain to your [Member State data protection authority](https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm) or [UK data protection authority](https://ico.org.uk/make-a-complaint/data-protection-complaints/data-protection-complaints/).
 
-If you are located in Switzerland, the contact details for the data protection authorities are available here: [https://www.edoeb.admin.ch/edoeb/en/home.html](https://www.edoeb.admin.ch/edoeb/en/home.html).
+If you are located in Switzerland, you may contact the [Federal Data Protection and Information Commissioner](https://www.edoeb.admin.ch/edoeb/en/home.html).
 
 **Withdrawing your consent:** If we are relying on your consent to process your personal information, which may be express and/or implied consent depending on the applicable law, you have the right to withdraw your consent at any time. You can withdraw your consent at any time by contacting us by using the contact details provided in the section "[HOW CAN YOU CONTACT US ABOUT THIS NOTICE?](#10-how-can-you-contact-us-about-this-notice)" below.
 
@@ -142,7 +140,7 @@ If you would at any time like to review or change the information in your accoun
 
 Upon your request to terminate your account, we will deactivate or delete your account and information from our active databases. However, we may retain some information in our files to prevent fraud, troubleshoot problems, assist with any investigations, enforce our legal terms and/or comply with applicable legal requirements.
 
-If you have questions or comments about your privacy rights, you may email us at tienvinh.duong4@gmail.com.
+If you have questions or comments about your privacy rights, you may email us at support@ethi-team.tech.
 
 ## 7. CONTROLS FOR DO-NOT-TRACK FEATURES
 
@@ -164,11 +162,11 @@ We may update this privacy notice from time to time. The updated version will be
 
 ## 10. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
 
-If you have questions or comments about this notice, you may email us at tienvinh.duong4@gmail.com or by post to:
+If you have questions or comments about this notice, you may email us at support@ethi-team.tech or by post to:
 
 The Company
 
-\_\_\_\_\_\_\_\_\_\_
+227 Nguyen Van Cu, District 5
 
 Ho Chi Minh 70000
 
@@ -176,6 +174,6 @@ Vietnam
 
 ## 11. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?
 
-Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it. To request to review, update, or delete your personal information, please visit: \_\_\_\_\_\_\_\_\_\_.
+Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it. To request to review, update, or delete your personal information, please visit: support@ethi-team.tech.
 
 This privacy policy was created using Termly's [Privacy Policy Generator](https://termly.io/products/privacy-policy-generator/).
