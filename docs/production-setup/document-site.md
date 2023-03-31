@@ -189,3 +189,14 @@ For automated deployment, you can use GitHub Actions, following the steps in the
 And your site should be deployed properly:
 
 ![gh-pages-demo](https://user-images.githubusercontent.com/64480713/209821670-9bd280d2-cf55-4420-b342-dd05e2b7c6a5.png)
+
+## Add a custom domain
+
+You can add a custom domain to your site by going to **Site settings** ->
+**Domain management** and clicking `Add custom domain`:
+
+![add_custom_domain](https://user-images.githubusercontent.com/64480713/229179575-4f6a181a-7279-46bc-81b5-217a0dde0e66.png)
+
+You can enable HTTPS by configuring in **HTTPS** section.
+
+![enable_tls_ssl](https://user-images.githubusercontent.com/64480713/229181376-de74a6dd-da0c-47a7-8585-b1a81bf8a78e.png)
