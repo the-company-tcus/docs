@@ -1,6 +1,6 @@
 import React from 'react';
-import { CursorEffectProvider } from '../context/CursorEffectProvider';
-import { QueryProvider } from '../context/QueryProvider';
+import { CursorEffectProvider } from '@site/src/context/CursorEffectProvider';
+import { QueryProvider } from '@site/src/context/QueryProvider';
 // eslint-disable-next-line import/no-unresolved
 import 'windi-components.css';
 // eslint-disable-next-line import/no-unresolved
