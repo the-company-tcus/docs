@@ -59,12 +59,12 @@ const config = {
             exact: false, // this is needed for sub-routes to match!
             component: '@site/src/components/layouts/ReleaseLayout/index',
           },
-          {
-            // using Route schema from react-router
-            path: '/pdf-viewer',
-            exact: false, // this is needed for sub-routes to match!
-            component: '@site/src/components/layouts/PDFViewerLayout/index',
-          },
+          // {
+          //   // using Route schema from react-router
+          //   path: '/pdf-viewer',
+          //   exact: false, // this is needed for sub-routes to match!
+          //   component: '@site/src/components/layouts/PDFViewerLayout/index',
+          // },
         ],
       },
     ],
@@ -283,7 +283,7 @@ const config = {
         ? '4d2152eafeec48ea934a8f5ad365879f' // Token for production url
         : 'e11a56067bc646fcbbf5b6486f14283c'), // Token for localhost
 
-    ghToken: process.env.GH_TOKEN,
+    // ghToken: process.env.GH_TOKEN,
   },
 };
 
