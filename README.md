@@ -139,26 +139,26 @@ Demo: https://the-company-tcus.netlify.app/pdf-viewer?url=https://documentservic
 
 | Color                               | Hex                                                                      | CSS variable                          | WindiCSS utility (custom)\* |
 | ----------------------------------- | ------------------------------------------------------------------------ | ------------------------------------- | --------------------------- |
-| primary                             | ![#2E8555](https://placehold.jp/2E8555/2E8555/10x10.png) #2E8555         | --ifm-color-primary                   | primary                     |
-| primary dark                        | ![#29784C](https://placehold.jp/29784C/29784C/10x10.png) #29784C         | --ifm-color-primary-dark              | primary-dark                |
-| primary darker                      | ![#277148](https://placehold.jp/277148/277148/10x10.png) #277148         | --ifm-color-primary-darker            | primary-darker              |
-| primary darkest                     | ![#205D3B](https://placehold.jp/205D3B/205D3B/10x10.png) #205D3B         | --ifm-color-primary-darkest           | primary-darkest             |
-| primary light                       | ![#33925D](https://placehold.jp/33925D/33925D/10x10.png) #33925D         | --ifm-color-primary-light             | primary-light               |
-| primary lighter                     | ![#359962](https://placehold.jp/359962/359962/10x10.png) #359962         | --ifm-color-primary-lighter           | primary-lighter             |
-| primary lightest                    | ![#3CAD6E](https://placehold.jp/3CAD6E/3CAD6E/10x10.png) #3CAD6E         | --ifm-color-primary-lightest          | primary-lightest            |
+| primary                             | ![#1E40AF](https://placehold.jp/1E40AF/1E40AF/10x10.png) #1E40AF         | --ifm-color-primary                   | primary                     |
+| primary dark                        | ![#1B3A9D](https://placehold.jp/1B3A9D/1B3A9D/10x10.png) #1B3A9D         | --ifm-color-primary-dark              | primary-dark                |
+| primary darker                      | ![#193695](https://placehold.jp/193695/193695/10x10.png) #193695         | --ifm-color-primary-darker            | primary-darker              |
+| primary darkest                     | ![#152D7B](https://placehold.jp/152D7B/152D7B/10x10.png) #152D7B         | --ifm-color-primary-darkest           | primary-darkest             |
+| primary light                       | ![#2146C1](https://placehold.jp/2146C1/2146C1/10x10.png) #2146C1         | --ifm-color-primary-light             | primary-light               |
+| primary lighter                     | ![#224AC9](https://placehold.jp/224AC9/224AC9/10x10.png) #224AC9         | --ifm-color-primary-lighter           | primary-lighter             |
+| primary lightest                    | ![#2F58DB](https://placehold.jp/2F58DB/2F58DB/10x10.png) #2F58DB         | --ifm-color-primary-lightest          | primary-lightest            |
 | docusaurus-highlighted-code-line-bg | ![#0000001A](https://placehold.jp/0000001A/0000001A/10x10.png) #0000001A | --docusaurus-highlighted-code-line-bg | Not set                     |
 
 - **Dark theme**:
 
 | Color                               | Hex                                                                      | CSS variable (\[data-theme='dark'\])\*\* | WindiCSS utility (custom)\* |
 | ----------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------- | --------------------------- |
-| primary                             | ![#25C2A0](https://placehold.jp/25C2A0/25C2A0/10x10.png) #25C2A0         | --ifm-color-primary                      | dark-primary                |
-| primary dark                        | ![#21AF90](https://placehold.jp/21AF90/21AF90/10x10.png) #21AF90         | --ifm-color-primary-dark                 | dark-primary-dark           |
-| primary darker                      | ![#1FA588](https://placehold.jp/1FA588/1FA588/10x10.png) #1FA588         | --ifm-color-primary-darker               | dark-primary-darker         |
-| primary darkest                     | ![#1A8870](https://placehold.jp/1A8870/1A8870/10x10.png) #1A8870         | --ifm-color-primary-darkest              | dark-primary-darkest        |
-| primary light                       | ![#29D5B0](https://placehold.jp/29D5B0/29D5B0/10x10.png) #29D5B0         | --ifm-color-primary-light                | dark-primary-light          |
-| primary lighter                     | ![#32D8B4](https://placehold.jp/32D8B4/32D8B4/10x10.png) #32D8B4         | --ifm-color-primary-lighter              | dark-primary-lighter        |
-| primary lightest                    | ![#4FDDBF](https://placehold.jp/4FDDBF/4FDDBF/10x10.png) #4FDDBF         | --ifm-color-primary-lightest             | dark-primary-lightest       |
+| primary                             | ![#BFDBFE](https://placehold.jp/BFDBFE/BFDBFE/10x10.png) #BFDBFE         | --ifm-color-primary                      | dark-primary                |
+| primary dark                        | ![#93C2FD](https://placehold.jp/93C2FD/93C2FD/10x10.png) #93C2FD         | --ifm-color-primary-dark                 | dark-primary-dark           |
+| primary darker                      | ![#7DB6FD](https://placehold.jp/7DB6FD/7DB6FD/10x10.png) #7DB6FD         | --ifm-color-primary-darker               | dark-primary-darker         |
+| primary darkest                     | ![#3C91FC](https://placehold.jp/3C91FC/3C91FC/10x10.png) #3C91FC         | --ifm-color-primary-darkest              | dark-primary-darkest        |
+| primary light                       | ![#EBF4FF](https://placehold.jp/EBF4FF/EBF4FF/10x10.png) #EBF4FF         | --ifm-color-primary-light                | dark-primary-light          |
+| primary lighter                     | ![#FFFFFF](https://placehold.jp/FFFFFF/FFFFFF/10x10.png) #FFFFFF         | --ifm-color-primary-lighter              | dark-primary-lighter        |
+| primary lightest                    | ![#FFFFFF](https://placehold.jp/FFFFFF/FFFFFF/10x10.png) #FFFFFF         | --ifm-color-primary-lightest             | dark-primary-lightest       |
 | docusaurus-highlighted-code-line-bg | ![#0000004D](https://placehold.jp/0000004D/0000004D/10x10.png) #0000004D | --docusaurus-highlighted-code-line-bg    | Not set                     |
 
 **\***: These are not default WindiCSS utilities. It is defined in `windi.config.ts`.
@@ -183,22 +183,22 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#2e8555',
-          dark: '#29784c',
-          darker: '#277148',
-          darkest: '#205d3b',
-          light: '#33925d',
-          lighter: '#359962',
-          lightest: '#3cad6e',
+          DEFAULT: '#1e40af',
+          dark: '#1b3a9d',
+          darker: '#193695',
+          darkest: '#152d7b',
+          light: '#2146c1',
+          lighter: '#224ac9',
+          lightest: '#2f58db',
         },
         'dark-primary': {
-          DEFAULT: '#25c2a0',
-          dark: '#21af90',
-          darker: '#1fa588',
-          darkest: '#1a8870',
-          light: '#29d5b0',
-          lighter: '#32d8b4',
-          lightest: '#4fddbf',
+          DEFAULT: '#bfdbfe',
+          dark: '#93c2fd',
+          darker: '#7db6fd',
+          darkest: '#3c91fc',
+          light: '#ebf4ff',
+          lighter: '#ffffff',
+          lightest: '#ffffff',
         },
       },
     },
@@ -309,7 +309,7 @@ GIT_USER=<GITHUB_USERNAME> pnpm deploy
 > `docs/` before deploying to GitHub Pages.
 
 For more information, check out the doc [Document Site
-Deployment](./docs//deployment/document-site.md).
+Deployment](./docs/production-setup/document-site.md).
 
 <!-- Usage -->
 
@@ -320,7 +320,10 @@ Deployment](./docs//deployment/document-site.md).
 - [Architecture](./docs/_usage/architecture.md).
 - [Components Management](./docs/_usage/components.md).
 - [Dynamic Routes](./docs/_usage/dynamic-routes.md).
-- [Document Site Deployment](./docs/deployment/document-site.md).
+- Production Setup:
+  - [Document Site Deployment](./docs/production-setup/document-site.md).
+  - [Domain Setup](./docs/production-setup/domain-setup.md).
+  - [Mail Server](./docs/production-setup/mail-server.md).
 - [API References](./docs/_usage/api.md).
 
 <!-- Roadmap -->
@@ -341,7 +344,7 @@ Deployment](./docs//deployment/document-site.md).
 
 - **Docs**:
   - [ ] Git branching strategy.
-  - [ ] Privacy Policy.
+  - [x] Privacy Policy.
   - [ ] Terms of Service.
 
 <!-- Contact -->
