@@ -255,7 +255,7 @@ const config = {
             items: [
               {
                 label: 'Privacy',
-                href: 'https://the-company-tcus.netlify.app/',
+                href: '/legal/privacy',
               },
               {
                 label: 'Terms',
