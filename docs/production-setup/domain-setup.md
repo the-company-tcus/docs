@@ -94,6 +94,20 @@ Domain management page:
 
 ![domain management](https://user-images.githubusercontent.com/64480713/227484077-3a426d7e-2e7b-49fd-854d-3b65da604fc6.png)
 
+### Setup TLS/SSL Certificate with Cloudflare
+
+Add your domain name to Cloudflare:
+
+![add_domain_cloudflare](https://user-images.githubusercontent.com/64480713/229176758-7a90bc9d-a1c3-4973-acc5-7f3d2c008f0a.png)
+
+Setup DNS records:
+
+![setup_dns_records](https://user-images.githubusercontent.com/64480713/229176921-65ada5d9-1a8f-4dd5-9af4-74a0ad81c2fa.png)
+
+Enable `Full (Strict)` SSL/TLS encryption mode:
+
+![enable_tls_ssl](https://user-images.githubusercontent.com/64480713/229177151-d3fcfeea-7725-42c8-85ef-fbd7e07369ae.png)
+
 ## Namecheap
 
 :::caution
