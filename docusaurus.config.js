@@ -53,12 +53,12 @@ const config = {
       './src/plugins/plugin-dynamic-route/index.js',
       {
         routes: [
-          {
-            // using Route schema from react-router
-            path: '/releases',
-            exact: false, // this is needed for sub-routes to match!
-            component: '@site/src/components/layouts/ReleaseLayout/index',
-          },
+          // {
+          //   // using Route schema from react-router
+          //   path: '/releases',
+          //   exact: false, // this is needed for sub-routes to match!
+          //   component: '@site/src/components/layouts/ReleaseLayout/index',
+          // },
           // {
           //   // using Route schema from react-router
           //   path: '/pdf-viewer',
